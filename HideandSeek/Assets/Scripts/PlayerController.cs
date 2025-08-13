@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int gravity;
 
     [SerializeField] int shootDamage;
-    [SerializeField] float shootRange;
+    [SerializeField] float shootRate;
     [SerializeField] int shootDist;
 
 
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour, IDamage
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
         movement();
-        sprint(); 
+        sprint();
 
     }
     void movement()
@@ -60,8 +60,8 @@ public class PlayerController : MonoBehaviour, IDamage
             playerVel.y -= gravity * Time.deltaTime;
         }
 
-            moveDir = (Input.GetAxis("Horizontal") * transform.right +
-                (Input.GetAxis("Vertical") * transform.forward);
+        moveDir = (Input.GetAxis("Horizontal") * transform.right) +
+           (Input.GetAxis("Vertical") * transform.forward);
 
         controller.Move(moveDir * speed * Time.deltaTime);
 
@@ -70,19 +70,19 @@ public class PlayerController : MonoBehaviour, IDamage
         controller.Move(playerVel * Time.deltaTime);
 
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
-        shoot();
+            shoot();
     }
 
     void jump()
     {
-        if(Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
         {
             jumpCount++;
             playerVel.y = jumpSpeed;
         }
     }
 
-    void sptrint()
+    void sprint()
     {
         if (Input.GetButtonDown("Sprint"))
         {
@@ -101,15 +101,15 @@ public class PlayerController : MonoBehaviour, IDamage
         shootTimer = 0;
 
         RaycastHit hit;
-        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
             Debug.Log(hit.collider.name);
 
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
-            if(dmg != null)
+            if (dmg != null)
             {
-                dmg.takeDamge(shootDamage);
+                dmg.takeDamage(shootDamage);
             }
         }
     }
@@ -119,9 +119,9 @@ public class PlayerController : MonoBehaviour, IDamage
         HP -= amount;
 
         updatePlayerUI();
-        StartCoroutine(flashDamageScreen())
+        StartCoroutine(flashDamageScreen());
 
-        if(HP <= 0)
+        if (HP <= 0)
         {
             GameManager.Instance.youLose();
         }
@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     public void updatePlayerUI()
     {
-        GameManager.Instance.playerHPBar.gillAmount = (float)HP / HPOrig;
+        GameManager.Instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
 
     IEnumerator flashDamageScreen()
