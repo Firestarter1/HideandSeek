@@ -21,4 +21,10 @@ public class buttonFunctions : MonoBehaviour
         Application.Quit();
 #endif
     }
+
+    public void loadLevel(int lvl)
+    {
+        SceneManager.LoadScene(lvl);
+        GameManager.Instance.stateUnpause();
+    }
 }

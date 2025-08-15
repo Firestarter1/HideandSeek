@@ -106,6 +106,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
                 return true;
             }
         }
+
         agent.stoppingDistance = 0;
         return false;
     }
