@@ -4824,7 +4824,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 474238245}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: quite
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6803,7 +6803,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 474238245}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: quite
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6998,7 +6998,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 474238245}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: quite
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7395,7 +7395,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 474238245}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: restart
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8270,7 +8270,7 @@ GameObject:
   - component: {fileID: 1337591287}
   - component: {fileID: 1337591286}
   m_Layer: 5
-  m_Name: Game Goal Count
+  m_Name: Game Goal Count Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10125,7 +10125,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 474238245}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: resume
+        m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10349,9 +10349,9 @@ MonoBehaviour:
   menuPause: {fileID: 483226727}
   menuWin: {fileID: 85459862}
   menuLose: {fileID: 537952861}
-  gameGoalCountText: {fileID: 0}
+  gameGoalCountText: {fileID: 1287245095}
   playerHPBar: {fileID: 0}
-  playerDamageScreen: {fileID: 517714199}
+  playerDamageScreen: {fileID: 0}
   player: {fileID: 0}
   playerScript: {fileID: 0}
   isPaused: 0
@@ -11007,7 +11007,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 474238245}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: restart
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11970,7 +11970,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 474238245}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: restart
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

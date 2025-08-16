@@ -33,7 +33,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
     void Start()
     {
         colorOrig = model.material.color;
-        GameManager.Instance.updateGameGoal(1);
+        GameManager.Instance.UpdateGameGoal(1);
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
@@ -46,25 +46,25 @@ public class EnemeyAI : MonoBehaviour, IDamage
         if (agent.remainingDistance < 0.01f)
             roamTimer += Time.deltaTime;
 
-        if (playerInTrigger && !canSeePlayer())
+        if (playerInTrigger && !CanSeePlayer())
         {
-            checkRoam();
+            CheckRoam();
         }
         else if (!playerInTrigger)
         {
-            checkRoam();
+            CheckRoam();
         }
     }
 
-    void checkRoam()
+    void CheckRoam()
     {
         if (roamTimer >= roamPauseTime && agent.remainingDistance < 0.01f)
         {
-            roam();
+            Roam();
         }
     }
 
-    void roam()
+    void Roam()
     {
         roamTimer = 0;
         agent.stoppingDistance = 0;
@@ -77,7 +77,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
         agent.SetDestination(hit.position);
     }
 
-    bool canSeePlayer()
+    bool CanSeePlayer()
     {
         playerDir = GameManager.Instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
@@ -95,12 +95,12 @@ public class EnemeyAI : MonoBehaviour, IDamage
 
                 if (shootTimer >= shootRate)
                 {
-                    shoot();
+                    Shoot();
                 }
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
-                    faceTarget();
+                    FaceTarget();
                 }
                 agent.stoppingDistance = stoppingDistOrig;
                 return true;
@@ -111,7 +111,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
         return false;
     }
 
-    void faceTarget()
+    void FaceTarget()
     {
         Quaternion rot = Quaternion.LookRotation(playerDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetspeed);
@@ -134,28 +134,28 @@ public class EnemeyAI : MonoBehaviour, IDamage
         }
     }
 
-    void shoot()
+    void Shoot()
     {
         shootTimer = 0;
         Instantiate(bullet, shootPos.position, transform.rotation);
     }
 
-    public void takeDamage(int amount)
+    public void TakeDamage(int amount)
     {
         if (HP > 0)
         {
             HP -= amount;
-            StartCoroutine(flashRed());
+            StartCoroutine(FlashRed());
         }
 
         if (HP <= 0)
         {
-            GameManager.Instance.updateGameGoal(-1);
+            GameManager.Instance.UpdateGameGoal(-1);
             Destroy(gameObject);
         }
     }
 
-    IEnumerator flashRed()
+    IEnumerator FlashRed()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);

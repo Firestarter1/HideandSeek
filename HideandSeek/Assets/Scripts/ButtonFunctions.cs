@@ -3,28 +3,28 @@ using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
-    public void resume()
+    public void Resume()
     {
-        GameManager.Instance.stateUnpause();
+        GameManager.Instance.StateUnpause();
     }
 
-    public void restart()
+    public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        GameManager.Instance.stateUnpause();
+        GameManager.Instance.StateUnpause();
     }
-    public void quite()
+    public void Quit()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+    #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+    #else
+            Application.Quit();
+    #endif
     }
 
-    public void loadLevel(int lvl)
+    /*public void LoadLevel(int lvl)
     {
         SceneManager.LoadScene(lvl);
         GameManager.Instance.stateUnpause();
-    }
+    }*/
 }

@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         HPOrig = HP;
 
-        updatePlayerUI();
+        UpdatePlayerUI();
     }
 
     // Update is called once per frame
@@ -42,11 +42,11 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
 
-        movement();
-        sprint();
+        Movement();
+        Sprint();
 
     }
-    void movement()
+    void Movement()
     {
         shootTimer += Time.deltaTime;
 
@@ -60,20 +60,19 @@ public class PlayerController : MonoBehaviour, IDamage
             playerVel.y -= gravity * Time.deltaTime;
         }
 
-        moveDir = (Input.GetAxis("Horizontal") * transform.right) +
-           (Input.GetAxis("Vertical") * transform.forward);
+        moveDir = (Input.GetAxis("Horizontal") * transform.right) + (Input.GetAxis("Vertical") * transform.forward);
 
         controller.Move(moveDir * speed * Time.deltaTime);
 
-        jump();
+        Jump();
 
         controller.Move(playerVel * Time.deltaTime);
 
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
-            shoot();
+            Shoot();
     }
 
-    void jump()
+    void Jump()
     {
         if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
         {
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    void sprint()
+    void Sprint()
     {
         if (Input.GetButtonDown("Sprint"))
         {
@@ -96,7 +95,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    void shoot()
+    void Shoot()
     {
         shootTimer = 0;
 
@@ -109,7 +108,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
             if (dmg != null)
             {
-                dmg.takeDamage(shootDamage);
+                dmg.TakeDamage(shootDamage);
             }
         }
     }
@@ -118,21 +117,21 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         HP -= amount;
 
-        updatePlayerUI();
-        StartCoroutine(flashDamageScreen());
+        UpdatePlayerUI();
+        StartCoroutine(FlashDamageScreen());
 
         if (HP <= 0)
         {
-            GameManager.Instance.youLose();
+            GameManager.Instance.YouLose();
         }
     }
 
-    public void updatePlayerUI()
+    public void UpdatePlayerUI()
     {
         GameManager.Instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
 
-    IEnumerator flashDamageScreen()
+    IEnumerator FlashDamageScreen()
     {
         GameManager.Instance.playerDamageScreen.SetActive(true);
         yield return new WaitForSeconds(0.1f);

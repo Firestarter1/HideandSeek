@@ -44,18 +44,18 @@ public class GameManager : MonoBehaviour
         {
             if (menuActive == null)
             {
-                statePause();
+                StatePause();
                 menuActive = menuPause;
                 menuActive.SetActive(true);
             }
             else if (menuActive == menuPause)
             {
-                stateUnpause();
+                StateUnpause();
             }
         }
     }
 
-    public void statePause()
+    public void StatePause()
     {
         isPaused = !isPaused;
         Time.timeScale = 0;
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    public void stateUnpause()
+    public void StateUnpause()
     {
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         menuActive = null;
     }
 
-    public void updateGameGoal(int amount)
+    public void UpdateGameGoal(int amount)
     {
         gameGoalCount += amount;
 
@@ -81,16 +81,16 @@ public class GameManager : MonoBehaviour
 
         if (gameGoalCount <= 0)
         {
-            // you win;
-            statePause();
+            // you win!
+            StatePause();
             menuActive = menuWin;
             menuActive.SetActive(true);
         }
     }
 
-    public void youLose()
+    public void YouLose()
     {
-        statePause();
+        StatePause();
 
         menuActive = menuLose;
         menuActive.SetActive(true);
