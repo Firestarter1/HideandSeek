@@ -28,3 +28,5 @@ public class buttonFunctions : MonoBehaviour
         GameManager.Instance.stateUnpause();
     }
 }
+
+

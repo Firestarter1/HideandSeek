@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
-public class PlayerController : MonoBehaviour, IDamage
+public class PlayerController : MonoBehaviour, IDamage, IPickup
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
@@ -13,6 +15,8 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
 
+    [SerializeField] List<GunStates> gunList = new List<GunStates>();
+    [SerializeField] GameObject gunModel;
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
@@ -26,6 +30,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     int jumpCount;
     int HPOrig;
+    int gunListPos;
 
     bool isSprinting;
 
@@ -69,8 +74,14 @@ public class PlayerController : MonoBehaviour, IDamage
 
         controller.Move(playerVel * Time.deltaTime);
 
-        if (Input.GetButton("Fire1") && shootTimer >= shootRate)
-            shoot();
+        playerVel.y -= gravity * Time.deltaTime;
+
+        if (Input.GetButton("Fire1") && gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer >= shootRate)
+        shoot();
+
+        seletGun();
+
+        reload();
     }
 
     void jump()
@@ -99,11 +110,13 @@ public class PlayerController : MonoBehaviour, IDamage
     void shoot()
     {
         shootTimer = 0;
+        gunList[gunListPos].ammoCur--;
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
+            Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
 
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
@@ -111,6 +124,14 @@ public class PlayerController : MonoBehaviour, IDamage
             {
                 dmg.takeDamage(shootDamage);
             }
+        }
+    }
+
+    void reload()
+    {
+        if (Input.GetButtonDown("Reload"))
+        {
+            gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
         }
     }
 
@@ -137,5 +158,37 @@ public class PlayerController : MonoBehaviour, IDamage
         GameManager.Instance.playerDamageScreen.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         GameManager.Instance.playerDamageScreen.SetActive(false);
+    }
+
+    public void getGunStats(GunStates gun)
+    {
+        gunList.Add(gun);
+        gunListPos = gunList.Count - 1;
+
+        changeGun();
+    }
+
+    void changeGun()
+    {
+        shootDamage = gunList[gunListPos].shootDamage;
+        shootDist = gunList[gunListPos].shootDist;
+        shootRate = gunList[gunListPos].shootRate;
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[gunListPos].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[gunListPos].model.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    void seletGun()
+    {
+        if(Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1)
+        {
+            gunListPos++;
+            changeGun();
+        }
+        else if(Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0)
+        {
+            gunListPos--;
+            changeGun();
+        }
     }
 }
