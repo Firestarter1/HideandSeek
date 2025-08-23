@@ -6,12 +6,15 @@ public class EnemeyAI : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] Transform headPos;
+    [SerializeField] Animator anim;
 
     [SerializeField] int HP;
     [SerializeField] int faceTargetspeed;
     [SerializeField] int FOV;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
+    [SerializeField] int animTranSpeed;
 
     [SerializeReference] GameObject bullet;
     [SerializeReference] float shootRate;
@@ -41,6 +44,8 @@ public class EnemeyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
+        setAnimLoco();   
+
         shootTimer += Time.deltaTime;
 
         if (agent.remainingDistance < 0.01f)
@@ -54,6 +59,14 @@ public class EnemeyAI : MonoBehaviour, IDamage
         {
             checkRoam();
         }
+    }
+
+    void setAnimLoco()
+    {
+        float agentSpeedCur = agent.velocity.normalized.magnitude;
+        float animSpeedCur = anim.GetFloat("Speed");
+
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCur, agentSpeedCur, Time.deltaTime * animTranSpeed));
     }
 
     void checkRoam()
@@ -79,14 +92,14 @@ public class EnemeyAI : MonoBehaviour, IDamage
 
     bool canSeePlayer()
     {
-        playerDir = GameManager.Instance.player.transform.position - transform.position;
+        playerDir = GameManager.Instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-        Debug.DrawRay(transform.position, playerDir);
+        Debug.DrawRay(headPos.position, playerDir);
 
 
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerDir, out hit))
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
             //Hey I can see you!
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
@@ -136,6 +149,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
     void shoot()
     {
         shootTimer = 0;
+        anim.SetTrigger("Shoot");
         Instantiate(bullet, shootPos.position, transform.rotation);
     }
 
@@ -145,6 +159,8 @@ public class EnemeyAI : MonoBehaviour, IDamage
         {
             HP -= amount;
             StartCoroutine(flashRed());
+
+            agent.SetDestination(GameManager.Instance.player.transform.position);
         }
 
         if (HP <= 0)
