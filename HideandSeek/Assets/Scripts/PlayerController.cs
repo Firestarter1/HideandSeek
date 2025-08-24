@@ -3,7 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using System.Collections.Generic;
 
-public class PlayerController : MonoBehaviour, IDamage, IPickup
+public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
@@ -148,6 +148,14 @@ public class PlayerController : MonoBehaviour, IDamage, IPickup
         }
     }
 
+    public void Heal(int amount)
+    {
+        HP += amount;
+
+        updatePlayerUI();
+        StartCoroutine(flashHealScreen());
+    }
+
     public void updatePlayerUI()
     {
         GameManager.Instance.playerHPBar.fillAmount = (float)HP / HPOrig;
@@ -158,6 +166,13 @@ public class PlayerController : MonoBehaviour, IDamage, IPickup
         GameManager.Instance.playerDamageScreen.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         GameManager.Instance.playerDamageScreen.SetActive(false);
+    }
+
+    IEnumerator flashHealScreen()
+    {
+        GameManager.Instance.playerHealScreen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        GameManager.Instance.playerHealScreen.SetActive(false);
     }
 
     public void getGunStats(GunStates gun)
