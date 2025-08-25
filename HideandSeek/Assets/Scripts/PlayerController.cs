@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     [SerializeField] CharacterController controller;
     [SerializeField] GameObject interactPrompt;
 
+    [Header("Player Settings:")]
+    [SerializeField] List<Item> inventory= new List<Item>();
     [SerializeField] int HP;
     [SerializeField] int speed;
     [SerializeField] int sprintMod;
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     [SerializeField] int interactDist;
     [SerializeField] int wallet;
 
+    [Header("Gun Settings:")]
     [SerializeField] List<GunStates> gunList = new List<GunStates>();
     [SerializeField] GameObject gunModel;
     [SerializeField] int shootDamage;
