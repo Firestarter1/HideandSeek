@@ -182,12 +182,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   controller: {fileID: 5547979343575741039}
+  interactPrompt: {fileID: 0}
   HP: 5
   speed: 5
   sprintMod: 4
   jumpSpeed: 12
   jumpMax: 2
   gravity: 35
+  interactDist: 0
   gunList: []
   gunModel: {fileID: 0}
   shootDamage: 1
@@ -281,6 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1915097649983105420}
   - component: {fileID: 5519746440833993656}
+  - component: {fileID: 1777030749710886437}
   - component: {fileID: 2660868773797475029}
   - component: {fileID: 6091035763879779106}
   - component: {fileID: 2455215520457757964}
@@ -322,6 +325,21 @@ MonoBehaviour:
   lockVertMin: -90
   lockVertMax: 90
   invertY: 0
+--- !u!114 &1777030749710886437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6701926971876516684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3928e73b0c662fd448e62928714029dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactPrompt: {fileID: 0}
+  interactSource: {fileID: 1915097649983105420}
+  interactRange: 2
 --- !u!20 &2660868773797475029
 Camera:
   m_ObjectHideFlags: 0
