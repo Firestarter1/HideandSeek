@@ -226,4 +226,9 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
             }
         }
     }
+
+    public void UpdateWallet(int amount)
+    {
+        wallet += amount;
+    }
 }
