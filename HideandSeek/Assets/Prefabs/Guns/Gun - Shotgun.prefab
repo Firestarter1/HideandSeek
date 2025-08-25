@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2181419114180066598
+--- !u!1 &6468152050326195950
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,61 +8,61 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3151121363071618221}
-  - component: {fileID: 241597031959188600}
-  - component: {fileID: 522084065706546911}
-  - component: {fileID: 6829365368790469802}
-  - component: {fileID: 7014001555642727899}
+  - component: {fileID: 3745681100415352999}
+  - component: {fileID: 5392978022358457466}
+  - component: {fileID: 4688519753529894050}
+  - component: {fileID: 579415790478654240}
+  - component: {fileID: 5515162016261438461}
   m_Layer: 0
-  m_Name: Gun - M1918Bar
+  m_Name: Gun - Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3151121363071618221
+--- !u!4 &3745681100415352999
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2181419114180066598}
+  m_GameObject: {fileID: 6468152050326195950}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 0.1463717, y: 1.51, z: 16.463127}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -27.498724, y: 0.9493529, z: -2.3364277}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &241597031959188600
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5392978022358457466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2181419114180066598}
+  m_GameObject: {fileID: 6468152050326195950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d2c3fb5d799f7747ae528f99e2f4dcb, type: 3}
+  m_Script: {fileID: 11500000, guid: d155035a9eafb5f4abc00a1fc5490b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 11400000, guid: 625f280c348fc7442a83b2a8ba4e1e0f, type: 2}
---- !u!33 &522084065706546911
+  gun: {fileID: 11400000, guid: c0fc9023d995d7d4bb25d942137a5b16, type: 2}
+--- !u!33 &4688519753529894050
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2181419114180066598}
-  m_Mesh: {fileID: 7753405534921295286, guid: be00a64dec812460dbfdad4f868a999c, type: 3}
---- !u!23 &6829365368790469802
+  m_GameObject: {fileID: 6468152050326195950}
+  m_Mesh: {fileID: -1885938411053853763, guid: 8c3cb94a2e6ff4f4ba10e79c892205d2, type: 3}
+--- !u!23 &579415790478654240
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2181419114180066598}
+  m_GameObject: {fileID: 6468152050326195950}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -79,7 +79,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2edc7b0cc34ac4680b9ff4f527c30174, type: 2}
+  - {fileID: 2100000, guid: ad5e6d6fbc9c8498290e52331ce3bc5e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,13 +101,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7014001555642727899
+--- !u!135 &5515162016261438461
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2181419114180066598}
+  m_GameObject: {fileID: 6468152050326195950}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -120,5 +120,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.5028949
-  m_Center: {x: -0.018376306, y: -0.11330216, z: 0.16474873}
+  m_Radius: 1
+  m_Center: {x: -0.0012764186, y: -0.19935292, z: -0.18658185}

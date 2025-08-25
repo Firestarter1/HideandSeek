@@ -8,15 +8,10 @@ public class Store : MonoBehaviour, IInteractable
     public int HealthPack;
     public int Granade;
     public int GunUpgrade;
-    public Text walletText;
-    public Text XPText;
-
-   
 
     void Start()
     {
-        wallet = 0;
-        walletText.text = wallet.ToString();
+
     }
 
   public void BuyHealth()

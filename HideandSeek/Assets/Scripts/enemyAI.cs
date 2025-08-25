@@ -166,6 +166,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             GameManager.Instance.updateGameGoal(-1);
+            GameManager.Instance.playerScript.UpdateWallet(5);
             Destroy(gameObject);
         }
     }

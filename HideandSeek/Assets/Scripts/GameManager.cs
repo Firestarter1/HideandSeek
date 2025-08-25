@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] TMP_Text gameGoalCountText;
+    [SerializeField] TMP_Text walletText;
 
     public Image playerHPBar;
     public GameObject playerDamageScreen;
@@ -43,6 +44,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdatePlayerUI();
+
         if (Input.GetButtonDown("Cancel"))
         {
             if (menuActive == null)
@@ -125,5 +128,10 @@ public class GameManager : MonoBehaviour
                 stateUnpause();
             }
         }
+    }
+
+    public void UpdatePlayerUI()
+    {
+        walletText.text = playerScript.CheckFunds().ToString();
     }
 }
