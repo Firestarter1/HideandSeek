@@ -9,6 +9,8 @@ public interface IInteractable
 
 public class Interactor : MonoBehaviour
 {
+    [SerializeField] GameObject interactPrompt;
+
     public Transform interactSource;
     public float interactRange;
 

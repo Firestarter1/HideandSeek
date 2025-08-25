@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
+    [SerializeField] GameObject interactPrompt;
 
     [SerializeField] int HP;
     [SerializeField] int speed;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
+    [SerializeField] int interactDist;
 
     [SerializeField] List<GunStates> gunList = new List<GunStates>();
     [SerializeField] GameObject gunModel;
@@ -46,10 +48,9 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     void Update()
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
-
         movement();
         sprint();
-
+        CheckInteractable();
     }
     void movement()
     {
@@ -204,6 +205,24 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         {
             gunListPos--;
             changeGun();
+        }
+    }
+
+    void CheckInteractable()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+        {
+            IInteractable interact = hit.collider.GetComponent<IInteractable>();
+
+            if (interact != null)
+            {
+                interactPrompt.SetActive(true);
+            }
+            else if(interact == null)
+            {
+                interactPrompt.SetActive(false);
+            }
         }
     }
 }
