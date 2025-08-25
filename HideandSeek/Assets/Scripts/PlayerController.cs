@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
     [SerializeField] int interactDist;
+    [SerializeField] int wallet;
 
     [SerializeField] List<GunStates> gunList = new List<GunStates>();
     [SerializeField] GameObject gunModel;
@@ -225,5 +226,15 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
                 interactPrompt.SetActive(false);
             }
         }
+    }
+
+    public void UpdateWallet(int amount)
+    {
+        wallet += amount;
+    }
+
+    public int CheckFunds()
+    {
+        return wallet;
     }
 }
