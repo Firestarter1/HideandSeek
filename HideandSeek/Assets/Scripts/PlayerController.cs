@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     int jumpCount;
     int HPOrig;
     int gunListPos;
-    int wallet;
 
     bool isSprinting;
 
