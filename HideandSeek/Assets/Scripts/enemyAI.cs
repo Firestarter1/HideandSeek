@@ -15,6 +15,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
     [SerializeField] int animTranSpeed;
+    [SerializeField] int cashReward;
 
     [SerializeReference] GameObject bullet;
     [SerializeReference] float shootRate;
@@ -166,7 +167,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             GameManager.Instance.updateGameGoal(-1);
-            GameManager.Instance.playerScript.UpdateWallet(5);
+            GameManager.Instance.playerScript.UpdateWallet(cashReward);
             Destroy(gameObject);
         }
     }
