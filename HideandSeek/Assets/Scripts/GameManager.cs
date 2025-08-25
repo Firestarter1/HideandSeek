@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuStore;
+    [SerializeField] GameObject menuInventory;
 
 
     [SerializeField] TMP_Text gameGoalCountText;
@@ -55,6 +56,8 @@ public class GameManager : MonoBehaviour
                 stateUnpause();
             }
         }
+
+        OpenInventory();
     }
 
     public void statePause()
@@ -104,5 +107,23 @@ public class GameManager : MonoBehaviour
 
         menuActive = menuStore;
         menuActive.SetActive(true);
+    }
+
+    public void OpenInventory()
+    {
+        if(Input.GetButtonDown("Inventory"))
+        {
+            if(menuActive == null)
+            {
+                statePause();
+                menuActive = menuInventory;
+                menuActive.SetActive(true);
+
+            }
+            else if (menuActive == menuInventory)
+            {
+                stateUnpause();
+            }
+        }
     }
 }
