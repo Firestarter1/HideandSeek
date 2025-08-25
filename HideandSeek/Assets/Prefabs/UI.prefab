@@ -52,7 +52,7 @@ MonoBehaviour:
   menuPause: {fileID: 1746987434360704477}
   menuWin: {fileID: 7885765070904606334}
   menuLose: {fileID: 6957242476691394411}
-  menuStore: {fileID: 0}
+  menuStore: {fileID: 5290408756388242614}
   gameGoalCountText: {fileID: 9053182851678151871}
   playerHPBar: {fileID: 977612609538763207}
   playerDamageScreen: {fileID: 2638199230071965692}
