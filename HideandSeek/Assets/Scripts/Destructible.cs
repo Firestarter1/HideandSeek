@@ -13,6 +13,7 @@ public class Destrutible : MonoBehaviour, IDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        model.GetComponent<Renderer>();
         colorOrig = model.material.color;
     }
 
