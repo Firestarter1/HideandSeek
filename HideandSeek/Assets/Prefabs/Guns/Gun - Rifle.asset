@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ebb500081a16b428b99332ae043cfb, type: 3}
   m_Name: Gun - Rifle
   m_EditorClassIdentifier: 
-  model: {fileID: 4698201593948852689, guid: 185ce04d44da342739f0bef843698e6c, type: 3}
+  model: {fileID: 5571641588984482722, guid: c303a18f1cbdd4156b139b9e5b35d6a9, type: 3}
   shootDamage: 5
   shootDist: 1000
   shootRate: 1
