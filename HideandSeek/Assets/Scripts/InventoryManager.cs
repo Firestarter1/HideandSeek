@@ -91,20 +91,37 @@ public class InventoryManager : MonoBehaviour
         if (itemInSlot != null)
         {
             Item item = itemInSlot.item;
+
             if(use == true)
             {
-                itemInSlot.count--;
-                if(itemInSlot.count <= 0)
-                {
-                    Destroy(itemInSlot.gameObject);
-                }
-                else
-                {
-                    itemInSlot.RefreshCount();
-                }
+                ItemAction(item, itemInSlot);
             }
         }
 
         return null;
     }
+
+    public void Consume(InventoryItem itemInSlot)
+    {
+        itemInSlot.count--;
+
+        if (itemInSlot.count <= 0)
+        {
+            Destroy(itemInSlot.gameObject);
+        }
+        else
+        {
+            itemInSlot.RefreshCount();
+        }
+    }
+
+    public void ItemAction(Item item, InventoryItem itemInSlot)
+    {
+        if (item.itemType == Item.ItemType.HealthPack)
+        {
+            GameManager.Instance.playerScript.Heal(item.healAmount);
+            Consume(itemInSlot);
+        }
+    }
+
 }

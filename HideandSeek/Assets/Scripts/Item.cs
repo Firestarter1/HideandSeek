@@ -12,5 +12,6 @@ public class Item : ScriptableObject
     public ItemType itemType;
     public Sprite image;
     public ActionType actionType;
+    public int healAmount;
     public bool stackable = true;
 }
