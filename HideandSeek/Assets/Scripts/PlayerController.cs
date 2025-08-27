@@ -87,6 +87,11 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         seletGun();
 
         reload();
+
+        if(Input.GetButtonDown("Use"))
+        {
+            InventoryManager.Instance.GetSelectedItem(true);
+        }
     }
 
     void jump()
