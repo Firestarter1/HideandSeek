@@ -1,13 +1,16 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
-[CreateAssetMenu]
-
+[CreateAssetMenu(menuName = "ScribtableObject/Item")]
 public class Item : ScriptableObject
 {
-    public enum ItemType { HealthPack, Grenade, Key}
+    public enum ItemType { HealthPack, Grenade, Gun }
+    public enum ActionType { Consumable, Gun }
 
     public string itemName;
     public ItemType itemType;
-    [Range(0, 4)] public int itemTier;
-    [Range(0, 99)] public int amount;
+    public Sprite image;
+    public ActionType actionType;
+    public bool stackable = true;
 }
