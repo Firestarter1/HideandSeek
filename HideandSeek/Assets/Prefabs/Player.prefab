@@ -356,12 +356,13 @@ MonoBehaviour:
     m_Bits: 8
   controller: {fileID: 5547979343575741039}
   interactPrompt: {fileID: 0}
+  inventory: []
   HP: 5
   speed: 5
   sprintMod: 4
   jumpSpeed: 12
-  jumpMax: 2
-  gravity: 35
+  jumpMax: 1
+  gravity: 20
   interactDist: 0
   wallet: 0
   gunList: []

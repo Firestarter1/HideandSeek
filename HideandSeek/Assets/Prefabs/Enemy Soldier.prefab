@@ -914,7 +914,7 @@ GameObject:
   - component: {fileID: 7324361900617821526}
   m_Layer: 6
   m_Name: Enemy Soldier
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -980,7 +980,7 @@ MonoBehaviour:
   FOV: 90
   roamDist: 15
   roamPauseTime: 3
-  animTranSpeed: 0
+  animTranSpeed: 32
   cashReward: 5
   bullet: {fileID: 2754833449203023371, guid: 049734afeae01b248b52cf762716f7c7, type: 3}
   shootRate: 0.5
