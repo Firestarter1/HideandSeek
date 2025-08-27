@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startItems:
-  - {fileID: 11400000, guid: 067bcb86d4a2ed945a9f888a9a2e9eb9, type: 2}
+  - {fileID: 11400000, guid: 3261aac5b403f524ea454c7588bb99dd, type: 2}
   maxStackedItems: 10
   inventorySlots:
   - {fileID: 0}
