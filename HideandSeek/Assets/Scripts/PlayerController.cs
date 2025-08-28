@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     {
         HPOrig = HP;
 
-        updatePlayerUI();
+        spawnPlayer();
     }
 
     // Update is called once per frame
@@ -243,5 +243,16 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public int CheckFunds()
     {
         return wallet;
+    }
+
+    public void spawnPlayer()
+    {
+        controller.enabled = false;
+        controller.transform.position = GameManager.Instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+
+        playerVel = Vector3.zero;
+        HP = HPOrig;
+        updatePlayerUI();
     }
 }
