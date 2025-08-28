@@ -59,6 +59,7 @@ MonoBehaviour:
   playerHPBar: {fileID: 977612609538763207}
   playerDamageScreen: {fileID: 2638199230071965692}
   playerHealScreen: {fileID: 1829293495676003471}
+  interactPrompt: {fileID: 4273014382944233028}
   player: {fileID: 0}
   playerScript: {fileID: 0}
   isPaused: 0

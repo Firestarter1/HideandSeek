@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
-    [SerializeField] GameObject interactPrompt;
 
     [Header("Player Settings:")]
     [SerializeField] List<Item> inventory= new List<Item>();
@@ -27,7 +26,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
 
-
+    private GameObject interactPrompt;
 
     Vector3 moveDir;
     Vector3 playerVel;
@@ -44,7 +43,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     void Start()
     {
         HPOrig = HP;
-        interactPrompt = GameObject.FindWithTag("InteractPrompt");
+        interactPrompt = GameManager.Instance.interactPrompt;
         updatePlayerUI();
     }
 
