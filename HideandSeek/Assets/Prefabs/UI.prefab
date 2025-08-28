@@ -55,14 +55,18 @@ MonoBehaviour:
   menuStore: {fileID: 5290408756388242614}
   menuInventory: {fileID: 3287931933512340189}
   gameGoalCountText: {fileID: 9053182851678151871}
-  walletText: {fileID: 7118086746466194022}
+  player: {fileID: 0}
+  playerScript: {fileID: 0}
+  playerSpawnPos: {fileID: 5896420955455439293, guid: 20d0dfcc418431b49b3b48de62c175f7, type: 3}
   playerHPBar: {fileID: 977612609538763207}
+  walletText: {fileID: 7118086746466194022}
   playerDamageScreen: {fileID: 2638199230071965692}
   playerHealScreen: {fileID: 1829293495676003471}
   interactPrompt: {fileID: 4273014382944233028}
-  player: {fileID: 0}
-  playerScript: {fileID: 0}
-  playerSpawnPos: {fileID: 0}
+  ammoCurrent: {fileID: 5258254024082802230}
+  ammoMax: {fileID: 8851564888109235143}
+  ammoType: {fileID: 7059869232387388354}
+  ammoImage: {fileID: 7843791428873130319}
   isPaused: 0
 --- !u!1 &378854321233957834
 GameObject:
@@ -76,7 +80,7 @@ GameObject:
   - component: {fileID: 8832248373132391490}
   - component: {fileID: 8851564888109235143}
   m_Layer: 5
-  m_Name: AmmoMax
+  m_Name: AmmoMaxText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2056,7 +2060,7 @@ GameObject:
   - component: {fileID: 8268101756628343534}
   - component: {fileID: 5258254024082802230}
   m_Layer: 5
-  m_Name: AmmoCurrent
+  m_Name: AmmoCurrentText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3396,7 +3400,7 @@ GameObject:
   - component: {fileID: 8342595230877935251}
   - component: {fileID: 6045307486745729224}
   m_Layer: 5
-  m_Name: ' Interact Prompt'
+  m_Name: InteractPrompt
   m_TagString: InteractPrompt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4152,7 +4156,7 @@ GameObject:
   - component: {fileID: 6833229916955102072}
   - component: {fileID: 7059869232387388354}
   m_Layer: 5
-  m_Name: AmmoType
+  m_Name: AmmoTypeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5143,7 +5147,7 @@ GameObject:
   - component: {fileID: 981419166256587164}
   - component: {fileID: 5597357847915203379}
   m_Layer: 5
-  m_Name: Spacer
+  m_Name: SpacerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

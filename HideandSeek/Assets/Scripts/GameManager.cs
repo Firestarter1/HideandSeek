@@ -17,6 +17,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TMP_Text gameGoalCountText;
 
+    [Header("Player References:")]
+    public GameObject player;
+    public PlayerController playerScript;
+    public GameObject playerSpawnPos;
+
     [Header("Player UI:")]
     public Image playerHPBar;
     public TMP_Text walletText;
@@ -24,9 +29,11 @@ public class GameManager : MonoBehaviour
     public GameObject playerHealScreen;
     public GameObject interactPrompt;
 
-    public GameObject player;
-    public PlayerController playerScript;
-    public GameObject playerSpawnPos;
+    [Header("Gun UI:")]
+    public TMP_Text ammoCurrent;
+    public TMP_Text ammoMax;
+    public TMP_Text ammoType;
+    public Image ammoImage;
 
     public bool isPaused;
 
