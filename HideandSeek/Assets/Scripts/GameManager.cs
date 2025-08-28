@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject player;
     public PlayerController playerScript;
+    public GameObject playerSpawnPos;
 
     public bool isPaused;
 
@@ -40,6 +41,8 @@ public class GameManager : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
     }
 
     // Update is called once per frame
@@ -99,10 +102,13 @@ public class GameManager : MonoBehaviour
 
     public void youLose()
     {
-        statePause();
+        if(menuActive == null)
+        {
+            statePause();
 
-        menuActive = menuLose;
-        menuActive.SetActive(true);
+            menuActive = menuLose;
+            menuActive.SetActive(true);
+        }
     }
 
     public void OpenStore()
