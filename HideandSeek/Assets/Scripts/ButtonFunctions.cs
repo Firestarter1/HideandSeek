@@ -36,7 +36,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void LoadStart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
 
