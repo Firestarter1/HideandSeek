@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
-    [SerializeField] GameObject interactPrompt;
 
     [Header("Player Settings:")]
     [SerializeField] List<Item> inventory= new List<Item>();
@@ -27,7 +26,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
 
-
+    private GameObject interactPrompt;
 
     Vector3 moveDir;
     Vector3 playerVel;
@@ -44,8 +43,8 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     void Start()
     {
         HPOrig = HP;
-
-        spawnPlayer();
+        interactPrompt = GameManager.Instance.interactPrompt;
+        updatePlayerUI();
     }
 
     // Update is called once per frame
@@ -246,16 +245,5 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public int CheckFunds()
     {
         return wallet;
-    }
-
-    public void spawnPlayer()
-    {
-        controller.enabled = false;
-        controller.transform.position = GameManager.Instance.playerSpawnPos.transform.position;
-        controller.enabled = true;
-
-        playerVel = Vector3.zero;
-        HP = HPOrig;
-        updatePlayerUI();
     }
 }
