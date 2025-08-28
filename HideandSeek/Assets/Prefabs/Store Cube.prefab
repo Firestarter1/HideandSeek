@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5098860242194622489}
   - component: {fileID: 5416124858257592783}
   m_Layer: 0
-  m_Name: Store
+  m_Name: Store Cube
   m_TagString: Store
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

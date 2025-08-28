@@ -33,6 +33,11 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene(lvl);
         GameManager.Instance.stateUnpause();
     }
+
+    public void LoadStart()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
 
 
