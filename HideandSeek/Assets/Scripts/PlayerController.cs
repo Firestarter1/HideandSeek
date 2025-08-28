@@ -172,6 +172,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public void updatePlayerUI()
     {
         GameManager.Instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+        GameManager.Instance.walletText.text = wallet.ToString();
     }
 
     public void spawnPlayer()

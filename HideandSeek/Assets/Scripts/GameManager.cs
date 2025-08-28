@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [Header("Menus:")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
@@ -14,11 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuStore;
     [SerializeField] GameObject menuInventory;
 
-
     [SerializeField] TMP_Text gameGoalCountText;
-    [SerializeField] TMP_Text walletText;
 
+    [Header("Player UI:")]
     public Image playerHPBar;
+    public TMP_Text walletText;
     public GameObject playerDamageScreen;
     public GameObject playerHealScreen;
     public GameObject interactPrompt;
@@ -48,8 +49,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdatePlayerUI();
-
         if (Input.GetButtonDown("Cancel"))
         {
             if (menuActive == null)
@@ -135,10 +134,5 @@ public class GameManager : MonoBehaviour
                 stateUnpause();
             }
         }
-    }
-
-    public void UpdatePlayerUI()
-    {
-        walletText.text = playerScript.CheckFunds().ToString();
     }
 }
