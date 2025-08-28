@@ -14,7 +14,7 @@ public class Store : MonoBehaviour, IInteractable
 
     }
 
-  public void BuyHealth()
+    public void BuyHealth()
     {
         if(GameManager.Instance.playerScript.CheckFunds() > 50)
         {

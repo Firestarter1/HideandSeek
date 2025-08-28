@@ -43,8 +43,9 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     void Start()
     {
         HPOrig = HP;
+        spawnPlayer();
+
         interactPrompt = GameManager.Instance.interactPrompt;
-        updatePlayerUI();
     }
 
     // Update is called once per frame
@@ -171,6 +172,17 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public void updatePlayerUI()
     {
         GameManager.Instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+    }
+
+    public void spawnPlayer()
+    {
+        controller.enabled = false;
+        controller.transform.position = GameManager.Instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+
+        playerVel = Vector3.zero;
+        HP = HPOrig;
+        updatePlayerUI();
     }
 
     IEnumerator flashDamageScreen()
