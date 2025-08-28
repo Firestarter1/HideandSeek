@@ -4,22 +4,24 @@ using UnityEngine.UI;
 
 public class Store : MonoBehaviour, IInteractable
 {
-    public int wallet;
-    public int HealthPack;
-    public int Granade;
-    public int GunUpgrade;
+    [SerializeField] Item HealthPack;
 
     void Start()
     {
 
     }
 
-    public void BuyHealth()
+    public void FillHealth()
     {
         if(GameManager.Instance.playerScript.CheckFunds() > 50)
         {
             GameManager.Instance.playerScript.Heal(5);
         }
+    }
+
+    public void BuyHealthPack()
+    {
+        InventoryManager.Instance.AddItem(HealthPack);
     }
 
     public void Interact()
