@@ -355,7 +355,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   controller: {fileID: 5547979343575741039}
-  interactPrompt: {fileID: 0}
   inventory: []
   HP: 5
   speed: 5
@@ -364,7 +363,7 @@ MonoBehaviour:
   jumpMax: 1
   gravity: 20
   interactDist: 0
-  wallet: 0
+  wallet: 100
   gunList: []
   gunModel: {fileID: 542047000262143478}
   shootDamage: 1

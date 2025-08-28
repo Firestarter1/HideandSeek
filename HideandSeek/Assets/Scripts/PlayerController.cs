@@ -43,9 +43,9 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     void Start()
     {
         HPOrig = HP;
-        spawnPlayer();
-
         interactPrompt = GameManager.Instance.interactPrompt;
+
+        spawnPlayer();
     }
 
     // Update is called once per frame
@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         movement();
         sprint();
         CheckInteractable();
+        updatePlayerUI();
     }
     void movement()
     {
@@ -172,6 +173,13 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public void updatePlayerUI()
     {
         GameManager.Instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+        GameManager.Instance.walletText.text = wallet.ToString();
+        
+        if(gunList.Count > 0)
+        {
+            GameManager.Instance.ammoCurrent.text = gunList[gunListPos].ammoCur.ToString();
+            GameManager.Instance.ammoMax.text = gunList[gunListPos].ammoMax.ToString();
+        }
     }
 
     public void spawnPlayer()
