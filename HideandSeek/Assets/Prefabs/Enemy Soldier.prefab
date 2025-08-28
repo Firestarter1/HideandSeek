@@ -983,7 +983,7 @@ MonoBehaviour:
   animTranSpeed: 32
   cashReward: 5
   bullet: {fileID: 2754833449203023371, guid: 049734afeae01b248b52cf762716f7c7, type: 3}
-  shootRate: 0.5
+  shootRate: 1
   shootPos: {fileID: 3679790179326372624}
 --- !u!136 &3105276809056127822
 CapsuleCollider:
