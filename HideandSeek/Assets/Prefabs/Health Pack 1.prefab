@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5512906769936869843}
+  - component: {fileID: 4861559127798690094}
   - component: {fileID: 9083479664180463123}
   - component: {fileID: 1265116967178357438}
   - component: {fileID: 5039625159453251666}
-  - component: {fileID: 4861559127798690094}
   m_Layer: 0
   m_Name: Health Pack 1
   m_TagString: Untagged
@@ -35,6 +35,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+--- !u!114 &4861559127798690094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5711284547425740079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6347d6fa243c57488cf7b6f849e6a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 3261aac5b403f524ea454c7588bb99dd, type: 2}
 --- !u!33 &9083479664180463123
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -109,16 +122,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.9540792, y: 2.5032947, z: 0.4149846}
   m_Center: {x: 0, y: 1.2310425, z: 0.20749219}
---- !u!114 &4861559127798690094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5711284547425740079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6347d6fa243c57488cf7b6f849e6a2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 3261aac5b403f524ea454c7588bb99dd, type: 2}
