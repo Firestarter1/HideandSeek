@@ -11,23 +11,26 @@ public class Store : MonoBehaviour, IInteractable
 
     }
 
+    public void Interact()
+    {
+        GameManager.Instance.OpenStore();
+    }
+
     public void FillHealth()
     {
-        if(GameManager.Instance.playerScript.CheckFunds() > 50)
+        if (GameManager.Instance.playerScript.CheckFunds() >= 50)
         {
+            GameManager.Instance.playerScript.UpdateWallet(-50);
             GameManager.Instance.playerScript.Heal(5);
         }
     }
 
     public void BuyHealthPack()
     {
-        InventoryManager.Instance.AddItem(HealthPack);
+        if (GameManager.Instance.playerScript.CheckFunds() >= 50)
+        {
+            GameManager.Instance.playerScript.UpdateWallet(-50);
+            InventoryManager.Instance.AddItem(HealthPack);
+        }
     }
-
-    public void Interact()
-    {
-        GameManager.Instance.OpenStore();
-    }
-
-   
 }
