@@ -82,7 +82,10 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         playerVel.y -= gravity * Time.deltaTime;
 
         if (Input.GetButton("Fire1") && gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer >= shootRate)
-        shoot();
+        {
+            shoot();
+            SoundManager.PlaySound(SoundManager.SoundType.Pistol);
+        }
 
         seletGun();
 
