@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class SoundManager : MonoBehaviour
 {
-    public enum SoundType { Pistol, Shotgun, Machinegun, Heal, Damage, Death, Jump, Walk, Sprint, Explosion, BGM }
+    public enum SoundType { Pistol, Shotgun, Machinegun, Aim, Reload, Heal, Damage, Death, Jump, Walk, Sprint, Explosion, BGM }
 
     private static SoundManager instance;
 
