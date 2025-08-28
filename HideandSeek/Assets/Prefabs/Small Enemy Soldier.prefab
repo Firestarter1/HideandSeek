@@ -1039,13 +1039,13 @@ MonoBehaviour:
   anim: {fileID: 2983893204424598383}
   HP: 1
   faceTargetspeed: 12
-  FOV: 90
+  FOV: 120
   roamDist: 30
-  roamPauseTime: 9
+  roamPauseTime: 3
   animTranSpeed: 45
   cashReward: 3
   bullet: {fileID: 2754833449203023371, guid: 049734afeae01b248b52cf762716f7c7, type: 3}
-  shootRate: 0.5
+  shootRate: 1.5
   shootPos: {fileID: 2722954388559917042}
 --- !u!136 &8321185903550659110
 CapsuleCollider:
