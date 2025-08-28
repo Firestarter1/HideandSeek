@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     void Start()
     {
         HPOrig = HP;
-
+        interactPrompt = GameObject.FindWithTag("InteractPrompt");
         updatePlayerUI();
     }
 
