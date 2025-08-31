@@ -63,9 +63,9 @@ MonoBehaviour:
   playerDamageScreen: {fileID: 2638199230071965692}
   playerHealScreen: {fileID: 1829293495676003471}
   interactPrompt: {fileID: 4273014382944233028}
-  ammoCurrent: {fileID: 5258254024082802230}
-  ammoMax: {fileID: 8851564888109235143}
-  ammoType: {fileID: 7059869232387388354}
+  ammoCurrentText: {fileID: 5258254024082802230}
+  ammoMaxText: {fileID: 8851564888109235143}
+  ammoTypeText: {fileID: 7059869232387388354}
   ammoImage: {fileID: 7843791428873130319}
   isPaused: 0
 --- !u!1 &378854321233957834

@@ -12,11 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ebb500081a16b428b99332ae043cfb, type: 3}
   m_Name: Gun - Rifle
   m_EditorClassIdentifier: 
+  itemName: Rifle
+  itemType: 2
+  image: {fileID: 21300000, guid: 493b8d5658b42f84f82fe5a8a4c0c8fb, type: 3}
+  actionType: 1
+  healAmount: 0
+  stackable: 1
   model: {fileID: 5571641588984482722, guid: c303a18f1cbdd4156b139b9e5b35d6a9, type: 3}
   shootDamage: 5
   shootDist: 1000
   shootRate: 1
-  ammoCur: 5
+  ammoCurr: 0
   ammoMax: 5
   hitEffect: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
   shootSound: []

@@ -30,9 +30,9 @@ public class GameManager : MonoBehaviour
     public GameObject interactPrompt;
 
     [Header("Gun UI:")]
-    public TMP_Text ammoCurrent;
-    public TMP_Text ammoMax;
-    public TMP_Text ammoType;
+    public TMP_Text ammoCurrentText;
+    public TMP_Text ammoMaxText;
+    public TMP_Text ammoTypeText;
     public Image ammoImage;
 
     public bool isPaused;

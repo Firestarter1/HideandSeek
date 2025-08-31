@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     [SerializeField] CharacterController controller;
 
     [Header("Player Settings:")]
-    [SerializeField] List<Item> inventory= new List<Item>();
+    [SerializeField] List<Item> inventory = new List<Item>();
     [SerializeField] int HP;
     [SerializeField] int speed;
     [SerializeField] int sprintMod;
@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     [SerializeField] int wallet;
 
     [Header("Gun Settings:")]
-    [SerializeField] List<GunStates> gunList = new List<GunStates>();
     [SerializeField] GameObject gunModel;
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
@@ -82,17 +81,11 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
         playerVel.y -= gravity * Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && gunList.Count > 0 && gunList[gunListPos].ammoCur > 0 && shootTimer >= shootRate)
-        {
-            shoot();
-            SoundManager.PlaySound(SoundManager.SoundType.Pistol);
-        }
-
-        seletGun();
+        //seletGun();
 
         reload();
 
-        if(Input.GetButtonDown("Use"))
+        if (Input.GetButtonDown("Use") || Input.GetButton("Fire1"))
         {
             InventoryManager.Instance.GetSelectedItem(true);
         }
@@ -121,16 +114,17 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         }
     }
 
-    void shoot()
+    public void shoot()
     {
         shootTimer = 0;
-        gunList[gunListPos].ammoCur--;
+        GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
+        currGun.ammoCurr--;
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
             //Debug.Log(hit.collider.name);
-            Instantiate(gunList[gunListPos].hitEffect, hit.point, Quaternion.identity);
+            Instantiate(currGun.hitEffect, hit.point, Quaternion.identity);
 
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
@@ -145,7 +139,8 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     {
         if (Input.GetButtonDown("Reload"))
         {
-            gunList[gunListPos].ammoCur = gunList[gunListPos].ammoMax;
+            GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
+            currGun.ammoCurr = currGun.ammoMax;
         }
     }
 
@@ -174,11 +169,13 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     {
         GameManager.Instance.playerHPBar.fillAmount = (float)HP / HPOrig;
         GameManager.Instance.walletText.text = wallet.ToString();
-        
-        if(gunList.Count > 0)
+
+        if (InventoryManager.Instance.GetSelectedItem(false).itemType == Item.ItemType.Gun)
         {
-            GameManager.Instance.ammoCurrent.text = gunList[gunListPos].ammoCur.ToString();
-            GameManager.Instance.ammoMax.text = gunList[gunListPos].ammoMax.ToString();
+            GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
+
+            GameManager.Instance.ammoCurrentText.text = currGun.ammoCurr.ToString();
+            GameManager.Instance.ammoCurrentText.text = currGun.ammoMax.ToString();
         }
     }
 
@@ -207,37 +204,42 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         GameManager.Instance.playerHealScreen.SetActive(false);
     }
 
-    public void getGunStats(GunStates gun)
-    {
-        gunList.Add(gun);
-        gunListPos = gunList.Count - 1;
+    //public void getGunStats(GunStates gun)
+    //{
+    //    gunList.Add(gun);
+    //    gunListPos = gunList.Count - 1;
 
-        changeGun();
+    //    changeGun();
+    //}
+
+    public void changeGun()
+    {
+        GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false); ;
+
+        shootDamage = currGun.shootDamage;
+        shootDist = currGun.shootDist;
+        shootRate = currGun.shootRate;
+
+        GameManager.Instance.ammoCurrentText.text = currGun.ammoCurr.ToString();
+        GameManager.Instance.ammoMaxText.text = currGun.ammoMax.ToString();
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = currGun.model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = currGun.model.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
-    void changeGun()
-    {
-        shootDamage = gunList[gunListPos].shootDamage;
-        shootDist = gunList[gunListPos].shootDist;
-        shootRate = gunList[gunListPos].shootRate;
-
-        gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[gunListPos].model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[gunListPos].model.GetComponent<MeshRenderer>().sharedMaterial;
-    }
-
-    void seletGun()
-    {
-        if(Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1)
-        {
-            gunListPos++;
-            changeGun();
-        }
-        else if(Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0)
-        {
-            gunListPos--;
-            changeGun();
-        }
-    }
+    //void seletGun()
+    //{
+    //    if(Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1)
+    //    {
+    //        gunListPos++;
+    //        changeGun();
+    //    }
+    //    else if(Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0)
+    //    {
+    //        gunListPos--;
+    //        changeGun();
+    //    }
+    //}
 
     void CheckInteractable()
     {
@@ -250,7 +252,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
             {
                 interactPrompt.SetActive(true);
             }
-            else if(interact == null)
+            else if (interact == null)
             {
                 interactPrompt.SetActive(false);
             }

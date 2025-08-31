@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8363842990609568700}
-  - component: {fileID: 6558159169480912309}
+  - component: {fileID: 6981559205565432133}
   - component: {fileID: 8872827655030509590}
   - component: {fileID: 3603291031528515882}
   - component: {fileID: 2625720348342558228}
@@ -35,7 +35,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6558159169480912309
+--- !u!114 &6981559205565432133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,10 +44,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4571458327005757776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d155035a9eafb5f4abc00a1fc5490b98, type: 3}
+  m_Script: {fileID: 11500000, guid: b6347d6fa243c57488cf7b6f849e6a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 11400000, guid: 37aa9439dc8c9d44799ff486c6e1d9b5, type: 2}
+  item: {fileID: 11400000, guid: 37aa9439dc8c9d44799ff486c6e1d9b5, type: 2}
 --- !u!33 &8872827655030509590
 MeshFilter:
   m_ObjectHideFlags: 0

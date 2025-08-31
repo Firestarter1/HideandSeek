@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -20,25 +21,39 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         ChangeSelectedSlot(0);
-        foreach(var item in startItems)
+        foreach (var item in startItems)
             AddItem(item);
     }
 
     private void Update()
     {
-        if(Input.inputString != null)
+        if (Input.inputString != null)
         {
             bool isNumber = int.TryParse(Input.inputString, out int number);
-            if(isNumber && number <= 10)
+
+            if (isNumber && number <= 9 && number > 0)
             {
                 ChangeSelectedSlot(number - 1);
             }
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedSlot < 9)
+        {
+            int newValue = selectedSlot + 1;
+            ChangeSelectedSlot(newValue);
+            ChangeHeldItem();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedSlot > 0)
+        {
+            int newValue = selectedSlot - 1;
+            ChangeSelectedSlot(newValue);
+            ChangeHeldItem();
         }
     }
 
     void ChangeSelectedSlot(int newValue)
     {
-        if(selectedSlot >= 0)
+        if (selectedSlot >= 0)
             inventorySlots[selectedSlot].Deselect();
 
         inventorySlots[newValue].Select();
@@ -67,7 +82,7 @@ public class InventoryManager : MonoBehaviour
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
 
-            if(itemInSlot == null)
+            if (itemInSlot == null)
             {
                 SpawnNewItem(item, slot);
                 return true;
@@ -92,10 +107,12 @@ public class InventoryManager : MonoBehaviour
         {
             Item item = itemInSlot.item;
 
-            if(use == true)
+            if (use == true)
             {
                 ItemAction(item, itemInSlot);
             }
+
+            return item;
         }
 
         return null;
@@ -120,8 +137,29 @@ public class InventoryManager : MonoBehaviour
         if (item.itemType == Item.ItemType.HealthPack)
         {
             GameManager.Instance.playerScript.Heal(item.healAmount);
-            Consume(itemInSlot);
+
+            if (item.actionType == Item.ActionType.Consumable)
+                Consume(itemInSlot);
+        }
+        else if (item.actionType == Item.ActionType.Gun)
+        {
+            GunStates currGun = (GunStates)GetSelectedItem(false);
+
+            if (currGun.ammoCurr > 0)
+            {
+                GameManager.Instance.playerScript.shoot();
+                SoundManager.PlaySound(SoundManager.SoundType.Pistol);
+            }
         }
     }
 
+    public void ChangeHeldItem()
+    {
+        Item currItem = GetSelectedItem(false);
+
+        if (currItem != null && currItem.itemType == Item.ItemType.Gun)
+        {
+            GameManager.Instance.playerScript.changeGun();
+        }
+    }
 }
