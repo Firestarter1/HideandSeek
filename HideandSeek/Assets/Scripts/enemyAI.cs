@@ -7,6 +7,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform headPos;
+    [SerializeField] Transform ragdollPrefab;
     [SerializeField] Animator anim;
 
     [SerializeField] int HP;
@@ -169,6 +170,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
         {
             GameManager.Instance.updateGameGoal(-1);
             GameManager.Instance.playerScript.UpdateWallet(cashReward);
+            Instantiate(ragdollPrefab, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
