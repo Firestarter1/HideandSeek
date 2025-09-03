@@ -119,6 +119,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         shootTimer = 0;
         GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
         currGun.ammoCurr--;
+        UpdateGunUI(currGun);
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
@@ -141,6 +142,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         {
             GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
             currGun.ammoCurr = currGun.ammoMax;
+            UpdateGunUI(currGun);
         }
     }
 
@@ -169,14 +171,12 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     {
         GameManager.Instance.playerHPBar.fillAmount = (float)HP / HPOrig;
         GameManager.Instance.walletText.text = wallet.ToString();
+    }
 
-        if (InventoryManager.Instance.GetSelectedItem(false).itemType == Item.ItemType.Gun)
-        {
-            GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
-
-            GameManager.Instance.ammoCurrentText.text = currGun.ammoCurr.ToString();
-            GameManager.Instance.ammoCurrentText.text = currGun.ammoMax.ToString();
-        }
+    public void UpdateGunUI(GunStates currGun)
+    {
+        GameManager.Instance.ammoCurrentText.text = currGun.ammoCurr.ToString();
+        GameManager.Instance.ammoMaxText.text = currGun.ammoMax.ToString();
     }
 
     public void spawnPlayer()
@@ -220,8 +220,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         shootDist = currGun.shootDist;
         shootRate = currGun.shootRate;
 
-        GameManager.Instance.ammoCurrentText.text = currGun.ammoCurr.ToString();
-        GameManager.Instance.ammoMaxText.text = currGun.ammoMax.ToString();
+        UpdateGunUI(currGun);
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = currGun.model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = currGun.model.GetComponent<MeshRenderer>().sharedMaterial;

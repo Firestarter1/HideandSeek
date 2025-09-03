@@ -22,7 +22,7 @@ MonoBehaviour:
   shootDamage: 8
   shootDist: 15
   shootRate: 1
-  ammoCurr: 0
+  ammoCurr: 5
   ammoMax: 5
   hitEffect: {fileID: 5396372950321188654, guid: fcb74f28d107e284e80af037bfec14ca, type: 3}
   shootSound: []
