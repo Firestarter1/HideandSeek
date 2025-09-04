@@ -50,7 +50,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
 
         shootTimer += Time.deltaTime;
 
-        if (agent.remainingDistance < 0.01f)
+        if (agent.remainingDistance > 0.01f)
             roamTimer += Time.deltaTime;
 
         if (playerInTrigger && !canSeePlayer())
@@ -98,8 +98,6 @@ public class EnemeyAI : MonoBehaviour, IDamage
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
         Debug.DrawRay(headPos.position, playerDir);
 
-
-
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
@@ -122,7 +120,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
                 return true;
             }
         }
-        agent.stoppingDistance = 0;
+        /*agent.stoppingDistance = 0;*/
         return false;
     }
 
@@ -145,7 +143,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInTrigger = false;
-            agent.stoppingDistance = 0;
+            //agent.stoppingDistance = 0;
         }
     }
 

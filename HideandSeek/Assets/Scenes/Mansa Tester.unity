@@ -1252,6 +1252,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 15545136164461347, guid: 03e6990c328ceb449bd6d71499542ce4, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 906736920605825497, guid: 03e6990c328ceb449bd6d71499542ce4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.9806862
@@ -1291,6 +1295,14 @@ PrefabInstance:
     - target: {fileID: 906736920605825497, guid: 03e6990c328ceb449bd6d71499542ce4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432378062658072773, guid: 03e6990c328ceb449bd6d71499542ce4, type: 3}
+      propertyPath: shootRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432378062658072773, guid: 03e6990c328ceb449bd6d71499542ce4, type: 3}
+      propertyPath: animTranSpeed
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7210763270099802236, guid: 03e6990c328ceb449bd6d71499542ce4, type: 3}
       propertyPath: m_Name
