@@ -25,9 +25,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
 
-    public Transform notAiming;
-    public Transform _Aiming;
-
     private GameObject interactPrompt;
 
     Vector3 moveDir;
@@ -269,17 +266,5 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public int CheckFunds()
     {
         return wallet;
-    }
-
-    public void Aiming()
-    {
-        if(Input.GetButtonDown("ADS"))
-        {
-            gunModel.transform.position = _Aiming.position;
-        }
-        if (Input.GetButtonDown("ADS"))
-        {
-            gunModel.transform.position = notAiming.position;
-        }
     }
 }
