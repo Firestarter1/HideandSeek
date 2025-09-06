@@ -120,7 +120,6 @@ public class EnemeyAI : MonoBehaviour, IDamage
                 return true;
             }
         }
-        /*agent.stoppingDistance = 0;*/
         return false;
     }
 
@@ -143,7 +142,6 @@ public class EnemeyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInTrigger = false;
-            //agent.stoppingDistance = 0;
         }
     }
 
