@@ -148,7 +148,7 @@ public class InventoryManager : MonoBehaviour
             if (currGun.ammoCurr > 0)
             {
                 GameManager.Instance.playerScript.shoot();
-                SoundManager.PlaySound(SoundManager.SoundType.Pistol);
+                SoundManager.Instance.PlaySoundFXClip(SoundType.Pistol, GameManager.Instance.playerScript.transform, AudioGroup.GunSFX);
             }
         }
     }

@@ -109,7 +109,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
                 if (shootTimer >= shootRate)
                 {
                     shoot();
-                    SoundManager.PlaySound(SoundManager.SoundType.Pistol);
+                    SoundManager.Instance.PlaySoundFXClip(SoundType.Pistol, transform, AudioGroup.GunSFX);
                 }
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
