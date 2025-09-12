@@ -7279,33 +7279,6 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2115267421793371764, guid: 72774f83db224e9449b9ebf26e9f870a, type: 3}
   m_PrefabInstance: {fileID: 481645538}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &487671321 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5264947229178263280, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-  m_PrefabInstance: {fileID: 2675382495186746611}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &487671322
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 487671321}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a2ca58059af97d24fb2dd00ad6cf99f1, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &488952982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17208,37 +17181,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8721693244401002819, guid: 2c879bb5ae00d7a44ac9512b97b3c9c6, type: 3}
   m_PrefabInstance: {fileID: 1109495918}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1114343450
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1114343451}
-  m_Layer: 0
-  m_Name: ThrowAttackPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1114343451
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114343450}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1316261735}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1115495771 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6188286788016744009, guid: 7b5e5af3321f84f47801f24910880b6c, type: 3}
@@ -19908,11 +19850,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8721693244401002819, guid: 2c879bb5ae00d7a44ac9512b97b3c9c6, type: 3}
   m_PrefabInstance: {fileID: 1313866238}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1316261735 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1915097649983105420, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-  m_PrefabInstance: {fileID: 2675382495186746611}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1316810801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22579,44 +22516,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8721693244401002819, guid: 2c879bb5ae00d7a44ac9512b97b3c9c6, type: 3}
   m_PrefabInstance: {fileID: 1472504049}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1475377308 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5069646169059245480, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-  m_PrefabInstance: {fileID: 2675382495186746611}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1475377311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1475377308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fb1001ae875aed429d6397461c01ada, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Gun: {fileID: 487671321}
---- !u!114 &1475377320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1475377308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0090d237719f646b63d14ad4168a83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 1316261735}
-  attackPoint: {fileID: 1114343451}
-  objectToThrow: {fileID: 8034339155030846756, guid: 55a0305a9a8f242479cba328b32ef16d, type: 3}
-  totalThrows: 100
-  throwCooldown: 0.1
-  throwKey: 256
-  throwForce: 5
-  throwUpwardForce: 5
 --- !u!4 &1475377325 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 54191167430222491, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
@@ -33595,52 +33494,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4781425534215695434, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.4400001
+    - target: {fileID: 2660868773797475029, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 503
+      objectReference: {fileID: 0}
+    - target: {fileID: 3412406845709075554, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
+      propertyPath: recenterSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3412406845709075554, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
+      propertyPath: viewBobAmplitude
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3412406845709075554, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
+      propertyPath: viewBobFrequency
+      value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 5069646169059245480, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8499650006908117999, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8819059602970552930, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-      propertyPath: _Aiming
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8819059602970552930, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-      propertyPath: Grenades
-      value: 
-      objectReference: {fileID: 8034339155030846756, guid: 55a0305a9a8f242479cba328b32ef16d, type: 3}
-    - target: {fileID: 8819059602970552930, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-      propertyPath: throwKey
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 8819059602970552930, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-      propertyPath: notAiming
-      value: 
+      propertyPath: jumpSpeed
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 2222758173855737982, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-    - {fileID: 33458557414585624, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1915097649983105420, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1114343451}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5069646169059245480, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 1475377320}
-    - targetCorrespondingSourceObject: {fileID: 5069646169059245480, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 1475377311}
-    - targetCorrespondingSourceObject: {fileID: 5264947229178263280, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 487671322}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d631f7126ef745a4ba8ab352396369e5, type: 3}
 --- !u!1001 &4214232466337966590
 PrefabInstance:
@@ -33973,8 +33854,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1429146596110052907}
-  - {fileID: 2675382495186746611}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 619007210}
   - {fileID: 961454765}
+  - {fileID: 2675382495186746611}
