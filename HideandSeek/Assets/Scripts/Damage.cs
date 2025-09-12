@@ -3,21 +3,21 @@ using System.Collections;
 
 public class Damage : MonoBehaviour
 {
-    enum damageType { moving, stationary, DOT, homing }
+    enum damageType { moving, stationary, DOT, homing, explosion }
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
 
     [SerializeField] int damageAmount;
     [SerializeField] float damageRate;
     [SerializeField] int speed;
-    [SerializeField] int destroyTime;
+    [SerializeField] float destroyTime;
 
     bool isDamaging;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (type == damageType.moving || type == damageType.homing)
+        if (type == damageType.moving || type == damageType.homing || type == damageType.explosion)
         {
             Destroy(gameObject, destroyTime);
 

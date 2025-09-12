@@ -7,19 +7,33 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [Header("Menus:")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
-
+    [SerializeField] GameObject menuStore;
+    [SerializeField] GameObject menuInventory;
 
     [SerializeField] TMP_Text gameGoalCountText;
 
-    public Image playerHPBar;
-    public GameObject playerDamageScreen;
-
+    [Header("Player References:")]
     public GameObject player;
     public PlayerController playerScript;
+    public GameObject playerSpawnPos;
+
+    [Header("Player UI:")]
+    public Image playerHPBar;
+    public TMP_Text walletText;
+    public GameObject playerDamageScreen;
+    public GameObject playerHealScreen;
+    public GameObject interactPrompt;
+
+    [Header("Gun UI:")]
+    public TMP_Text ammoCurrentText;
+    public TMP_Text ammoMaxText;
+    public TMP_Text ammoTypeText;
+    public Image ammoImage;
 
     public bool isPaused;
 
@@ -35,6 +49,8 @@ public class GameManager : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
     }
 
     // Update is called once per frame
@@ -44,18 +60,20 @@ public class GameManager : MonoBehaviour
         {
             if (menuActive == null)
             {
-                StatePause();
+                statePause();
                 menuActive = menuPause;
                 menuActive.SetActive(true);
             }
-            else if (menuActive == menuPause)
+            else if (menuActive == menuPause || menuActive == menuStore)
             {
-                StateUnpause();
+                stateUnpause();
             }
         }
+
+        OpenInventory();
     }
 
-    public void StatePause()
+    public void statePause()
     {
         isPaused = !isPaused;
         Time.timeScale = 0;
@@ -63,7 +81,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    public void StateUnpause()
+    public void stateUnpause()
     {
         isPaused = !isPaused;
         Time.timeScale = timeScaleOrig;
@@ -73,7 +91,7 @@ public class GameManager : MonoBehaviour
         menuActive = null;
     }
 
-    public void UpdateGameGoal(int amount)
+    public void updateGameGoal(int amount)
     {
         gameGoalCount += amount;
 
@@ -81,18 +99,47 @@ public class GameManager : MonoBehaviour
 
         if (gameGoalCount <= 0)
         {
-            // you win!
-            StatePause();
+            // you win;
+            statePause();
             menuActive = menuWin;
             menuActive.SetActive(true);
         }
     }
 
-    public void YouLose()
+    public void youLose()
     {
-        StatePause();
+        if(menuActive == null)
+        {
+            statePause();
 
-        menuActive = menuLose;
+            menuActive = menuLose;
+            menuActive.SetActive(true);
+        }
+    }
+
+    public void OpenStore()
+    {
+        statePause();
+
+        menuActive = menuStore;
         menuActive.SetActive(true);
+    }
+
+    public void OpenInventory()
+    {
+        if(Input.GetButtonDown("Inventory"))
+        {
+            if(menuActive == null)
+            {
+                statePause();
+                menuActive = menuInventory;
+                menuActive.SetActive(true);
+
+            }
+            else if (menuActive == menuInventory)
+            {
+                stateUnpause();
+            }
+        }
     }
 }

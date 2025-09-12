@@ -6,12 +6,17 @@ public class EnemeyAI : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] Transform headPos;
+    [SerializeField] Transform ragdollPrefab;
+    [SerializeField] Animator anim;
 
     [SerializeField] int HP;
     [SerializeField] int faceTargetspeed;
     [SerializeField] int FOV;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
+    [SerializeField] int animTranSpeed;
+    [SerializeField] int cashReward;
 
     [SerializeReference] GameObject bullet;
     [SerializeReference] float shootRate;
@@ -33,7 +38,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
     void Start()
     {
         colorOrig = model.material.color;
-        GameManager.Instance.UpdateGameGoal(1);
+        GameManager.Instance.updateGameGoal(1);
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
@@ -41,30 +46,40 @@ public class EnemeyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
+        setAnimLoco();   
+
         shootTimer += Time.deltaTime;
 
-        if (agent.remainingDistance < 0.01f)
+        if (agent.remainingDistance > 0.01f)
             roamTimer += Time.deltaTime;
 
-        if (playerInTrigger && !CanSeePlayer())
+        if (playerInTrigger && !canSeePlayer())
         {
-            CheckRoam();
+            checkRoam();
         }
         else if (!playerInTrigger)
         {
-            CheckRoam();
+            checkRoam();
         }
     }
 
-    void CheckRoam()
+    void setAnimLoco()
+    {
+        float agentSpeedCur = agent.velocity.normalized.magnitude;
+        float animSpeedCur = anim.GetFloat("Speed");
+
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCur, agentSpeedCur, Time.deltaTime * animTranSpeed));
+    }
+
+    void checkRoam()
     {
         if (roamTimer >= roamPauseTime && agent.remainingDistance < 0.01f)
         {
-            Roam();
+            roam();
         }
     }
 
-    void Roam()
+    void roam()
     {
         roamTimer = 0;
         agent.stoppingDistance = 0;
@@ -77,16 +92,14 @@ public class EnemeyAI : MonoBehaviour, IDamage
         agent.SetDestination(hit.position);
     }
 
-    bool CanSeePlayer()
+    bool canSeePlayer()
     {
-        playerDir = GameManager.Instance.player.transform.position - transform.position;
+        playerDir = GameManager.Instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-        Debug.DrawRay(transform.position, playerDir);
-
-
+        Debug.DrawRay(headPos.position, playerDir);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerDir, out hit))
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
             //Hey I can see you!
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
@@ -95,23 +108,22 @@ public class EnemeyAI : MonoBehaviour, IDamage
 
                 if (shootTimer >= shootRate)
                 {
-                    Shoot();
+                    shoot();
+                    SoundManager.Instance.PlaySoundFXClip(SoundType.Pistol, transform, AudioGroup.GunSFX);
                 }
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
-                    FaceTarget();
+                    faceTarget();
                 }
                 agent.stoppingDistance = stoppingDistOrig;
                 return true;
             }
         }
-
-        agent.stoppingDistance = 0;
         return false;
     }
 
-    void FaceTarget()
+    void faceTarget()
     {
         Quaternion rot = Quaternion.LookRotation(playerDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetspeed);
@@ -130,32 +142,36 @@ public class EnemeyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInTrigger = false;
-            agent.stoppingDistance = 0;
         }
     }
 
-    void Shoot()
+    void shoot()
     {
         shootTimer = 0;
+        anim.SetTrigger("Shoot");
         Instantiate(bullet, shootPos.position, transform.rotation);
     }
 
-    public void TakeDamage(int amount)
+    public void takeDamage(int amount)
     {
         if (HP > 0)
         {
             HP -= amount;
-            StartCoroutine(FlashRed());
+            StartCoroutine(flashRed());
+
+            agent.SetDestination(GameManager.Instance.player.transform.position);
         }
 
         if (HP <= 0)
         {
-            GameManager.Instance.UpdateGameGoal(-1);
+            GameManager.Instance.updateGameGoal(-1);
+            GameManager.Instance.playerScript.UpdateWallet(cashReward);
+            Instantiate(ragdollPrefab, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
 
-    IEnumerator FlashRed()
+    IEnumerator flashRed()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);

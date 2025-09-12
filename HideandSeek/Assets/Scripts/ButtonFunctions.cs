@@ -3,28 +3,52 @@ using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
-    public void Resume()
+    [SerializeField] GameObject settingsMenu;
+    public void resume()
     {
-        GameManager.Instance.StateUnpause();
+        GameManager.Instance.stateUnpause();
     }
 
-    public void Restart()
+    public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        GameManager.Instance.StateUnpause();
+        GameManager.Instance.stateUnpause();
     }
-    public void Quit()
+    public void quite()
     {
-    #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-    #else
-            Application.Quit();
-    #endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
-    /*public void LoadLevel(int lvl)
+    public void respawn()
+    {
+        GameManager.Instance.playerScript.spawnPlayer();
+        GameManager.Instance.stateUnpause();
+    }
+
+    public void loadLevel(int lvl)
     {
         SceneManager.LoadScene(lvl);
         GameManager.Instance.stateUnpause();
-    }*/
+    }
+
+    public void LoadStart()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void OpenSettingsMenu()
+    {
+        settingsMenu.SetActive(true);
+    }
+
+    public void CloseSettingsMenu()
+    {
+        settingsMenu.SetActive(false);
+    }
 }
+
+
