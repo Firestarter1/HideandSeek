@@ -11,7 +11,8 @@ public class GunStates : Item
     public int ammoCurr;
     [Range(5, 50)] public int ammoMax;
 
+    public ParticleSystem muzzleFlash;
     public ParticleSystem hitEffect;
-    public AudioClip[] shootSound;
+    public SoundType shootSound;
     [RangeAttribute(0, 1)] public float shootVal;
 }

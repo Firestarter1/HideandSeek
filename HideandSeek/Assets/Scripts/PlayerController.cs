@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     bool isSprinting;
 
+    [SerializeField] BulletTracer tracer;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -85,7 +87,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
         reload();
 
-        if (Input.GetButtonDown("Use") || Input.GetButton("Fire1"))
+        if (GameManager.Instance.menuActive == null && (Input.GetButtonDown("Use") || Input.GetButton("Fire1")))
         {
             InventoryManager.Instance.GetSelectedItem(true);
         }
@@ -116,23 +118,28 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     public void shoot()
     {
-        shootTimer = 0;
         GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
+        if (shootTimer < currGun.shootRate) return;
+             
+        shootTimer = 0;
         currGun.ammoCurr--;
         UpdateGunUI(currGun);
+        SoundManager.Instance.PlaySoundFXClip(currGun.shootSound, GameManager.Instance.playerScript.transform, AudioGroup.GunSFX, 1f, 0.1f, 1f, 0.1f);
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, float.MaxValue, ~ignoreLayer, QueryTriggerInteraction.Ignore))
         {
             //Debug.Log(hit.collider.name);
-            Instantiate(currGun.hitEffect, hit.point, Quaternion.identity);
-
+            //Instantiate(currGun.hitEffect, hit.point, Quaternion.identity);
+            Instantiate(currGun.muzzleFlash, gunModel.transform.position, gunModel.transform.rotation);
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
             if (dmg != null)
             {
                 dmg.takeDamage(shootDamage);
             }
+
+            tracer.CreateTrail(hit, gunModel.transform.position) ;
         }
     }
 
@@ -214,7 +221,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     public void changeGun()
     {
-        GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false); ;
+        GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false); 
 
         shootDamage = currGun.shootDamage;
         shootDist = currGun.shootDist;
