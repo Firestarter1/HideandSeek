@@ -126,12 +126,18 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         UpdateGunUI(currGun);
         SoundManager.Instance.PlaySoundFXClip(currGun.shootSound, GameManager.Instance.playerScript.transform, AudioGroup.GunSFX, 1f, 0.1f, 1f, 0.1f);
 
+        Vector3 start = gunModel.transform.position;
+        float maxDist = currGun.shootDist;
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, float.MaxValue, ~ignoreLayer, QueryTriggerInteraction.Ignore))
+        bool inRange = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDist, ~ignoreLayer, QueryTriggerInteraction.Ignore);
+        Vector3 end = inRange ? hit.point : start + Camera.main.transform.forward * maxDist;
+
+        Instantiate(currGun.muzzleFlash, gunModel.transform.position, gunModel.transform.rotation);
+        if (inRange)
         {
             //Debug.Log(hit.collider.name);
             //Instantiate(currGun.hitEffect, hit.point, Quaternion.identity);
-            Instantiate(currGun.muzzleFlash, gunModel.transform.position, gunModel.transform.rotation);
+            
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
             if (dmg != null)
@@ -139,8 +145,12 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
                 dmg.takeDamage(shootDamage);
             }
 
-            tracer.CreateTrail(hit, gunModel.transform.position) ;
+            tracer.CreateTrail(hit, start);
+        } else
+        {
+            tracer.CreateTrail(start, end);
         }
+        
     }
 
     void reload()
