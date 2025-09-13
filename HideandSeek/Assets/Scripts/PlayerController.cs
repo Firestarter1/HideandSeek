@@ -60,26 +60,26 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     {
         shootTimer += Time.deltaTime;
 
-        if (controller.isGrounded)
-        {
-            jumpCount = 0;
-            playerVel = Vector3.zero;
-        }
-        else
-        {
-            playerVel.y -= gravity * Time.deltaTime;
-        }
-
         moveDir = (Input.GetAxis("Horizontal") * transform.right) +
            (Input.GetAxis("Vertical") * transform.forward);
 
-        controller.Move(moveDir * speed * Time.deltaTime);
+        if (controller.isGrounded && playerVel.y < 0f)
+        {
+            jumpCount = 0;
+            playerVel.y = -2f;
+        }
 
         jump();
 
-        controller.Move(playerVel * Time.deltaTime);
-
         playerVel.y -= gravity * Time.deltaTime;
+        Vector3 velocity = moveDir * speed + playerVel;
+        controller.Move(velocity * Time.deltaTime);
+
+        
+
+        //controller.Move(playerVel * Time.deltaTime);
+
+        //playerVel.y -= gravity * Time.deltaTime;
 
         //seletGun();
 
