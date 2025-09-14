@@ -166,6 +166,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
         {
             GameManager.Instance.updateGameGoal(-1);
             GameManager.Instance.playerScript.UpdateWallet(cashReward);
+            WaveManager.instance?.MobDeath();
             Instantiate(ragdollPrefab, transform.position, transform.rotation);
             Destroy(gameObject);
         }

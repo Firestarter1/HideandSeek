@@ -431,6 +431,7 @@ MonoBehaviour:
   shootDamage: 0
   shootRate: 0
   shootDist: 0
+  tracer: {fileID: 0}
 --- !u!143 &5547979343575741039
 CharacterController:
   m_ObjectHideFlags: 0
@@ -523,9 +524,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 5547979343575741039}
   held: {fileID: 5264947229178263280}
-  viewBobFrequency: 1
-  viewBobAmplitude: 1
-  cameraOrigin: {fileID: 1915097649983105420}
+  viewBobFrequency: 2.3
+  viewBobAmplitude: 0.2
+  recenterSpeed: 5
 --- !u!1 &6701926971876516684
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +637,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 511
+    m_Bits: 503
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
