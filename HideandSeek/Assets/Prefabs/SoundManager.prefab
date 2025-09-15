@@ -52,6 +52,27 @@ MonoBehaviour:
   - type: 13
     clips:
     - {fileID: 8300000, guid: afe80d867ef6b8c4fa45b07f1f99533c, type: 3}
+  - type: 14
+    clips:
+    - {fileID: 8300000, guid: 972d09e9b409f2f47b0341f04c388e08, type: 3}
+    - {fileID: 8300000, guid: e0f48ad9923ef4748b71d07ed3a0ae5d, type: 3}
+    - {fileID: 8300000, guid: f68731cbdcd845545a6a0880294b4ce5, type: 3}
+    - {fileID: 8300000, guid: 779941b4141103b4e80c7ce645778abd, type: 3}
+    - {fileID: 8300000, guid: 69f4694d77e995d48babfd3b7b57cc19, type: 3}
+    - {fileID: 8300000, guid: b9ce44e47aa27e840a2216c8bc6e9fda, type: 3}
+    - {fileID: 8300000, guid: 17a40c94fcca2e34b9559926d2a69684, type: 3}
+    - {fileID: 8300000, guid: f574d65d1f477aa43832580fa738281d, type: 3}
+  - type: 15
+    clips:
+    - {fileID: 8300000, guid: 8bf788ef794e54c48864d32606abf2b5, type: 3}
+    - {fileID: 8300000, guid: d7f2f984a667ad04eb27cc9e594a87dc, type: 3}
+    - {fileID: 8300000, guid: 56bba0d70660fc04a82362d04b3490b4, type: 3}
+  - type: 16
+    clips:
+    - {fileID: 8300000, guid: 707b7b3475f9183409f595c53b038cb7, type: 3}
+  - type: 4
+    clips:
+    - {fileID: 8300000, guid: 125edb9e36f963249bc792cca38492b1, type: 3}
   soundObject: {fileID: 3865324729957411915, guid: adf8666965a69ec48b1e9607f3b396d5, type: 3}
   masterGroup: {fileID: 24300002, guid: 3fcdb23bde063e94fa0b60ccf87604d6, type: 2}
   musicGroup: {fileID: 5237807319631671712, guid: 3fcdb23bde063e94fa0b60ccf87604d6, type: 2}
