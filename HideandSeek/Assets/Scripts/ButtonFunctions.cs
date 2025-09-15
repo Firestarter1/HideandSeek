@@ -40,6 +40,11 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void LoadWaveTest()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     public void OpenSettingsMenu()
     {
         settingsMenu.SetActive(true);
