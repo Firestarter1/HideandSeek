@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuStore;
     [SerializeField] GameObject menuInventory;
+    [SerializeField] GameObject audioSettingsMenu;
 
     [SerializeField] TMP_Text gameGoalCountText;
 
@@ -88,6 +89,10 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
+        if (audioSettingsMenu != null && audioSettingsMenu.activeInHierarchy)
+        {
+            audioSettingsMenu.SetActive(false);
+        }
         menuActive = null;
     }
 
