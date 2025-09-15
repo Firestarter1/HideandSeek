@@ -160,6 +160,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
             GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
             currGun.ammoCurr = currGun.ammoMax;
             UpdateGunUI(currGun);
+            SoundManager.Instance.PlaySoundFXClip(SoundType.Reload, gunModel.transform.position, AudioGroup.GunSFX, 1f, 0.05f, 1.0f, 0.05f);
         }
     }
 
