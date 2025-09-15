@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         shootTimer = 0;
         currGun.ammoCurr--;
         UpdateGunUI(currGun);
-        SoundManager.Instance.PlaySoundFXClip(currGun.shootSound, GameManager.Instance.playerScript.transform, AudioGroup.GunSFX, 1f, 0.1f, 1f, 0.1f);
+        SoundManager.Instance.PlaySoundFXClip(currGun.shootSound, gunModel.transform.position, AudioGroup.GunSFX, 1f, 0.1f, 1f, 0.1f);
 
         Vector3 start = gunModel.transform.position;
         float maxDist = currGun.shootDist;

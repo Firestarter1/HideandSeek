@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
+using UnityEngine.WSA;
 
 public class WaveManager : MonoBehaviour
 {
@@ -49,6 +50,9 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator PreRoundCountdown()
     {
+        
+        currentRound = rounds[currentRoundIndex];
+        roundStarted.Invoke();
         int time = timeBetweenRounds;
         while (time > 0)
         {
@@ -72,12 +76,19 @@ public class WaveManager : MonoBehaviour
                 SpawnWave(shortestWave);
             }
         }
-        else if (currentWaveMobs <= 0 && pendingWaves.Count <= 0 && roundActive)
+        else if (pendingWaves.Count <= 0 && currentRoundMobs <= 0 && roundActive)
         {
             currentRoundIndex++;
             allMobsKilled.Invoke();
             roundActive = false;
-            StartRound();
+            if (currentRoundIndex == rounds.Length)
+            {
+                GameManager.Instance.WinState();
+            } else
+            {
+                StartCoroutine(PreRoundCountdown());
+            }
+            
         }
     }
 
@@ -89,7 +100,6 @@ public class WaveManager : MonoBehaviour
     public void StartRound()
     {
         roundActive = true;
-        currentRound = rounds[currentRoundIndex];
         roundStarted.Invoke();
         for (int i = 0; i < currentRound.waves.Length; i++)
         {
@@ -124,7 +134,7 @@ public class WaveManager : MonoBehaviour
             StartCoroutine(SpawnMob(wave.GetEnemy(i), wave.spawnLocation, i * wave.delayBetweenEnemies));
             currentWaveMobs++;
         }
-
+        pendingWaves.Remove(wave);
     }
     IEnumerator SpawnMob(EnemeyAI enemy, int location, float delay)
     {

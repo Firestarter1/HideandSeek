@@ -28,6 +28,11 @@ public class WaveDisplay : MonoBehaviour
 
     private void Start()
     {
+        if (WaveManager.instance == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         waveManager = WaveManager.instance;
         waveManager.roundStarted.AddListener(SetRoundText);
         waveManager.roundCountdown.AddListener(SetNextWaveTimerText);
@@ -55,7 +60,7 @@ public class WaveDisplay : MonoBehaviour
 
     void SetNextWaveTimerText(int timeRemaining)
     {
-        nextWaveTimerLabelText.text = "<color=#" + nextWaveTimerLabelColor.ToHexString() + "> NEXT WAVE:</color>";
+        nextWaveTimerLabelText.text = "<color=#" + nextWaveTimerLabelColor.ToHexString() + "> NEXT ROUND:</color>";
 
         nextWaveTimerCounterText.text = "<color=#" + nextWaveTimerCounterColor.ToHexString() + "> " + timeRemaining + "</color>";
     }

@@ -10,6 +10,7 @@ public class loot : MonoBehaviour
 
         if(pickupable != null )
         {
+            SoundManager.Instance.PlaySoundFXClip(SoundType.Item_Pickup, transform.position, AudioGroup.SFX, 0.75f, 0.05f, 1f, 0.15f);
             InventoryManager.Instance.AddItem(item);
             Destroy(gameObject);
         }

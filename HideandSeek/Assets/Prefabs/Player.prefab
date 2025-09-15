@@ -376,6 +376,7 @@ GameObject:
   - component: {fileID: 7868897659104467652}
   - component: {fileID: 8006302713984226400}
   - component: {fileID: 3412406845709075554}
+  - component: {fileID: 7405346023368862175}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -422,7 +423,7 @@ MonoBehaviour:
   HP: 5
   speed: 5
   sprintMod: 4
-  jumpSpeed: 12
+  jumpSpeed: 8
   jumpMax: 1
   gravity: 20
   interactDist: 0
@@ -431,7 +432,7 @@ MonoBehaviour:
   shootDamage: 0
   shootRate: 0
   shootDist: 0
-  tracer: {fileID: 0}
+  tracer: {fileID: 7405346023368862175}
 --- !u!143 &5547979343575741039
 CharacterController:
   m_ObjectHideFlags: 0
@@ -524,9 +525,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 5547979343575741039}
   held: {fileID: 5264947229178263280}
-  viewBobFrequency: 2.3
-  viewBobAmplitude: 0.2
+  viewBobFrequency: 2.7
+  viewBobAmplitude: 0.1
   recenterSpeed: 5
+--- !u!114 &7405346023368862175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5069646169059245480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587f3b26cc829ee45b837d70f08d28b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletTrail: {fileID: 6355992690238502249, guid: c614fbb96550a6241aa585d4ecf07513, type: 3}
+  impactParticles: {fileID: 970440554703164915, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
+  decal: {fileID: 7179515552740196507, guid: d4831ade3d1395241bca4fe2dbb5e8f1, type: 3}
+  decalLength: 30
 --- !u!1 &6701926971876516684
 GameObject:
   m_ObjectHideFlags: 0

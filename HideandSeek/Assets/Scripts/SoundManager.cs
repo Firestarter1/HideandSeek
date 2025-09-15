@@ -15,7 +15,7 @@ public struct Sound
     public AudioClip[] clips;
 }
 
-public enum SoundType { Pistol, Shotgun, Machinegun, Aim, Reload, Heal, Damage, Death, Jump, Walk, Sprint, Explosion, BGM, MenuHover }
+public enum SoundType { Pistol, Shotgun, Machinegun, Aim, Reload, Heal, Damage, Death, Jump, Walk, Sprint, Explosion, BGM, MenuHover, Footstep, Item_Pickup, Menu_Click }
 
 public enum AudioGroup { SFX, GunSFX, Music}
 
@@ -71,11 +71,11 @@ public class SoundManager : MonoBehaviour
      * 
      * AudioGroup is what bus the audio will go through (SFX, GunSFX, Music)
      */
-    public void PlaySoundFXClip(SoundType type, Transform spawnLocation, AudioGroup audioGroup, float volume = 1.0f, float pitch = 1.0f)
+    public void PlaySoundFXClip(SoundType type, Vector3 spawnLocation, AudioGroup audioGroup, float volume = 1.0f, float pitch = 1.0f)
     {
         if (!TryGetSound(type, out Sound sound)) return;
 
-        AudioSource audioSource = Instantiate(soundObject, spawnLocation.position, Quaternion.identity);
+        AudioSource audioSource = Instantiate(soundObject, spawnLocation, Quaternion.identity);
 
         AudioClip clip = sound.clips.Length == 1 ? sound.clips[0] : GetRandomSound(sound);
 
@@ -93,11 +93,11 @@ public class SoundManager : MonoBehaviour
     /*
      * Variation to call when wanting to add random ranges to pitch and volume.
      */
-    public void PlaySoundFXClip(SoundType type, Transform spawnLocation, AudioGroup audioGroup, float volume, float volumeRange, float pitch, float pitchRange)
+    public void PlaySoundFXClip(SoundType type, Vector3 spawnLocation, AudioGroup audioGroup, float volume, float volumeRange, float pitch, float pitchRange)
     {
         if (!TryGetSound(type, out Sound sound)) return;
 
-        AudioSource audioSource = Instantiate(soundObject, spawnLocation.position, Quaternion.identity);
+        AudioSource audioSource = Instantiate(soundObject, spawnLocation, Quaternion.identity);
 
         AudioClip clip = sound.clips.Length == 1 ? sound.clips[0] : GetRandomSound(sound);
 
