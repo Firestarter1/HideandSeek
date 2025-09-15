@@ -4,8 +4,6 @@ using System.Data;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
-using UnityEngine.WSA;
 
 public class WaveManager : MonoBehaviour
 {
@@ -52,6 +50,7 @@ public class WaveManager : MonoBehaviour
     {
         
         currentRound = rounds[currentRoundIndex];
+        yield return null;
         roundStarted.Invoke();
         int time = timeBetweenRounds;
         while (time > 0)
@@ -95,6 +94,7 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(PreRoundCountdown());
+        
     }
 
     public void StartRound()
