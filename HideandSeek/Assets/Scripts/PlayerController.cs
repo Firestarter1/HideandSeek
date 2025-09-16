@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     bool isSprinting;
 
+    [SerializeField] BulletTracer tracer;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -60,32 +62,32 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     {
         shootTimer += Time.deltaTime;
 
-        if (controller.isGrounded)
-        {
-            jumpCount = 0;
-            playerVel = Vector3.zero;
-        }
-        else
-        {
-            playerVel.y -= gravity * Time.deltaTime;
-        }
-
         moveDir = (Input.GetAxis("Horizontal") * transform.right) +
            (Input.GetAxis("Vertical") * transform.forward);
 
-        controller.Move(moveDir * speed * Time.deltaTime);
+        if (controller.isGrounded && playerVel.y < 0f)
+        {
+            jumpCount = 0;
+            playerVel.y = -2f;
+        }
 
         jump();
 
-        controller.Move(playerVel * Time.deltaTime);
-
         playerVel.y -= gravity * Time.deltaTime;
+        Vector3 velocity = moveDir * speed + playerVel;
+        controller.Move(velocity * Time.deltaTime);
+
+        
+
+        //controller.Move(playerVel * Time.deltaTime);
+
+        //playerVel.y -= gravity * Time.deltaTime;
 
         //seletGun();
 
         reload();
 
-        if (Input.GetButtonDown("Use") || Input.GetButton("Fire1"))
+        if (GameManager.Instance.menuActive == null && (Input.GetButtonDown("Use") || Input.GetButton("Fire1")))
         {
             InventoryManager.Instance.GetSelectedItem(true);
         }
@@ -116,24 +118,39 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     public void shoot()
     {
-        shootTimer = 0;
         GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
+        if (shootTimer < currGun.shootRate) return;
+             
+        shootTimer = 0;
         currGun.ammoCurr--;
         UpdateGunUI(currGun);
+        SoundManager.Instance.PlaySoundFXClip(currGun.shootSound, gunModel.transform.position, AudioGroup.GunSFX, 1f, 0.1f, 1f, 0.1f);
 
+        Vector3 start = gunModel.transform.position;
+        float maxDist = currGun.shootDist;
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        bool inRange = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDist, ~ignoreLayer, QueryTriggerInteraction.Ignore);
+        Vector3 end = inRange ? hit.point : start + Camera.main.transform.forward * maxDist;
+
+        Instantiate(currGun.muzzleFlash, gunModel.transform.position, gunModel.transform.rotation);
+        if (inRange)
         {
             //Debug.Log(hit.collider.name);
-            Instantiate(currGun.hitEffect, hit.point, Quaternion.identity);
-
+            //Instantiate(currGun.hitEffect, hit.point, Quaternion.identity);
+            
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
             if (dmg != null)
             {
                 dmg.takeDamage(shootDamage);
             }
+
+            tracer.CreateTrail(hit, start);
+        } else
+        {
+            tracer.CreateTrail(start, end);
         }
+        
     }
 
     void reload()
@@ -143,6 +160,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
             GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
             currGun.ammoCurr = currGun.ammoMax;
             UpdateGunUI(currGun);
+            SoundManager.Instance.PlaySoundFXClip(SoundType.Reload, gunModel.transform.position, AudioGroup.GunSFX, 1f, 0.05f, 1.0f, 0.05f);
         }
     }
 
@@ -206,7 +224,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     public void changeGun()
     {
-        GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false); ;
+        GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false); 
 
         shootDamage = currGun.shootDamage;
         shootDist = currGun.shootDist;

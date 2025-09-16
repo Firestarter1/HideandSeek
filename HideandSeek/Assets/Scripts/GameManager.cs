@@ -8,12 +8,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Header("Menus:")]
-    [SerializeField] GameObject menuActive;
+    [SerializeField] public GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuStore;
     [SerializeField] GameObject menuInventory;
+    [SerializeField] GameObject audioSettingsMenu;
 
     [SerializeField] TMP_Text gameGoalCountText;
 
@@ -88,6 +89,10 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
+        if (audioSettingsMenu != null && audioSettingsMenu.activeInHierarchy)
+        {
+            audioSettingsMenu.SetActive(false);
+        }
         menuActive = null;
     }
 
@@ -100,10 +105,15 @@ public class GameManager : MonoBehaviour
         if (gameGoalCount <= 0)
         {
             // you win;
-            statePause();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
+            WinState();
         }
+    }
+
+    public void WinState()
+    {
+        statePause();
+        menuActive = menuWin;
+        menuActive.SetActive(true);
     }
 
     public void youLose()

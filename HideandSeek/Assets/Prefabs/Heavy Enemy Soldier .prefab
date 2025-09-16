@@ -873,7 +873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a5c4a98e0e7c843afaff6e0f3db563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  model: {fileID: 8745993076071058071}
   agent: {fileID: 8643093880384127213}
   headPos: {fileID: 6267702657068689189}
   ragdollPrefab: {fileID: 6742343961716029954, guid: 3fe1b3cf46d775443a26f2ee0ff705b0, type: 3}
@@ -1157,7 +1157,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1139da48893bed94d84f299ed249b517, type: 2}
+  - {fileID: 2100000, guid: 88dc1118cd6d5eb4dab937ce5d1db985, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

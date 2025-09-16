@@ -8,6 +8,11 @@ TagManager:
   - Player Spawn Pos
   - InteractPrompt
   - Store
+  - GasTank
+  - Target
+  - Metal
+  - ExplosiveBarrel
+  - Settings Menu
   layers:
   - Default
   - TransparentFX

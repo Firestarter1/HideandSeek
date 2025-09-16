@@ -24,6 +24,7 @@ MonoBehaviour:
   shootRate: 0.25
   ammoCurr: 50
   ammoMax: 50
+  muzzleFlash: {fileID: 1848779846791409710, guid: 3c5032d635eee4c498999cf5e0243465, type: 3}
   hitEffect: {fileID: 970440554703164915, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
-  shootSound: []
+  shootSound: 0
   shootVal: 0.5

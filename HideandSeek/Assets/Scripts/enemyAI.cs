@@ -38,7 +38,13 @@ public class EnemeyAI : MonoBehaviour, IDamage
     void Start()
     {
         colorOrig = model.material.color;
-        GameManager.Instance.updateGameGoal(1);
+
+        //Makes sure the game doesn't prematurely end if we're working in a scene that has a wave system
+        if (WaveManager.instance == null)
+        {
+            GameManager.Instance.updateGameGoal(1);
+        }
+        
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
@@ -109,7 +115,7 @@ public class EnemeyAI : MonoBehaviour, IDamage
                 if (shootTimer >= shootRate)
                 {
                     shoot();
-                    SoundManager.PlaySound(SoundManager.SoundType.Pistol);
+                    SoundManager.Instance.PlaySoundFXClip(SoundType.Pistol, transform.position, AudioGroup.GunSFX);
                 }
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
@@ -164,8 +170,14 @@ public class EnemeyAI : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            GameManager.Instance.updateGameGoal(-1);
+            //Makes sure the game doesn't prematurely end if we're working in a scene that has a wave system
+            if (WaveManager.instance == null)
+            {
+                GameManager.Instance.updateGameGoal(-1);
+            }
+            
             GameManager.Instance.playerScript.UpdateWallet(cashReward);
+            WaveManager.instance?.MobDeath();
             Instantiate(ragdollPrefab, transform.position, transform.rotation);
             Destroy(gameObject);
         }

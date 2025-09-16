@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
+    [SerializeField] GameObject settingsMenu;
     public void resume()
     {
         GameManager.Instance.stateUnpause();
@@ -37,6 +38,21 @@ public class buttonFunctions : MonoBehaviour
     public void LoadStart()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void LoadWaveTest()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void OpenSettingsMenu()
+    {
+        settingsMenu.SetActive(true);
+    }
+
+    public void CloseSettingsMenu()
+    {
+        settingsMenu.SetActive(false);
     }
 }
 

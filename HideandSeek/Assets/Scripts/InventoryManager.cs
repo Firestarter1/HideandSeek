@@ -34,6 +34,7 @@ public class InventoryManager : MonoBehaviour
             if (isNumber && number <= 9 && number > 0)
             {
                 ChangeSelectedSlot(number - 1);
+                ChangeHeldItem();
             }
         }
 
@@ -148,7 +149,7 @@ public class InventoryManager : MonoBehaviour
             if (currGun.ammoCurr > 0)
             {
                 GameManager.Instance.playerScript.shoot();
-                SoundManager.PlaySound(SoundManager.SoundType.Pistol);
+                
             }
         }
     }
@@ -156,7 +157,7 @@ public class InventoryManager : MonoBehaviour
     public void ChangeHeldItem()
     {
         Item currItem = GetSelectedItem(false);
-
+        //Debug.Log("currItemNull?:" + currItem == null + " currItemType:" + currItem.itemType.ToString());
         if (currItem != null && currItem.itemType == Item.ItemType.Gun)
         {
             GameManager.Instance.playerScript.changeGun();

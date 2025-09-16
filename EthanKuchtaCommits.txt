@@ -1,0 +1,57 @@
+commit d1469c8d2e3d7f24234742fa81d129f828c881b1
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Sun Sep 14 22:02:31 2025 -0400
+
+    Menu click and reload sound implementation
+
+commit 477bc89fa7d6313b3b5f64ab3b5925283a71c76f
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Sun Sep 14 21:49:24 2025 -0400
+
+    Finished wave system, added sounds to all menu hovers, footsteps, pickups
+
+commit 21523c99044bae08d268e69008659bfcb14fa835
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Sun Sep 14 00:51:52 2025 -0400
+
+    Wave system first pass implementation in testing scene, needs additional testing and implementation into main scene
+
+commit b712b07c59ce701a8817ece57587d8403c3aad5e
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Sat Sep 13 13:23:33 2025 -0400
+
+    Tracer drawing when no raycast target fix
+
+commit 6ad016b7e4bf36893c95e411c33f722f26d7fbb6
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Sat Sep 13 13:03:22 2025 -0400
+
+    Update 01 - Main.unity
+
+commit 48e987a7f75e248b31d984854a9f3c6f7c5c8fd6
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Sat Sep 13 13:00:48 2025 -0400
+
+    Bullet tracer and decals
+
+commit 70ed5a91166c026affbcb27539aef93e5d4116d5
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Fri Sep 12 17:56:04 2025 -0400
+
+    View bobbing + Player Controller fixes
+    
+    Added ViewBobbingController to allow for view bobbing on the player camera. Additionally, fixed some issues with the PlayerController that was causing it to not be registered as ever being grounded.
+
+commit c6dff5b57a40de56995d87aeb8b5ee361201c69c
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Fri Sep 12 16:17:38 2025 -0400
+
+    Added audio settings to in game menu
+
+commit 320dd28ff791c511328afbbb578b5f5cdf358196
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Wed Sep 10 18:31:25 2025 -0400
+
+    Sound Manager Changes
+    
+    Changes to the sound manager to better handle sounds, and allow for custom sounds routing
