@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     [Header("Gun Settings:")]
     [SerializeField] GameObject gunModel;
+    [SerializeField] GameObject itemModel;
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
@@ -261,5 +262,23 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public int CheckFunds()
     {
         return wallet;
+    }
+
+    public void ChangeHeldItem()
+    {
+        Item currItem = InventoryManager.Instance.GetSelectedItem(false);
+
+        //Debug.Log("currItemNull?:" + currItem == null + " currItemType:" + currItem.itemType.ToString());
+        if (currItem != null && currItem.itemType == Item.ItemType.Gun)
+        {
+            itemModel.SetActive(false);
+            changeGun();
+        }
+        else
+        {
+            gunModel.SetActive(false);
+            itemModel.GetComponent<MeshFilter>().sharedMesh = currItem.model.GetComponent<MeshFilter>().sharedMesh;
+            itemModel.GetComponent<MeshRenderer>().sharedMaterial = currItem.model.GetComponent<MeshRenderer>().sharedMaterial;
+        }
     }
 }

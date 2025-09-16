@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 131b4b62cef390249bf857a9a0c0291c, type: 3}
   m_Name: Health Pack
   m_EditorClassIdentifier: 
-  model: {fileID: 8198909352693198359, guid: 84ecf1efb046f604e8edf8818733b7fc, type: 3}
+  model: {fileID: 5711284547425740079, guid: 6028e85900bf20443a4cc7c4aff66277, type: 3}
   itemName: Health Pack 1
   itemType: 0
   image: {fileID: 21300000, guid: 5b1e60b2badbd64468749ffc7b379766, type: 3}

@@ -35,7 +35,7 @@ public class InventoryManager : MonoBehaviour
             if (isNumber && number <= 9 && number > 0)
             {
                 ChangeSelectedSlot(number - 1);
-                ChangeHeldItem();
+                GameManager.Instance.playerScript.ChangeHeldItem();
             }
         }
 
@@ -43,13 +43,13 @@ public class InventoryManager : MonoBehaviour
         {
             int newValue = selectedSlot + 1;
             ChangeSelectedSlot(newValue);
-            ChangeHeldItem();
+            GameManager.Instance.playerScript.ChangeHeldItem();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedSlot > 0)
         {
             int newValue = selectedSlot - 1;
             ChangeSelectedSlot(newValue);
-            ChangeHeldItem();
+            GameManager.Instance.playerScript.ChangeHeldItem();
         }
     }
 
@@ -155,14 +155,4 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void ChangeHeldItem()
-    {
-        Item currItem = GetSelectedItem(false);
-
-        //Debug.Log("currItemNull?:" + currItem == null + " currItemType:" + currItem.itemType.ToString());
-        if (currItem != null && currItem.itemType == Item.ItemType.Gun)
-        {
-            GameManager.Instance.playerScript.changeGun();
-        }
-    }
 }
