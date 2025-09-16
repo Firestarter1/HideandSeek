@@ -1,3 +1,4 @@
+using Meshy;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -157,6 +158,7 @@ public class InventoryManager : MonoBehaviour
     public void ChangeHeldItem()
     {
         Item currItem = GetSelectedItem(false);
+
         //Debug.Log("currItemNull?:" + currItem == null + " currItemType:" + currItem.itemType.ToString());
         if (currItem != null && currItem.itemType == Item.ItemType.Gun)
         {
