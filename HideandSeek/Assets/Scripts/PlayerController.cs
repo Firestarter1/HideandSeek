@@ -204,14 +204,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         GameManager.Instance.playerHealScreen.SetActive(false);
     }
 
-    //public void getGunStats(GunStates gun)
-    //{
-    //    gunList.Add(gun);
-    //    gunListPos = gunList.Count - 1;
-
-    //    changeGun();
-    //}
-
     public void changeGun()
     {
         GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false); ;
@@ -225,21 +217,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         gunModel.GetComponent<MeshFilter>().sharedMesh = currGun.model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = currGun.model.GetComponent<MeshRenderer>().sharedMaterial;
     }
-
-    //void seletGun()
-    //{
-    //    if(Input.GetAxis("Mouse ScrollWheel") > 0 && gunListPos < gunList.Count - 1)
-    //    {
-    //        gunListPos++;
-    //        changeGun();
-    //    }
-    //    else if(Input.GetAxis("Mouse ScrollWheel") < 0 && gunListPos > 0)
-    //    {
-    //        gunListPos--;
-    //        changeGun();
-    //    }
-    //}
-
     void CheckInteractable()
     {
         RaycastHit hit;
