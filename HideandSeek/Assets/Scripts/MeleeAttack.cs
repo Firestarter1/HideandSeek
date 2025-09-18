@@ -15,7 +15,7 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] LayerMask targetLayerMask;
     [SerializeField] LayerMask obstructionLayerMask;
 
-
+    Animator animator;
     NavMeshAgent navigationAgent;
     float cooldownTimer = 0.0f;
 
@@ -26,10 +26,13 @@ public class MeleeAttack : MonoBehaviour
             Destroy(this);
             return;
         }
+        animator = GetComponent<Animator>();
+        if (!eyePosition) eyePosition = transform;
     }
 
     private void Update()
     {
+        //if (navigationAgent.isStopped) return;
         cooldownTimer += Time.deltaTime;
         if (cooldownTimer < cooldown) return;
 
@@ -39,32 +42,43 @@ public class MeleeAttack : MonoBehaviour
 
         if (TargetInRange(target.transform))
         {
-            cooldownTimer = 0f;
+            animator?.SetTrigger("Attack");
 
-            if (target.TryGetComponent<IDamage>(out IDamage dmg)) {
-                dmg.takeDamage(damage);
-            }
-
-            Vector3 look = target.transform.position - transform.position;
+            /*Vector3 look = target.transform.position - transform.position;
             look.y = 0;
             if (look.magnitude > 0.0001f)
             {
                 transform.rotation = Quaternion.LookRotation(look);
+            }*/
+        }
+    }
+
+    public void Attack()
+    {
+        GameObject target = GameManager.Instance.player;
+        if (TargetInRange(target.transform))
+        {
+            cooldownTimer = 0f;
+
+            if (target.TryGetComponent<IDamage>(out IDamage dmg))
+            {
+                dmg.takeDamage(damage);
             }
+
+            
         }
     }
      
     bool ReachedTarget()
     {
+        if (!navigationAgent.isOnNavMesh) return false;
         if (navigationAgent.pathPending) return false;
-        if (navigationAgent.hasPath)
-        {
-            if (navigationAgent.remainingDistance > navigationAgent.stoppingDistance) return false;
-            if (navigationAgent.velocity.sqrMagnitude > 0.01f) return false;
-            return true;
-        }
+        
+        float distance = Vector3.Distance(navigationAgent.transform.position, GameManager.Instance.player.GetComponent<Collider>().ClosestPoint(navigationAgent.transform.position));
+        bool inStoppingDistance = distance <= navigationAgent.stoppingDistance + 0.1f;
 
-        return false;
+
+        return inStoppingDistance;
     }
 
 

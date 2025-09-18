@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour, IDamage
     float positionUpdateTimer = 0.0f;
     bool near = false;
 
+    Animator animator;
+
     private void Start()
     {
         if (!TryGetComponent<NavMeshAgent>(out navigationAgent))
@@ -37,16 +39,69 @@ public class Enemy : MonoBehaviour, IDamage
         }
         player = GameManager.Instance.player;
         maxHealth = health;
+        animator = GetComponent<Animator>();
+        navigationAgent.updatePosition = false;
+        navigationAgent.updateRotation = false;
+        animator.applyRootMotion = true;
     }
 
     private void Update()
     {
+        Vector3 desired = navigationAgent.desiredVelocity;
+        float desiredSpeed = desired.magnitude;
+
+        if (desiredSpeed > 0.01f)
+        {
+            Vector3 dir = desired.normalized;
+            dir.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
+
+            if (IsWalking())
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, navigationAgent.angularSpeed);
+
+            }
+            
+        }
+
+        navigationAgent.nextPosition = transform.position;
+
         positionUpdateTimer += Time.deltaTime;
         if (positionUpdateTimer < (near == true ? nearPositionRefreshTime : farPositionRefreshTime)) return;
 
         UpdateNearFar();
         navigationAgent.destination = player.transform.position;
         
+    }
+
+    bool IsWalking()
+    {
+        AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+        if (animator.IsInTransition(0))
+        {
+            AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
+            return info.shortNameHash == Animator.StringToHash("Walking") || nextInfo.shortNameHash == Animator.StringToHash("Walking");
+        }
+        return info.shortNameHash == Animator.StringToHash("Walking");
+    }
+
+    void FootstepSound()
+    {
+        SoundManager.Instance.PlaySoundFXClip(SoundType.Footstep, transform.position, AudioGroup.SFX, 0.2f, 0.05f, 0.5f, 0.1f);
+    }
+
+    void OnAnimatorMove()
+    {
+        Vector3 delta = animator.deltaPosition;
+
+        transform.position += delta;
+
+        if (Time.deltaTime > 0f)
+        {
+            navigationAgent.velocity = delta / Time.deltaTime;
+        }
+
+        navigationAgent.nextPosition = transform.position;
     }
 
     void UpdateNearFar()
@@ -66,6 +121,9 @@ public class Enemy : MonoBehaviour, IDamage
         health = Mathf.Clamp(health, 0, maxHealth);
         if (health == 0)
         {
+            navigationAgent.isStopped = true;
+            GetComponent<Collider>().enabled = false;
+            animator.SetTrigger("Death");
             //Emit health depleted signal
             return;
         }
