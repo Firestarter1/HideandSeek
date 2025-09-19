@@ -50,7 +50,7 @@ public class ExplodingAttack : MonoBehaviour
 
         GameObject target = GameManager.Instance.player;
 
-        if (TargetInRange(target.transform) && !detonated)
+        if (TargetInRange(target.transform) && !detonated && !CurrentState("Death"))
         {
             animator?.SetTrigger("Attack");
             detonated = true;
@@ -64,6 +64,17 @@ public class ExplodingAttack : MonoBehaviour
         }
 
         
+    }
+
+    bool CurrentState(string stateName)
+    {
+        AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+        if (animator.IsInTransition(0))
+        {
+            AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
+            return info.shortNameHash == Animator.StringToHash(stateName) || nextInfo.shortNameHash == Animator.StringToHash(stateName);
+        }
+        return info.shortNameHash == Animator.StringToHash(stateName);
     }
 
     void EnableRadiusPlane()

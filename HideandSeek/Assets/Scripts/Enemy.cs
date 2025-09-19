@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour, IDamage
         }
 
         navigationAgent.nextPosition = transform.position;
-
+        if (!navigationAgent.isOnNavMesh) return;
         positionUpdateTimer += Time.deltaTime;
         AgentSync();
         if (positionUpdateTimer < refreshTime) return;
@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour, IDamage
     {
         if (!navigationAgent.isOnNavMesh)
         {
-            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 2f, navigationAgent.areaMask))
+            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 2f, navigationAgent.areaMask) || NavMesh.SamplePosition(transform.position, out hit, 6f, navigationAgent.areaMask))
             {
                 navigationAgent.Warp(hit.position);
             }
@@ -108,8 +108,15 @@ public class Enemy : MonoBehaviour, IDamage
     void OnAnimatorMove()
     {
         Vector3 delta = animator.deltaPosition;
+        Vector3 proposedDelta = transform.position + delta;
 
-        transform.position += delta;
+        if (navigationAgent.isOnNavMesh && NavMesh.SamplePosition(proposedDelta, out NavMeshHit hit, navigationAgent.radius * 2f, navigationAgent.areaMask))
+        {
+            transform.position = hit.position;
+        } else
+        {
+            transform.position = proposedDelta;
+        }
 
         if (Time.deltaTime > 0f)
         {
