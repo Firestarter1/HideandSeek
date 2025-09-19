@@ -22,12 +22,16 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] private float farPositionRefreshTime;
     [SerializeField] private float farPositionRefreshVariability = 2.0f;
     [SerializeField] private float nearPositionRefreshTime;
+
+    
+
     [Space(10)]
     [SerializeField] private Color nearFarGizmoColor;
 
     GameObject player;
     float positionUpdateTimer = 0.0f;
-    bool near = false;
+    float refreshTime;
+    bool near;
 
     Animator animator;
 
@@ -43,51 +47,62 @@ public class Enemy : MonoBehaviour, IDamage
         navigationAgent.updatePosition = false;
         navigationAgent.updateRotation = false;
         animator.applyRootMotion = true;
+        refreshTime = farPositionRefreshTime;
     }
 
     private void Update()
     {
-        Vector3 desired = navigationAgent.desiredVelocity;
-        float desiredSpeed = desired.magnitude;
-
-        if (desiredSpeed > 0.01f)
+        Vector3 lookVec = navigationAgent.hasPath ? navigationAgent.steeringTarget - transform.position : navigationAgent.desiredVelocity;
+        lookVec.y = 0f;
+        if (lookVec.sqrMagnitude > 0.0001f && !CurrentState("Death"))
         {
-            Vector3 dir = desired.normalized;
-            dir.y = 0;
-            Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
-
-            if (IsWalking())
-            {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, navigationAgent.angularSpeed);
-
-            }
-            
+            Quaternion lookRotation = Quaternion.LookRotation(lookVec);
+            float maxTurn = navigationAgent.angularSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, maxTurn);
         }
 
         navigationAgent.nextPosition = transform.position;
 
         positionUpdateTimer += Time.deltaTime;
-        if (positionUpdateTimer < (near == true ? nearPositionRefreshTime : farPositionRefreshTime)) return;
-
+        AgentSync();
+        if (positionUpdateTimer < refreshTime) return;
+        if (!near && farPositionRefreshVariability > 0) refreshTime = Random.Range(farPositionRefreshTime - farPositionRefreshVariability, farPositionRefreshTime + farPositionRefreshVariability);
         UpdateNearFar();
         navigationAgent.destination = player.transform.position;
-        
+        positionUpdateTimer = 0;
     }
 
-    bool IsWalking()
+    void AgentSync()
+    {
+        if (!navigationAgent.isOnNavMesh)
+        {
+            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 2f, navigationAgent.areaMask))
+            {
+                navigationAgent.Warp(hit.position);
+            }
+            return;
+        }
+        float drift = Vector3.Distance(navigationAgent.nextPosition, transform.position);
+        if (drift > 0.75f)
+        {
+            navigationAgent.Warp(transform.position);
+        }
+    }
+
+    bool CurrentState(string stateName)
     {
         AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
         if (animator.IsInTransition(0))
         {
             AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
-            return info.shortNameHash == Animator.StringToHash("Walking") || nextInfo.shortNameHash == Animator.StringToHash("Walking");
+            return info.shortNameHash == Animator.StringToHash(stateName) || nextInfo.shortNameHash == Animator.StringToHash(stateName);
         }
-        return info.shortNameHash == Animator.StringToHash("Walking");
+        return info.shortNameHash == Animator.StringToHash(stateName);
     }
 
     void FootstepSound()
     {
-        SoundManager.Instance.PlaySoundFXClip(SoundType.Footstep, transform.position, AudioGroup.SFX, 0.2f, 0.05f, 0.5f, 0.1f);
+        SoundManager.Instance.PlaySoundFXClip(SoundType.Footstep, transform.position, AudioGroup.SFX, 0.05f, 0.05f, 0.5f, 0.1f);
     }
 
     void OnAnimatorMove()
@@ -102,15 +117,18 @@ public class Enemy : MonoBehaviour, IDamage
         }
 
         navigationAgent.nextPosition = transform.position;
+        AgentSync();
     }
 
     void UpdateNearFar()
     {
         if (near && Vector3.Distance(transform.position, player.transform.position) > farNearDistance)
         {
+            refreshTime = farPositionRefreshTime;
             near = false;
         } else if (!near && Vector3.Distance(transform.position,player.transform.position) <= farNearDistance)
         {
+            refreshTime = nearPositionRefreshTime;
             near = true;
         }
     }
