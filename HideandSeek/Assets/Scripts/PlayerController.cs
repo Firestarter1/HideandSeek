@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
@@ -40,10 +41,21 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     [SerializeField] BulletTracer tracer;
 
+    [System.NonSerialized] public UnityEvent<float> healthUpdated;
+    [System.NonSerialized] public UnityEvent<int> walletUpdated;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    void Awake()
+    {
+        healthUpdated = new UnityEvent<float>();
+        walletUpdated = new UnityEvent<int>();
+    }
     void Start()
     {
         HPOrig = HP;
+        healthUpdated.Invoke(1);
+        walletUpdated.Invoke(wallet);
         interactPrompt = GameManager.Instance.interactPrompt;
 
         spawnPlayer();
@@ -167,8 +179,8 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public void takeDamage(int amount)
     {
         HP -= amount;
-
-        updatePlayerUI();
+        healthUpdated.Invoke(Mathf.Clamp01((float)HP/(float)HPOrig));
+        //updatePlayerUI();
         StartCoroutine(flashDamageScreen());
 
         if (HP <= 0)
@@ -180,8 +192,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public void Heal(int amount)
     {
         HP += amount;
-
-        updatePlayerUI();
+        HP = Mathf.Clamp(HP, 0, HPOrig);
         StartCoroutine(flashHealScreen());
     }
 
@@ -279,6 +290,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public void UpdateWallet(int amount)
     {
         wallet += amount;
+        walletUpdated.Invoke(wallet);
     }
 
     public int CheckFunds()
