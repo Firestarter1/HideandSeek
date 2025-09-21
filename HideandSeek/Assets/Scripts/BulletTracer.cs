@@ -1,24 +1,24 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-
-public class BulletTracer : MonoBehaviour
+[CreateAssetMenu] 
+public class BulletTracer : ScriptableObject
 {
     public TrailRenderer bulletTrail;
     public ParticleSystem impactParticles;
     public DecalProjector decal;
     public float decalLength;
 
-    public void CreateTrail(Vector3 startPos, Vector3 endPos)
+    public void CreateTrail(Vector3 startPos, Vector3 endPos, MonoBehaviour caster)
     {
         TrailRenderer renderer = Instantiate(bulletTrail, startPos, Quaternion.identity);
-        StartCoroutine(SpawnTrail(renderer , endPos));
+        caster.StartCoroutine(SpawnTrail(renderer , endPos));
     }
 
-    public void CreateTrail(RaycastHit hit, Vector3 startPos)
+    public void CreateTrail(RaycastHit hit, Vector3 startPos, MonoBehaviour caster)
     {
         TrailRenderer renderer = Instantiate(bulletTrail, startPos, Quaternion.identity);
-        StartCoroutine(SpawnTrailHit(renderer, startPos, hit));
+        caster.StartCoroutine(SpawnTrailHit(renderer, startPos, hit));
     }
 
     IEnumerator SpawnTrail(TrailRenderer trail, Vector3 endPos)

@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
     [Header("Player UI:")]
     public Image playerHPBar;
     public TMP_Text walletText;
-    public GameObject playerDamageScreen;
-    public GameObject playerHealScreen;
+    public Image playerDamageScreen;
+    public Image playerHealScreen;
     public GameObject interactPrompt;
 
     [Header("Gun UI:")]

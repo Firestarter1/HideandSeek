@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 {
@@ -22,9 +23,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     [Header("Gun Settings:")]
     [SerializeField] GameObject gunModel;
-    [SerializeField] int shootDamage;
-    [SerializeField] float shootRate;
-    [SerializeField] int shootDist;
 
     private GameObject interactPrompt;
 
@@ -43,6 +41,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     [System.NonSerialized] public UnityEvent<float> healthUpdated;
     [System.NonSerialized] public UnityEvent<int> walletUpdated;
+    [System.NonSerialized] public UnityEvent<int, int> ammoUpdated;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -50,25 +49,31 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     {
         healthUpdated = new UnityEvent<float>();
         walletUpdated = new UnityEvent<int>();
+        ammoUpdated = new UnityEvent<int, int>();
     }
     void Start()
     {
         HPOrig = HP;
-        healthUpdated.Invoke(1);
-        walletUpdated.Invoke(wallet);
+        StartCoroutine(DelayedInvoke());
         interactPrompt = GameManager.Instance.interactPrompt;
 
         spawnPlayer();
     }
 
+    IEnumerator DelayedInvoke()
+    {
+        yield return null;
+        healthUpdated.Invoke(1);
+        walletUpdated.Invoke(wallet);
+        ammoUpdated.Invoke(-1, -1);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
         movement();
         sprint();
         CheckInteractable();
-        updatePlayerUI();
     }
     void movement()
     {
@@ -134,45 +139,20 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         if (shootTimer < currGun.shootRate) return;
              
         shootTimer = 0;
-        currGun.ammoCurr--;
-        UpdateGunUI(currGun);
-        SoundManager.Instance.PlaySoundFXClip(currGun.shootSound, gunModel.transform.position, AudioGroup.GunSFX, 1f, 0.1f, 1f, 0.1f);
-
-        Vector3 start = gunModel.transform.position;
-        float maxDist = currGun.shootDist;
-        RaycastHit hit;
-        bool inRange = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDist, ~ignoreLayer, QueryTriggerInteraction.Ignore);
-        Vector3 end = inRange ? hit.point : start + Camera.main.transform.forward * maxDist;
-
-        Instantiate(currGun.muzzleFlash, gunModel.transform.position, gunModel.transform.rotation);
-        if (inRange)
-        {
-            //Debug.Log(hit.collider.name);
-            //Instantiate(currGun.hitEffect, hit.point, Quaternion.identity);
-            
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-
-            if (dmg != null)
-            {
-                dmg.takeDamage(shootDamage);
-            }
-
-            tracer.CreateTrail(hit, start);
-        } else
-        {
-            tracer.CreateTrail(start, end);
-        }
-        
+        ((IShoot)currGun).Shoot(gunModel.transform);
+        ammoUpdated.Invoke(currGun.ammoCurr, currGun.ammoStored);
     }
 
     void reload()
     {
         if (Input.GetButtonDown("Reload"))
         {
-            GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false);
-            currGun.ammoCurr = currGun.ammoMax;
-            UpdateGunUI(currGun);
-            SoundManager.Instance.PlaySoundFXClip(SoundType.Reload, gunModel.transform.position, AudioGroup.GunSFX, 1f, 0.05f, 1.0f, 0.05f);
+            Item currItem = InventoryManager.Instance.GetSelectedItem(false);
+            if (currItem is GunStates gun)
+            {
+                gun.Reload();
+                ammoUpdated.Invoke(gun.ammoCurr, gun.ammoStored);
+            }
         }
     }
 
@@ -181,7 +161,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         HP -= amount;
         healthUpdated.Invoke(Mathf.Clamp01((float)HP/(float)HPOrig));
         //updatePlayerUI();
-        StartCoroutine(flashDamageScreen());
+        FlashDamageScreen();
 
         if (HP <= 0)
         {
@@ -193,19 +173,8 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     {
         HP += amount;
         HP = Mathf.Clamp(HP, 0, HPOrig);
-        StartCoroutine(flashHealScreen());
-    }
-
-    public void updatePlayerUI()
-    {
-        GameManager.Instance.playerHPBar.fillAmount = (float)HP / HPOrig;
-        GameManager.Instance.walletText.text = wallet.ToString();
-    }
-
-    public void UpdateGunUI(GunStates currGun)
-    {
-        GameManager.Instance.ammoCurrentText.text = currGun.ammoCurr.ToString();
-        GameManager.Instance.ammoMaxText.text = currGun.ammoMax.ToString();
+        FlashHealScreen();
+        healthUpdated.Invoke(Mathf.Clamp01((float)HP / (float)HPOrig));
     }
 
     public void spawnPlayer()
@@ -213,24 +182,39 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         controller.enabled = false;
         controller.transform.position = GameManager.Instance.playerSpawnPos.transform.position;
         controller.enabled = true;
-
+        healthUpdated.Invoke(1);
+        walletUpdated.Invoke(wallet);
+        ammoUpdated.Invoke(-1, -1);
         playerVel = Vector3.zero;
         HP = HPOrig;
-        updatePlayerUI();
     }
 
-    IEnumerator flashDamageScreen()
+    void FlashDamageScreen()
     {
-        GameManager.Instance.playerDamageScreen.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        GameManager.Instance.playerDamageScreen.SetActive(false);
+        GameManager.Instance.playerDamageScreen.gameObject.SetActive(true);
+        Color transparent = new Color(GameManager.Instance.playerDamageScreen.color.r, GameManager.Instance.playerDamageScreen.color.g, GameManager.Instance.playerDamageScreen.color.b, 0.0f);
+        Color full = new Color(GameManager.Instance.playerDamageScreen.color.r, GameManager.Instance.playerDamageScreen.color.g, GameManager.Instance.playerDamageScreen.color.b, 0.5f);
+        GameManager.Instance.playerDamageScreen.DOColor(full, 0.1f).OnComplete( () =>
+        {
+            GameManager.Instance.playerDamageScreen.DOColor(transparent, 0.1f).OnComplete( () =>
+            {
+                GameManager.Instance.playerDamageScreen.gameObject.SetActive(false);
+            });
+        });
     }
 
-    IEnumerator flashHealScreen()
+    void FlashHealScreen()
     {
-        GameManager.Instance.playerHealScreen.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        GameManager.Instance.playerHealScreen.SetActive(false);
+        GameManager.Instance.playerHealScreen.gameObject.SetActive(true);
+        Color transparent = new Color(GameManager.Instance.playerHealScreen.color.r, GameManager.Instance.playerHealScreen.color.g, GameManager.Instance.playerHealScreen.color.b, 0.0f);
+        Color full = new Color(GameManager.Instance.playerHealScreen.color.r, GameManager.Instance.playerHealScreen.color.g, GameManager.Instance.playerHealScreen.color.b, 0.5f);
+        GameManager.Instance.playerHealScreen.DOColor(full, 0.1f).OnComplete(() =>
+        {
+            GameManager.Instance.playerHealScreen.DOColor(transparent, 0.1f).OnComplete(() =>
+            {
+                GameManager.Instance.playerHealScreen.gameObject.SetActive(false);
+            });
+        });
     }
 
     //public void getGunStats(GunStates gun)
@@ -241,18 +225,25 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     //    changeGun();
     //}
 
-    public void changeGun()
+    public void ChangeItem()
     {
-        GunStates currGun = (GunStates)InventoryManager.Instance.GetSelectedItem(false); 
+        Item currItem = InventoryManager.Instance.GetSelectedItem(false);
+        int currentAmmo = -1;
+        int storedAmmo = -1;
+        Mesh mesh = null;
+        Material material = null;
+        if (currItem is GunStates currGun)
+        {
+            currentAmmo = currGun.ammoCurr;
+            storedAmmo = currGun.ammoStored;
+            mesh = currGun.model.GetComponent<MeshFilter>().sharedMesh;
+            material = currGun.model.GetComponent<MeshRenderer>().sharedMaterial;
 
-        shootDamage = currGun.shootDamage;
-        shootDist = currGun.shootDist;
-        shootRate = currGun.shootRate;
-
-        UpdateGunUI(currGun);
-
-        gunModel.GetComponent<MeshFilter>().sharedMesh = currGun.model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = currGun.model.GetComponent<MeshRenderer>().sharedMaterial;
+            currGun.Equip(this);
+        }
+        ammoUpdated.Invoke(currentAmmo, storedAmmo);
+        gunModel.GetComponent<MeshFilter>().sharedMesh = mesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = material;
     }
 
     //void seletGun()

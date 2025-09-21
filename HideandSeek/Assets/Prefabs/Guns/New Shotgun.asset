@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6300440acbdfad84790698e3b896e931, type: 3}
+  m_Name: New Shotgun
+  m_EditorClassIdentifier: 
+  itemName: Shotgun
+  itemType: 2
+  image: {fileID: 21300026, guid: 71a7f8669de848e45ba57bda95f3a58e, type: 3}
+  actionType: 1
+  healAmount: 0
+  stackable: 0
+  model: {fileID: 6468152050326195950, guid: f9582432be1d865429711162dbd0b744, type: 3}
+  shootDamage: 1
+  shootDist: 30
+  shootRate: 0.8
+  ammoCurr: 4
+  clipSize: 6
+  ammoStored: 1
+  tracer: {fileID: 11400000, guid: bd3665ad1606e494398bcb5172cbb49e, type: 2}
+  muzzleFlash: {fileID: 1848779846791409710, guid: 3c5032d635eee4c498999cf5e0243465, type: 3}
+  hitEffect: {fileID: 970440554703164915, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
+  shootSound: 0
+  equipSound: 0
+  shootVal: 0
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  spreadPerShot: 0.5
+  spreadRecoveryPerSecond: 0.75
+  maxSpread: 3
+  bullets: 8
+  spread: 7

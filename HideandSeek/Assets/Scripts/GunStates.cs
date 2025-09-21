@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -9,10 +10,72 @@ public class GunStates : Item
     [Range(1, 1000)] public int shootDist;
     [Range(0.1f, 3)] public float shootRate;
     public int ammoCurr;
-    [Range(5, 50)] public int ammoMax;
-
+    public int clipSize;
+    public int ammoStored;
+    [SerializeField] public BulletTracer tracer;
     public ParticleSystem muzzleFlash;
     public ParticleSystem hitEffect;
     public SoundType shootSound;
+    public SoundType equipSound;
     [RangeAttribute(0, 1)] public float shootVal;
+    public LayerMask ignoreLayers;
+    public float spreadPerShot = 0.5f;
+    public float spreadRecoveryPerSecond = 0.75f;
+    public float maxSpread = 3.0f;
+    protected float currentSpread = 0f;
+    Coroutine updateCoroutine;
+    MonoBehaviour updateCaster;
+    public Vector3 RandomInCone(Vector3 forward, float angle)
+    {
+        forward = forward.normalized;
+        float radius = angle * Mathf.Deg2Rad;
+
+        float x = Random.value;
+        float y = Random.value;
+        float cos = Mathf.Cos(radius);
+        float theta = Mathf.Lerp(cos, 1f, x);
+        float sin = Mathf.Sqrt(1f - theta * theta);
+        float phi = 2f * Mathf.PI * y;
+
+        Vector3 a = (Mathf.Abs(forward.y) < 0.999f) ? Vector3.up : Vector3.right;
+        Vector3 xAxis = Vector3.Cross(a, forward).normalized;
+        Vector3 yAxis = Vector3.Cross(forward, xAxis);
+
+        return (xAxis * (Mathf.Cos(phi) * sin)) + (yAxis * (Mathf.Sin(phi) * sin)) + (forward * theta);
+    }
+
+    public void Reload()
+    {
+        int ammoToFill = clipSize - ammoCurr;
+        if (ammoStored >= ammoToFill)
+        {
+            ammoStored -= ammoToFill;
+            ammoCurr = clipSize;
+        } else
+        {
+            ammoCurr += ammoStored;
+            ammoStored = 0;
+        }
+    }
+
+    public void Equip(MonoBehaviour caster)
+    {
+        if (equipSound != default) SoundManager.Instance.PlaySoundFXClip(equipSound, caster.transform.position, AudioGroup.GunSFX, 1.0f, 0.05f, 1.0f, 0.05f);
+        currentSpread = maxSpread;
+        updateCaster = caster;
+        if (updateCoroutine != null) caster.StopCoroutine(updateCoroutine);
+        updateCoroutine = caster.StartCoroutine(GunUpdate(caster));
+    }
+
+    public void Unequip()
+    {
+        updateCaster.StopCoroutine(updateCoroutine);
+    }
+
+    IEnumerator GunUpdate(MonoBehaviour caster)
+    {
+        yield return null;
+        currentSpread -= spreadRecoveryPerSecond * Time.deltaTime;
+        updateCoroutine = caster.StartCoroutine(GunUpdate(caster));
+    }
 }
