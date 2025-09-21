@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     [System.NonSerialized] public UnityEvent<int> walletUpdated;
     [System.NonSerialized] public UnityEvent<int, int> ammoUpdated;
 
+    Transform muzzleAnchor;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Awake()
@@ -139,7 +141,35 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         if (shootTimer < currGun.shootRate) return;
              
         shootTimer = 0;
-        ((IShoot)currGun).Shoot(gunModel.transform);
+        Transform shootPos = gunModel.transform;
+        Transform prefabMuzzle = null;
+        
+        foreach (Transform child in currGun.model.transform)
+        {
+            if (child.CompareTag("Muzzle"))
+            {
+                prefabMuzzle = child;
+                break;
+            }
+        }
+
+        if (prefabMuzzle)
+        {
+            if (muzzleAnchor == null)
+            {
+                muzzleAnchor = new GameObject("MuzzleAnchor").transform;
+                muzzleAnchor.SetParent(gunModel.transform, worldPositionStays: false);
+            }
+
+            muzzleAnchor.localPosition = prefabMuzzle.localPosition;
+            muzzleAnchor.localRotation = prefabMuzzle.localRotation;
+            muzzleAnchor.localScale = prefabMuzzle.localScale;
+
+            shootPos = muzzleAnchor;
+        }
+
+
+        ((IShoot)currGun).Shoot(shootPos);
         ammoUpdated.Invoke(currGun.ammoCurr, currGun.ammoStored);
     }
 
@@ -231,19 +261,20 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         int currentAmmo = -1;
         int storedAmmo = -1;
         Mesh mesh = null;
-        Material material = null;
+        Material[] material = new Material[]{ };
         if (currItem is GunStates currGun)
         {
             currentAmmo = currGun.ammoCurr;
             storedAmmo = currGun.ammoStored;
             mesh = currGun.model.GetComponent<MeshFilter>().sharedMesh;
-            material = currGun.model.GetComponent<MeshRenderer>().sharedMaterial;
-
+            material = currGun.model.GetComponent<MeshRenderer>().sharedMaterials;
+            gunModel.transform.localRotation = currGun.model.transform.localRotation;
+            gunModel.transform.localScale = currGun.model.transform.localScale;
             currGun.Equip(this);
         }
         ammoUpdated.Invoke(currentAmmo, storedAmmo);
         gunModel.GetComponent<MeshFilter>().sharedMesh = mesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = material;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterials = material;
     }
 
     //void seletGun()

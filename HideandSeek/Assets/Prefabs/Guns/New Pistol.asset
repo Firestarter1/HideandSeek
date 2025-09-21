@@ -18,13 +18,13 @@ MonoBehaviour:
   actionType: 1
   healAmount: 0
   stackable: 0
-  model: {fileID: 33881189615043262, guid: d7321cb81c6fb3c45aa9ac732de686ac, type: 3}
+  model: {fileID: 6718756229480501850, guid: 50364abd5090e6b4ea22286f38dcfd6d, type: 3}
   shootDamage: 2
   shootDist: 351
   shootRate: 0.2
-  ammoCurr: 0
+  ammoCurr: 12
   clipSize: 12
-  ammoStored: 36
+  ammoStored: 32
   tracer: {fileID: 11400000, guid: bd3665ad1606e494398bcb5172cbb49e, type: 2}
   muzzleFlash: {fileID: 1848779846791409710, guid: 3c5032d635eee4c498999cf5e0243465, type: 3}
   hitEffect: {fileID: 970440554703164915, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
@@ -34,6 +34,6 @@ MonoBehaviour:
   ignoreLayers:
     serializedVersion: 2
     m_Bits: 8
-  spreadPerShot: 0.5
+  spreadPerShot: 0.15
   spreadRecoveryPerSecond: 0.75
-  maxSpread: 3
+  maxSpread: 1.5

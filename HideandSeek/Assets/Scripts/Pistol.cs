@@ -12,8 +12,9 @@ public class Pistol : GunStates, IShoot
 
         Vector3 start = transform.position;
         float maxDist = shootDist;
+        Vector3 direction = RandomInCone(Camera.main.transform.forward, currentSpread);
         RaycastHit hit;
-        bool inRange = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDist, ~ignoreLayers, QueryTriggerInteraction.Ignore);
+        bool inRange = Physics.Raycast(Camera.main.transform.position, direction, out hit, maxDist, ~ignoreLayers, QueryTriggerInteraction.Ignore);
         Vector3 end = inRange ? hit.point : start + Camera.main.transform.forward * maxDist;
 
         Instantiate(muzzleFlash, transform.position, 

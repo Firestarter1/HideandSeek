@@ -13,6 +13,7 @@ TagManager:
   - Metal
   - ExplosiveBarrel
   - Settings Menu
+  - Muzzle
   layers:
   - Default
   - TransparentFX
