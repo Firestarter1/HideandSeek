@@ -52,6 +52,19 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
 
         playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
+
+        
+    }
+
+    private void Start()
+    {
+        if (WaveManager.instance != null && gameGoalCountText.gameObject.activeInHierarchy)
+        {
+            gameGoalCountText.gameObject.SetActive(false);
+        } else if (WaveManager.instance == null && !gameGoalCountText.gameObject.activeInHierarchy)
+        {
+            gameGoalCountText.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
