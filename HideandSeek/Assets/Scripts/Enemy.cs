@@ -113,6 +113,7 @@ public class Enemy : MonoBehaviour, IDamage
 
     void OnAnimatorMove()
     {
+        if (animator == null) return;
         Vector3 delta = animator.deltaPosition;
         Vector3 proposedDelta = transform.position + delta;
 
