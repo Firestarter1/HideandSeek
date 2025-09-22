@@ -18,6 +18,7 @@ public class ChargeAttack : MonoBehaviour
     [SerializeField] float targetRehitCooldown = 0.5f;
     [SerializeField] LayerMask chargeStopLayerMask;
     [SerializeField] LayerMask crowdPushLayerMask;
+    [SerializeField] ParticleSystem chargeParticle;
     
 
     [Header("Targeting")]
@@ -48,6 +49,11 @@ public class ChargeAttack : MonoBehaviour
 
     private void Update()
     {
+        if (GetComponent<Enemy>().health <= 0)
+        {
+            FinishCharge();
+        }
+
         if (isCharging)
         {
             DoArea();
@@ -85,6 +91,7 @@ public class ChargeAttack : MonoBehaviour
         hitObjects.Clear();
         animator?.ResetTrigger("Attack");
         navigationAgent.angularSpeed = chargeSteerSpeed;
+        chargeParticle.gameObject.SetActive(true);
     }
 
     void FinishCharge()
@@ -95,6 +102,7 @@ public class ChargeAttack : MonoBehaviour
 
         animator?.SetTrigger("Charge Finish");
         navigationAgent.angularSpeed = originalSteerSpeed;
+        chargeParticle.gameObject.SetActive(false);
     }
 
     bool CollidingWithWall(out RaycastHit hit)
@@ -124,44 +132,7 @@ public class ChargeAttack : MonoBehaviour
         
     }
 
-    void ApplyKinematicKnockback(GameObject target, Vector3 impulse)
-    {
-        Vector3 disp = impulse * Time.deltaTime;
-        float dist = disp.magnitude;
-        if (dist <= 0f) return;
-
-        Vector3 dir = disp / Mathf.Max(dist, 1e-6f);
-
-        Vector3 rayOrigin = target.transform.position + Vector3.up * 0.2f;
-        if (Physics.Raycast(rayOrigin, dir, out var hit, dist, chargeStopLayerMask, QueryTriggerInteraction.Ignore))
-            dist = Mathf.Max(0f, hit.distance - 0.02f);
-
-        if (dist <= 0f) return;
-
-        if (target.TryGetComponent<CharacterController>(out var cc))
-        {
-            cc.Move(dir * dist);
-            return;
-        }
-
-        if (target.TryGetComponent<NavMeshAgent>(out var agent))
-        {
-            Vector3 desired = target.transform.position + dir * dist;
-
-            if (agent.isOnNavMesh &&
-                NavMesh.SamplePosition(desired, out var navHit, agent.radius * 1.5f, agent.areaMask))
-            {
-                agent.Warp(navHit.position);
-            }
-            else
-            {
-                target.transform.position = desired;
-            }
-            return;
-        }
-
-        target.transform.position += dir * dist;
-    }
+    
 
     public void Attack(GameObject target)
     {
@@ -174,8 +145,7 @@ public class ChargeAttack : MonoBehaviour
             dir.y = 0f;
             if (dir.sqrMagnitude < 0.001f) dir = transform.forward;
             dir.Normalize();
-            Vector3 pushbackForce = dir * knockbackForce.x + Vector3.up * knockbackForce.y;
-            //ApplyKinematicKnockback(target, pushbackForce);
+            //Vector3 pushbackForce = dir * knockbackForce.x + Vector3.up * knockbackForce.y;
 
             if (hitObjects.Contains(target)) { Debug.Log("Contains " + target.name); return; };
 

@@ -177,34 +177,5 @@ public class RangedAttack : MonoBehaviour
         return true;
     }
 
-    bool ArcLOS(Vector3 origin, Vector3 target, Vector3 velocity, float radius, int samples, int mask, Transform targetRoot)
-    {
-        Vector3 g = Physics.gravity;
-
-        Vector3 flatVelocity = new Vector3(velocity.x, 0f, velocity.z);
-        Vector3 flatDirection = new Vector3((target  - origin).x, 0f, (target - origin).z);
-        float flatSpeed = flatVelocity.magnitude;
-        float flatDistance = flatDirection.magnitude;
-        if (flatSpeed < 0.001f) return false;
-
-        float flightTime = flatDistance / flatSpeed;
-
-        Vector3 previousPoint = origin;
-
-        for (int i = 1; i <= Mathf.Max(2,samples); i++)
-        {
-            float t = flightTime * (i / (float)samples);
-            Vector3 point = origin + velocity * t + 0.5f * g * (t * t);
-            Vector3 segment = point - previousPoint;
-            float length = segment.magnitude;
-            if (length > 0.0001f)
-            {
-                if (Physics.SphereCast(previousPoint, radius, segment / length, out RaycastHit hit, length, mask, QueryTriggerInteraction.Ignore)) {
-                    if (hit.transform.root != targetRoot) return false;
-                }
-            }
-            previousPoint = point;
-        }
-        return true;
-    }
+    
 }

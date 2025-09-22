@@ -12,6 +12,7 @@ public class GunStates : Item
     public int ammoCurr;
     public int clipSize;
     public int ammoStored;
+    public int startingAmmo;
     [SerializeField] public BulletTracer tracer;
     public ParticleSystem muzzleFlash;
     public ParticleSystem hitEffect;
@@ -44,6 +45,20 @@ public class GunStates : Item
         return (xAxis * (Mathf.Cos(phi) * sin)) + (yAxis * (Mathf.Sin(phi) * sin)) + (forward * theta);
     }
 
+    private void OnEnable()
+    {
+        if (startingAmmo <= clipSize)
+        {
+            ammoCurr = startingAmmo;
+            ammoStored = 0;
+        } else
+        {
+            int ammoToStore = startingAmmo - clipSize;
+            ammoCurr = clipSize;
+            ammoStored = ammoToStore;
+        }
+    }
+
     public void Reload()
     {
         int ammoToFill = clipSize - ammoCurr;
@@ -74,8 +89,9 @@ public class GunStates : Item
 
     IEnumerator GunUpdate(MonoBehaviour caster)
     {
-        yield return null;
+        yield return new WaitForEndOfFrame();
         currentSpread -= spreadRecoveryPerSecond * Time.deltaTime;
+        currentSpread = Mathf.Max(0, currentSpread);
         updateCoroutine = caster.StartCoroutine(GunUpdate(caster));
     }
 }
