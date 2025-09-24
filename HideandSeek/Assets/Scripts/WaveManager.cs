@@ -136,7 +136,7 @@ public class WaveManager : MonoBehaviour
         }
         pendingWaves.Remove(wave);
     }
-    IEnumerator SpawnMob(EnemeyAI enemy, int location, float delay)
+    IEnumerator SpawnMob(Enemy enemy, int location, float delay)
     {
         yield return new WaitForSeconds(delay);
 
@@ -153,7 +153,7 @@ public class WaveManager : MonoBehaviour
         return spawnLocations[id];
     }
 
-    void CreateMobAtLocation(EnemeyAI enemy, Spawn position)
+    void CreateMobAtLocation(Enemy enemy, Spawn position)
     {
         Instantiate(enemy, position.spawnPosition, Quaternion.identity);
     }

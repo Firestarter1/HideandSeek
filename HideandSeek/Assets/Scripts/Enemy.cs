@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -5,7 +6,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour, IDamage
 {
     [Header("Health Settings")]
-    [SerializeField] private int health = 10;
+    [SerializeField] public int health = 10;
     private int maxHealth;
     [Space(10)]
     //The amount of time after getting hit before the enemy will start regenerating health
@@ -15,6 +16,7 @@ public class Enemy : MonoBehaviour, IDamage
     //The amount of health to regenerate per regen tick
     [SerializeField] private int healthRegenAmount = 1;
     Coroutine regenCoroutine;
+    public int cashToDrop = 10;
 
     [Header("Navigation Settings")]
     NavMeshAgent navigationAgent;
@@ -35,6 +37,9 @@ public class Enemy : MonoBehaviour, IDamage
 
     Animator animator;
 
+    [SerializeField] SkinnedMeshRenderer meshRenderer;
+    Color defaultMatColor;
+
     private void Start()
     {
         if (!TryGetComponent<NavMeshAgent>(out navigationAgent))
@@ -48,6 +53,7 @@ public class Enemy : MonoBehaviour, IDamage
         navigationAgent.updateRotation = false;
         animator.applyRootMotion = true;
         refreshTime = farPositionRefreshTime;
+        defaultMatColor = meshRenderer.material.color;
     }
 
     private void Update()
@@ -107,6 +113,7 @@ public class Enemy : MonoBehaviour, IDamage
 
     void OnAnimatorMove()
     {
+        if (animator == null) return;
         Vector3 delta = animator.deltaPosition;
         Vector3 proposedDelta = transform.position + delta;
 
@@ -144,11 +151,16 @@ public class Enemy : MonoBehaviour, IDamage
     {
         health -= amount;
         health = Mathf.Clamp(health, 0, maxHealth);
+        meshRenderer.material.DOColor(Color.red, 0.1f).OnComplete(() =>
+        {
+            meshRenderer.material.DOColor(defaultMatColor, 0.1f);
+        });
         if (health == 0)
         {
             navigationAgent.isStopped = true;
             GetComponent<Collider>().enabled = false;
             animator.SetTrigger("Death");
+            GameManager.Instance.playerScript.UpdateWallet(cashToDrop);
             //Emit health depleted signal
             return;
         }

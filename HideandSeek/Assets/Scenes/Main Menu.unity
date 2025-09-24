@@ -176,7 +176,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start
+  m_text: 'Tutorial
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 45b1ec5744ef249478cc066079c5fd63, type: 2}
   m_sharedMaterial: {fileID: 5101897114309259359, guid: 45b1ec5744ef249478cc066079c5fd63, type: 2}
@@ -1291,7 +1293,7 @@ PrefabInstance:
       objectReference: {fileID: 1769000063}
     - target: {fileID: 7513175782633639830, guid: b30a2629fa13cd246a6257f5b5982256, type: 3}
       propertyPath: m_text
-      value: Wave Test
+      value: Start
       objectReference: {fileID: 0}
     - target: {fileID: 7545333200581981217, guid: b30a2629fa13cd246a6257f5b5982256, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target

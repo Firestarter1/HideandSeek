@@ -23,7 +23,17 @@ MonoBehaviour:
   shootDist: 15
   shootRate: 1
   ammoCurr: 5
-  ammoMax: 5
+  clipSize: 0
+  ammoStored: 0
+  tracer: {fileID: 0}
+  muzzleFlash: {fileID: 0}
   hitEffect: {fileID: 5396372950321188654, guid: fcb74f28d107e284e80af037bfec14ca, type: 3}
-  shootSound: []
+  shootSound: 0
+  equipSound: 0
   shootVal: 0.5
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  spreadPerShot: 0.5
+  spreadRecoveryPerSecond: 0.75
+  maxSpread: 3

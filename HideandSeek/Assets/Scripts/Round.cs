@@ -17,12 +17,12 @@ public class Round : ScriptableObject
         return i;
     }
 
-    public List<EnemeyAI> GetEnemiesInWave()
+    public List<Enemy> GetEnemiesInWave()
     {
-        List<EnemeyAI> enemies = new List<EnemeyAI>();
+        List<Enemy> enemies = new List<Enemy>();
         foreach (Wave w in waves)
         {
-            EnemeyAI[] arr = w.GetEnemies();
+            Enemy[] arr = w.GetEnemies();
             for (int i = 0; i < arr.Length; i++)
             {
                 enemies.Add(arr[i]);

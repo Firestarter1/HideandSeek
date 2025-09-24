@@ -154,6 +154,18 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public bool HasItemInInventory(Item item)
+    {
+        foreach (InventorySlot slot in  inventorySlots)
+        {
+            if (slot.GetComponentInChildren<InventoryItem>() != null && slot.GetComponentInChildren<InventoryItem>().item == item)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void ChangeHeldItem()
     {
         GameManager.Instance.playerScript.ChangeItem();
