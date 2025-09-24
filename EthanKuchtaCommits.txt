@@ -1,57 +1,77 @@
-commit d1469c8d2e3d7f24234742fa81d129f828c881b1
+commit 7b005d73bb2f1668fc99d0d0cb26ca6f28526a85
 Author: Ethan Kuchta <ethankuchta@gmail.com>
-Date:   Sun Sep 14 22:02:31 2025 -0400
+Date:   Sun Sep 21 23:53:04 2025 -0400
 
-    Menu click and reload sound implementation
+    Waves and final object placement
 
-commit 477bc89fa7d6313b3b5f64ab3b5925283a71c76f
+commit 67eaf52573b2e071f1da9fc41f887d2ccb9afce6
 Author: Ethan Kuchta <ethankuchta@gmail.com>
-Date:   Sun Sep 14 21:49:24 2025 -0400
+Date:   Sun Sep 21 22:49:55 2025 -0400
 
-    Finished wave system, added sounds to all menu hovers, footsteps, pickups
+    Materials and effects for enemies, vending machine, gun fixes
 
-commit 21523c99044bae08d268e69008659bfcb14fa835
+commit 2ee5df104722e947a7898fc8cb893942f37eb520
 Author: Ethan Kuchta <ethankuchta@gmail.com>
-Date:   Sun Sep 14 00:51:52 2025 -0400
-
-    Wave system first pass implementation in testing scene, needs additional testing and implementation into main scene
-
-commit b712b07c59ce701a8817ece57587d8403c3aad5e
-Author: Ethan Kuchta <ethankuchta@gmail.com>
-Date:   Sat Sep 13 13:23:33 2025 -0400
-
-    Tracer drawing when no raycast target fix
-
-commit 6ad016b7e4bf36893c95e411c33f722f26d7fbb6
-Author: Ethan Kuchta <ethankuchta@gmail.com>
-Date:   Sat Sep 13 13:03:22 2025 -0400
+Date:   Sun Sep 21 16:59:32 2025 -0400
 
     Update 01 - Main.unity
 
-commit 48e987a7f75e248b31d984854a9f3c6f7c5c8fd6
+commit 43e70f7553c63b4e69abffd8f58cc54562af1cbf
 Author: Ethan Kuchta <ethankuchta@gmail.com>
-Date:   Sat Sep 13 13:00:48 2025 -0400
+Date:   Sun Sep 21 16:57:34 2025 -0400
 
-    Bullet tracer and decals
+    Quick fixes to player, UI in Tutorial Scene
 
-commit 70ed5a91166c026affbcb27539aef93e5d4116d5
+commit e722a2dfdf9cb5e49e49f747c1b37da9852cdf1c
 Author: Ethan Kuchta <ethankuchta@gmail.com>
-Date:   Fri Sep 12 17:56:04 2025 -0400
+Date:   Sat Sep 20 23:57:51 2025 -0400
 
-    View bobbing + Player Controller fixes
-    
-    Added ViewBobbingController to allow for view bobbing on the player camera. Additionally, fixed some issues with the PlayerController that was causing it to not be registered as ever being grounded.
+    Pistol and Shotgun model updates
 
-commit c6dff5b57a40de56995d87aeb8b5ee361201c69c
+commit 33420cf4ada0429fccefe5b660b73ec185ea9761
 Author: Ethan Kuchta <ethankuchta@gmail.com>
-Date:   Fri Sep 12 16:17:38 2025 -0400
+Date:   Sat Sep 20 21:15:00 2025 -0400
 
-    Added audio settings to in game menu
+    More UI fixes/polishing, pistol update, shotgun addition
 
-commit 320dd28ff791c511328afbbb578b5f5cdf358196
+commit 805a26ba8a65feb310d974f79d3b7bebd424ed14
 Author: Ethan Kuchta <ethankuchta@gmail.com>
-Date:   Wed Sep 10 18:31:25 2025 -0400
+Date:   Sat Sep 20 02:07:50 2025 -0400
 
-    Sound Manager Changes
-    
-    Changes to the sound manager to better handle sounds, and allow for custom sounds routing
+    In game UI overhaul, health bar fix, updates to functionality of minimap cam, wallet
+
+commit 781ded71a2f5ed499a94b398a9384283bd48dfff
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Fri Sep 19 17:08:11 2025 -0400
+
+    Brute Work
+
+commit 7fb001c80609fab921f28f78869400e7d5f52eae
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Thu Sep 18 23:23:10 2025 -0400
+
+    Exploder and Spitter work, update to the Mini Map cam so it doesn't break player transform
+
+commit 9834a97d6ec6a1abb1ef1d7b5115ef317c8eec49
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Thu Sep 18 12:29:52 2025 -0400
+
+    Shuffler Model/Animation work
+
+commit fb6e0913589e0aecd9d22dd8e61651cc22c2fd2e
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Wed Sep 17 13:31:57 2025 -0400
+
+    Melee Attack for Shuffler Finished
+
+commit 755a42d724d0bb1c266d85188ac023eb5a4dd0a1
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Tue Sep 16 16:41:04 2025 -0400
+
+    Enemy Pathfinding AI
+
+commit eb8916acff5cabc473f18e44fb5e8866ff0598f4
+Author: Ethan Kuchta <ethankuchta@gmail.com>
+Date:   Mon Sep 15 22:18:41 2025 -0400
+
+    index on main: 85460d9 Merge branch 'Ethan-Branch'
