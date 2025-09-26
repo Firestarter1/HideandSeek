@@ -101,7 +101,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _Edge: 0
+    - _Edge: 0.0008
     - _EnvironmentReflections: 1
     - _Fill: 1
     - _GlossMapScale: 0

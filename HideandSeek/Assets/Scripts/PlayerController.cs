@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     int HPOrig;
     int gunListPos;
 
-    bool isSprinting;
+    public bool isSprinting;
 
     [SerializeField] BulletTracer tracer;
 
@@ -170,6 +170,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
 
         ((IShoot)currGun).Shoot(shootPos);
+        gunModel.GetComponent<Animator>().SetTrigger("Fire");
         ammoUpdated.Invoke(currGun.ammoCurr, currGun.ammoStored);
     }
 
@@ -189,6 +190,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     public void takeDamage(int amount)
     {
         HP -= amount;
+        HP = Mathf.Clamp(HP, 0, HPOrig);
         healthUpdated.Invoke(Mathf.Clamp01((float)HP/(float)HPOrig));
         //updatePlayerUI();
         FlashDamageScreen();
@@ -216,7 +218,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         walletUpdated.Invoke(wallet);
         ammoUpdated.Invoke(-1, -1);
         playerVel = Vector3.zero;
-        HP = HPOrig;
     }
 
     void FlashDamageScreen()

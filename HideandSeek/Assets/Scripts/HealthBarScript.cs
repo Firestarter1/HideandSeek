@@ -8,16 +8,26 @@ public class HealthBarScript : MonoBehaviour
     [SerializeField] Gradient healthGradient;
     [SerializeField] Image fillImage;
     [SerializeField] float lerpSpeed = 0.5f;
+    [SerializeField] RectTransform healthIcon;
+    [SerializeField] Vector2 spinSpeed;
     Tween fillTween;
     Tween colorTween;
+
+    float percent = 1f;
 
     void Start()
     {
         GameManager.Instance.playerScript.healthUpdated.AddListener(UpdateMaterialFloat);
     }
 
+    private void Update()
+    {
+        healthIcon.Rotate(Vector3.up, Mathf.Lerp(spinSpeed.x, spinSpeed.y, percent) * Time.deltaTime, Space.Self);
+    }
+
     void UpdateMaterialFloat(float percent)
     {
+        this.percent = percent;
         if (fillTween != null)
         {
             fillTween.Kill();

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 [RequireComponent(typeof(VendingMachine))]
 public class GunBuy : MonoBehaviour
@@ -11,6 +12,7 @@ public class GunBuy : MonoBehaviour
         if (!InventoryManager.Instance.HasItemInInventory(gunToDispense))
         {
             InventoryManager.Instance.AddItem(gunToDispense);
+            StartCoroutine(DelayedCostUpdate());
         } else
         {
             GetComponent<VendingMachine>().interactCost = ammoCost;
@@ -23,4 +25,11 @@ public class GunBuy : MonoBehaviour
         GetComponent<VendingMachine>().costText.text = "$" + ammoCost.ToString();
         
     }
+
+    IEnumerator DelayedCostUpdate()
+    {
+        yield return null;
+        GetComponent<VendingMachine>().interactCost = ammoCost;
+    }
 }
+

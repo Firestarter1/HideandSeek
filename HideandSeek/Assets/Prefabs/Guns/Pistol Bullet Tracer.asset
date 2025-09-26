@@ -15,4 +15,11 @@ MonoBehaviour:
   bulletTrail: {fileID: 6355992690238502249, guid: c614fbb96550a6241aa585d4ecf07513, type: 3}
   impactParticles: {fileID: 970440554703164915, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
   decal: {fileID: 7179515552740196507, guid: d4831ade3d1395241bca4fe2dbb5e8f1, type: 3}
+  holeDecalLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  decalEnemy: {fileID: 7179515552740196507, guid: caf5779b11dbc834299fc2ab70c3976c, type: 3}
+  bloodDecalLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   decalLength: 20

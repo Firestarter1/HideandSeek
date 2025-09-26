@@ -7,24 +7,27 @@ public class BulletTracer : ScriptableObject
     public TrailRenderer bulletTrail;
     public ParticleSystem impactParticles;
     public DecalProjector decal;
+    public LayerMask holeDecalLayerMask;
+    public DecalProjector decalEnemy;
+    public LayerMask bloodDecalLayerMask;
     public float decalLength;
 
-    public void CreateTrail(Vector3 startPos, Vector3 endPos, MonoBehaviour caster)
+    public void CreateTrail(Transform startPos, Vector3 endPos, MonoBehaviour caster)
     {
-        TrailRenderer renderer = Instantiate(bulletTrail, startPos, Quaternion.identity);
-        caster.StartCoroutine(SpawnTrail(renderer , endPos));
+        TrailRenderer renderer = Instantiate(bulletTrail, startPos.position, Quaternion.identity);
+        caster.StartCoroutine(SpawnTrail(renderer ,startPos, endPos));
     }
 
-    public void CreateTrail(RaycastHit hit, Vector3 startPos, MonoBehaviour caster)
+    public void CreateTrail(RaycastHit hit, Transform startPos, MonoBehaviour caster)
     {
-        TrailRenderer renderer = Instantiate(bulletTrail, startPos, Quaternion.identity);
+        TrailRenderer renderer = Instantiate(bulletTrail, startPos.position, Quaternion.identity);
         caster.StartCoroutine(SpawnTrailHit(renderer, startPos, hit));
     }
 
-    IEnumerator SpawnTrail(TrailRenderer trail, Vector3 endPos)
+    IEnumerator SpawnTrail(TrailRenderer trail, Transform startPos, Vector3 endPos)
     {
         float time = 0;
-        Vector3 startPosition = trail.transform.position;
+        Vector3 startPosition = startPos.position;
 
         while (time < 1)
         {
@@ -37,10 +40,10 @@ public class BulletTracer : ScriptableObject
         Destroy(trail.gameObject, trail.time);
     }
 
-    IEnumerator SpawnTrailHit(TrailRenderer trail, Vector3 startPos, RaycastHit hit)
+    IEnumerator SpawnTrailHit(TrailRenderer trail, Transform startPos, RaycastHit hit)
     {
         float time = 0;
-        Vector3 startPosition = trail.transform.position;
+        Vector3 startPosition = startPos.position;
 
         while (time < 1)
         {
@@ -52,8 +55,25 @@ public class BulletTracer : ScriptableObject
         trail.transform.position = hit.point;
         Instantiate(impactParticles, hit.point, Quaternion.LookRotation(hit.normal));
         Destroy(trail.gameObject, trail.time);
-        GameObject decalInst = Instantiate(decal, hit.point, Quaternion.identity).gameObject;
-        decalInst.transform.forward = -hit.normal;
-        Destroy(decalInst, decalLength);
+
+        DoDecal(hit);
+    }
+
+    void DoDecal(RaycastHit hit)
+    {
+        if (hit.collider == null) return;
+        if ( (holeDecalLayerMask.value & (1 << hit.collider.gameObject.layer)) != 0)
+        {
+            GameObject decalInst = Instantiate(decal, hit.point, Quaternion.identity).gameObject;
+            decalInst.transform.forward = -hit.normal;
+            Destroy(decalInst, decalLength);
+        }
+        if ((bloodDecalLayerMask.value & (1 << hit.collider.gameObject.layer)) != 0)
+        {
+            GameObject decalInst = Instantiate(decalEnemy, hit.point, Quaternion.identity).gameObject;
+            decalInst.transform.forward = -hit.normal;
+            decalInst.transform.parent = hit.transform;
+            Destroy(decalInst, decalLength);
+        }
     }
 }

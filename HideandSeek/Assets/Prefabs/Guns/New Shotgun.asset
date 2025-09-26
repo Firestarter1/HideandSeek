@@ -24,7 +24,8 @@ MonoBehaviour:
   shootRate: 0.8
   ammoCurr: 6
   clipSize: 6
-  ammoStored: 60
+  ammoStored: 0
+  startingAmmo: 0
   tracer: {fileID: 11400000, guid: bd3665ad1606e494398bcb5172cbb49e, type: 2}
   muzzleFlash: {fileID: 1848779846791409710, guid: 3c5032d635eee4c498999cf5e0243465, type: 3}
   hitEffect: {fileID: 970440554703164915, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
@@ -37,5 +38,6 @@ MonoBehaviour:
   spreadPerShot: 0.5
   spreadRecoveryPerSecond: 0.75
   maxSpread: 3
+  shootScreenShake: {fileID: 11400000, guid: a8c953cbf47b2f34b905589d8d8cd595, type: 2}
   bullets: 8
   spread: 7

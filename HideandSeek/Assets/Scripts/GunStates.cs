@@ -26,6 +26,7 @@ public class GunStates : Item
     protected float currentSpread = 0f;
     Coroutine updateCoroutine;
     MonoBehaviour updateCaster;
+    [SerializeField] protected ScreenShakeSettings shootScreenShake;
     public Vector3 RandomInCone(Vector3 forward, float angle)
     {
         forward = forward.normalized;

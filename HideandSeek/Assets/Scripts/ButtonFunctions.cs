@@ -6,7 +6,7 @@ public class buttonFunctions : MonoBehaviour
     [SerializeField] GameObject settingsMenu;
     public void resume()
     {
-        GameManager.Instance.stateUnpause();
+        GameManager.Instance.menuPause.CloseMenu();
     }
 
     public void restart()
@@ -47,12 +47,12 @@ public class buttonFunctions : MonoBehaviour
 
     public void OpenSettingsMenu()
     {
-        settingsMenu.SetActive(true);
+        GameManager.Instance.menuPause.OpenSettingsMenu();
     }
 
     public void CloseSettingsMenu()
     {
-        settingsMenu.SetActive(false);
+        GameManager.Instance.menuPause.CloseSettingsMenu();
     }
 }
 

@@ -1,18 +1,26 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WalletScript : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text;
     Coroutine updateCoroutine;
     [SerializeField] float updateSpeed = 0.25f;
+    [SerializeField] Image cashIcon;
+    [SerializeField] float iconRotateSpeed = 10.0f;
     
     void Start()
     {
         GameManager.Instance.playerScript.walletUpdated.AddListener(UpdateWallet);
     }
-    
+
+    private void Update()
+    {
+        cashIcon?.transform.Rotate(Vector3.up * iconRotateSpeed * Time.deltaTime);
+    }
+
     void UpdateWallet(int amount)
     {
         int current = int.Parse(text.text);

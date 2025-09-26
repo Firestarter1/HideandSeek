@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using Unity.Cinemachine;
 using UnityEngine;
 [CreateAssetMenu]
 public class Pistol : GunStates, IShoot
@@ -17,6 +17,14 @@ public class Pistol : GunStates, IShoot
         bool inRange = Physics.Raycast(Camera.main.transform.position, direction, out hit, maxDist, ~ignoreLayers, QueryTriggerInteraction.Ignore);
         Vector3 end = inRange ? hit.point : start + Camera.main.transform.forward * maxDist;
 
+
+        CinemachineImpulseSource impulse;
+        if (!transform.parent.gameObject.TryGetComponent<CinemachineImpulseSource>(out impulse))
+        {
+            impulse = transform.parent.gameObject.AddComponent<CinemachineImpulseSource>();
+            impulse.ImpulseDefinition.ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform;
+        }
+        CameraShakeManager.Instance.ScreenShakeFromSettings(shootScreenShake, impulse);
         Instantiate(muzzleFlash, transform.position, 
             transform.rotation);
         if (inRange)
@@ -31,11 +39,11 @@ public class Pistol : GunStates, IShoot
                 dmg.takeDamage(shootDamage);
             }
 
-            tracer.CreateTrail(hit, start, GameManager.Instance.player.GetComponent<MonoBehaviour>());
+            tracer.CreateTrail(hit, transform, GameManager.Instance.player.GetComponent<MonoBehaviour>());
         }
         else
         {
-            tracer.CreateTrail(start, end, GameManager.Instance.player.GetComponent<MonoBehaviour>());
+            tracer.CreateTrail(transform, end, GameManager.Instance.player.GetComponent<MonoBehaviour>());
         }
 
     }

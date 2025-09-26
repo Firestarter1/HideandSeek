@@ -1,5 +1,6 @@
+using DG.Tweening;
 using UnityEngine;
-
+using Unity.Cinemachine;
 public class ViewBobbingController : MonoBehaviour
 {
     [SerializeField] private CharacterController controller;
@@ -8,7 +9,12 @@ public class ViewBobbingController : MonoBehaviour
     [SerializeField] float viewBobAmplitude = 1.0f;
     [SerializeField] float recenterSpeed = 3.0f;
     [SerializeField] float footStepYOffset = -1.5f;
-    
+    [SerializeField] float sprintFOV = 70.0f;
+    [SerializeField] CinemachineCamera cinemachineCamera;
+    [SerializeField] CinemachineImpulseListener impulseListener;
+
+    float startingFOV;
+
     float bobDelta;
     Vector3 cameraOrigin;
     Vector3 heldItemOrigin;
@@ -16,15 +22,38 @@ public class ViewBobbingController : MonoBehaviour
     float prevBobY = 0f;
     bool footstepAudioPrimed = false;
     const float primeDepth = 0.6f;
+
+    Tween fovTween;
     private void Awake()
     {
-        cameraOrigin = Camera.main.transform.localPosition;
+        cameraOrigin = cinemachineCamera.transform.localPosition;
         heldItemOrigin = held.gameObject.transform.localPosition;
+        startingFOV = cinemachineCamera.Lens.FieldOfView;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         ViewBobbing();
+        AdjustFOV();
+    }
+
+    void AdjustFOV()
+    {
+        if (Input.GetButtonDown("Sprint"))
+        {
+            fovTween?.Kill();
+            fovTween = DOTween.To(() => cinemachineCamera.Lens.FieldOfView, x => cinemachineCamera.Lens.FieldOfView = x, sprintFOV, 0.3f).SetEase(Ease.OutExpo).OnComplete(() =>
+            {
+               fovTween = null;
+            });
+        } else if (Input.GetButtonUp("Sprint"))
+        {
+            fovTween?.Kill();
+            fovTween = DOTween.To(() => cinemachineCamera.Lens.FieldOfView, x => cinemachineCamera.Lens.FieldOfView = x, startingFOV, 0.3f).SetEase(Ease.InExpo).OnComplete(() =>
+            {
+                fovTween = null;
+            });
+        }
     }
 
     void ViewBobbing()
@@ -32,10 +61,10 @@ public class ViewBobbingController : MonoBehaviour
         if ((controller.velocity.x != 0 || controller.velocity.z != 0) && controller.isGrounded)
         {
             bobDelta += Time.deltaTime * controller.velocity.magnitude;
-            Camera.main.transform.localPosition = cameraOrigin + HeadViewBob(bobDelta);
+            cinemachineCamera.transform.localPosition = cameraOrigin + HeadViewBob(bobDelta);
             held.transform.localPosition = heldItemOrigin + ItemViewBob(bobDelta);
 
-            float y = Camera.main.transform.localPosition.y - cameraOrigin.y;
+            float y = cinemachineCamera.transform.localPosition.y - cameraOrigin.y;
 
             bool descending = y < prevBobY;
             if (descending && y < -viewBobAmplitude * primeDepth)
@@ -53,8 +82,10 @@ public class ViewBobbingController : MonoBehaviour
         }
         else
         {
-            
-            Camera.main.transform.localPosition = Vector3.Lerp(Camera.main.transform.localPosition, cameraOrigin, recenterSpeed * Time.deltaTime);
+            if (!CinemachineImpulseManager.Instance.GetImpulseAt(transform.position, impulseListener.Use2DDistance, impulseListener.ChannelMask, out Vector3 ___, out Quaternion __))
+            {
+                cinemachineCamera.transform.localPosition = Vector3.Lerp(cinemachineCamera.transform.localPosition, cameraOrigin, recenterSpeed * Time.deltaTime);
+            }
             held.transform.localPosition = Vector3.Lerp(held.transform.localPosition, heldItemOrigin, recenterSpeed * Time.deltaTime);
             footstepAudioPrimed = false;
             prevBobY = 0f;

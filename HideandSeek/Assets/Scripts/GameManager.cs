@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
+using Unity.Cinemachine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,12 +10,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Menus:")]
     [SerializeField] public GameObject menuActive;
-    [SerializeField] GameObject menuPause;
+    public PauseMenu menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuStore;
     [SerializeField] GameObject menuInventory;
-    [SerializeField] GameObject audioSettingsMenu;
 
     [SerializeField] TMP_Text gameGoalCountText;
 
@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     float timeScaleOrig;
 
     int gameGoalCount;
+
+    bool unpausing = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -72,15 +74,28 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel"))
         {
-            if (menuActive == null)
+            if (menuActive == null && !unpausing)
             {
                 statePause();
-                menuActive = menuPause;
+                menuActive = menuPause.gameObject;
                 menuActive.SetActive(true);
+                menuPause.OpenMenu();
             }
-            else if (menuActive == menuPause || menuActive == menuStore)
+            else if (!unpausing && menuActive == menuPause.gameObject && !menuPause.transitioning && menuPause.settingsOpen)
             {
-                stateUnpause();
+                menuPause.CloseSettingsMenu();
+            }
+            else if (!unpausing && menuActive == menuPause.gameObject && !menuPause.transitioning)
+            {
+                unpausing = true;
+                if (menuActive == menuPause.gameObject)
+                {
+                    menuPause.CloseMenu();
+                } else
+                {
+                    stateUnpause();
+                }
+                
             }
         }
 
@@ -93,6 +108,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        
+        if (CinemachineImpulseManager.Instance != null)
+        {
+            CinemachineImpulseManager.Instance.IgnoreTimeScale = false;
+            CinemachineImpulseManager.Instance.Clear();
+        }
     }
 
     public void stateUnpause()
@@ -102,11 +123,9 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
-        if (audioSettingsMenu != null && audioSettingsMenu.activeInHierarchy)
-        {
-            audioSettingsMenu.SetActive(false);
-        }
         menuActive = null;
+        unpausing = false;
+
     }
 
     public void updateGameGoal(int amount)

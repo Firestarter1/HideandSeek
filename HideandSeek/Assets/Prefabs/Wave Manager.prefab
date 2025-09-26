@@ -45,12 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rounds:
-  - {fileID: 11400000, guid: 604c23d321869a747af238dbfbe77f13, type: 2}
-  - {fileID: 11400000, guid: 1fcd30e6f3afe984ab6c5f275c765567, type: 2}
+  - {fileID: 11400000, guid: 52048b9491e305d4f8ee1f45e0128240, type: 2}
+  - {fileID: 11400000, guid: 0ef4be7c0557e854880a206c77ef453a, type: 2}
+  - {fileID: 11400000, guid: d8f9b819447ac1f4189fca51707f3173, type: 2}
   timeBetweenRounds: 30
   spawnLocations:
-  - {fileID: 11400000, guid: d495777b9e0b39941a91b3581907a331, type: 2}
-  - {fileID: 11400000, guid: 7c7d5994be2b72b4e8f60c2f122bcdfd, type: 2}
-  - {fileID: 11400000, guid: 478974499034d624b9edea30db01f195, type: 2}
-  - {fileID: 11400000, guid: d03e78735531739488c6988882e4e6ee, type: 2}
-  - {fileID: 11400000, guid: 39f84ca5d15f1f2409551ea2a27638da, type: 2}
+  - {fileID: 11400000, guid: e7927c950749d4e448f1f0284a9756b7, type: 2}
+  - {fileID: 11400000, guid: 188243e0b6e33c344ba327310f40dd55, type: 2}
+  - {fileID: 11400000, guid: 4dfea4d63f9624b429b7a2e63533bdf9, type: 2}
+  - {fileID: 11400000, guid: ef43c114b3ed82843b704aa0b4bc4937, type: 2}
+  - {fileID: 11400000, guid: a0ea731dd4882d94b8f71704577044c2, type: 2}
+  - {fileID: 11400000, guid: d338e1c761c3fcd48aae06b843414057, type: 2}

@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -5,9 +6,15 @@ public class CameraController : MonoBehaviour
     [SerializeField] int sens;
     [SerializeField] int lockVertMin, lockVertMax;
     [SerializeField] bool invertY;
+    [SerializeField] CinemachineCamera cinemachineCamera;
 
     float rotX;
+    CinemachinePanTilt pov;
 
+    private void Awake()
+    {
+        pov = cinemachineCamera.GetComponent<CinemachinePanTilt>();
+    }
     void Start()
     {
         Cursor.visible = false;
@@ -24,8 +31,9 @@ public class CameraController : MonoBehaviour
         else rotX -= mouseY;
 
         rotX = Mathf.Clamp(rotX, lockVertMin, lockVertMax);
-
-        transform.localRotation = Quaternion.Euler(rotX, 0, 0);
+        pov.TiltAxis.Value = rotX;
+        
+        //transform.localRotation = Quaternion.Euler(rotX, 0, 0);
         transform.parent.Rotate(Vector3.up * mouseX);
 
     }

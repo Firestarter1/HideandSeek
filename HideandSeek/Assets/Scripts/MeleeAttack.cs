@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +8,7 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] int damage = 1;
     [SerializeField] float range = 2.0f;
     [SerializeField] float cooldown = 1.0f;
-
+    [SerializeField] ScreenShakeSettings hitScreenShake;
     [Header("Targeting")]
     [SerializeField] Transform eyePosition;
     [SerializeField, Range(0f, 360f)] float fov = 90f;
@@ -62,6 +63,7 @@ public class MeleeAttack : MonoBehaviour
             if (target.TryGetComponent<IDamage>(out IDamage dmg))
             {
                 dmg.takeDamage(damage);
+                CameraShakeManager.Instance.ScreenShakeFromSettings(hitScreenShake, GetComponent<CinemachineImpulseSource>());
             }
 
             
