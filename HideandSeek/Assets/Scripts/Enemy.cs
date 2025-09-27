@@ -36,8 +36,9 @@ public class Enemy : MonoBehaviour, IDamage
     bool near;
 
     Animator animator;
-
+    [SerializeField] float deathDissolveDelay = 10.0f;
     [SerializeField] SkinnedMeshRenderer meshRenderer;
+    [SerializeField] Light[] eyes;
     Color defaultMatColor;
 
     private void Start()
@@ -161,6 +162,8 @@ public class Enemy : MonoBehaviour, IDamage
             GetComponent<Collider>().enabled = false;
             animator.SetTrigger("Death");
             GameManager.Instance.playerScript.UpdateWallet(cashToDrop);
+            FadeEyes();
+            StartCoroutine(DelayedDeathDissolve());
             //Emit health depleted signal
             return;
         }
@@ -169,6 +172,21 @@ public class Enemy : MonoBehaviour, IDamage
             StopCoroutine(regenCoroutine);
         }
         regenCoroutine = StartCoroutine(HealthRegenDelay());
+    }
+
+    void FadeEyes()
+    {
+        foreach (Light light in eyes)
+        {
+            light.DOIntensity(0.0f, 1.0f);
+        }
+    }
+
+    IEnumerator DelayedDeathDissolve()
+    {
+        yield return new WaitForSeconds(deathDissolveDelay);
+        meshRenderer.material.DOFloat(1.0f, "_Dissolve", 1f).OnComplete( () => Destroy(gameObject));
+
     }
 
     IEnumerator HealthRegenDelay()

@@ -517,7 +517,11 @@ MonoBehaviour:
   farPositionRefreshVariability: 2
   nearPositionRefreshTime: 0
   nearFarGizmoColor: {r: 1, g: 0, b: 0, a: 0.6156863}
+  deathDissolveDelay: 10
   meshRenderer: {fileID: 3692262208003043121}
+  eyes:
+  - {fileID: 4509301085274920621}
+  - {fileID: 6626380427241522600}
 --- !u!114 &9206112084940095330
 MonoBehaviour:
   m_ObjectHideFlags: 0

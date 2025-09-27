@@ -854,7 +854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4765915122262166913}
   - component: {fileID: 6603308265161627667}
-  - component: {fileID: 4816277588948148845}
+  - component: {fileID: 587060697927718071}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -889,7 +889,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858641559543327127}
   m_CullTransparentMesh: 1
---- !u!114 &4816277588948148845
+--- !u!114 &587060697927718071
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -898,27 +898,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 858641559543327127}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ba539656eab8aed4d9c14154a8d18e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: a29711c0e75cfec45a10d521a377eb73, type: 2}
+  m_Material: {fileID: 2100000, guid: de8379bd9c312444b97cbf88a2d27765, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 618a6ef567e6eb44a925ec3a8bebd8a1, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 0
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  sprite: {fileID: 21300000, guid: 618a6ef567e6eb44a925ec3a8bebd8a1, type: 3}
+  shellCount: 32
+  thickness: 4
+  useSpriteMesh: 0
+  twoSided: 1
+  depthDarken: 0.25
+  sideTint: {r: 1, g: 1, b: 1, a: 1}
+  sideTintAmount: 0.25
+  urpShellMaterial: {fileID: 2100000, guid: de8379bd9c312444b97cbf88a2d27765, type: 2}
 --- !u!1 &901771890813858187
 GameObject:
   m_ObjectHideFlags: 0
@@ -8442,7 +8441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 7118086746466194022}
   updateSpeed: 0.5
-  cashIcon: {fileID: 5388467553148644219}
+  cashIcon: {fileID: 0}
   iconRotateSpeed: 30
 --- !u!1 &7102842545002035819
 GameObject:
@@ -10767,7 +10766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 17243611767999763}
   - component: {fileID: 2256703990850399216}
-  - component: {fileID: 5388467553148644219}
+  - component: {fileID: 6428256978230764784}
   m_Layer: 5
   m_Name: Wallet Text
   m_TagString: Untagged
@@ -10802,7 +10801,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8785275486012338979}
   m_CullTransparentMesh: 1
---- !u!114 &5388467553148644219
+--- !u!114 &6428256978230764784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10811,27 +10810,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 8785275486012338979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ba539656eab8aed4d9c14154a8d18e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 9697ad4ffac3fb24cbf9f95a9c601002, type: 2}
+  m_Material: {fileID: 2100000, guid: de8379bd9c312444b97cbf88a2d27765, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 62da65a42f6e17944bfe612158285c41, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  sprite: {fileID: 21300000, guid: 62da65a42f6e17944bfe612158285c41, type: 3}
+  shellCount: 32
+  thickness: 3
+  useSpriteMesh: 0
+  twoSided: 1
+  depthDarken: 0.25
+  sideTint: {r: 1, g: 1, b: 1, a: 1}
+  sideTintAmount: 0.25
+  urpShellMaterial: {fileID: 2100000, guid: de8379bd9c312444b97cbf88a2d27765, type: 2}
 --- !u!1 &8805354021823746696
 GameObject:
   m_ObjectHideFlags: 0

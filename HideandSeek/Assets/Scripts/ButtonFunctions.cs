@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,20 +30,26 @@ public class buttonFunctions : MonoBehaviour
         GameManager.Instance.stateUnpause();
     }
 
-    public void loadLevel(int lvl)
+    public void loadLevel(string sceneName)
     {
-        SceneManager.LoadScene(lvl);
-        GameManager.Instance.stateUnpause();
+        StartCoroutine(FadeInRoutine(sceneName));
+    }
+
+    IEnumerator FadeInRoutine(string sceneName)
+    {
+        yield return SceneFader.Instance.FadeOut();
+        yield return new WaitForEndOfFrame();
+        Loader.Load(sceneName);
     }
 
     public void LoadStart()
     {
-        SceneManager.LoadScene(1);
+        loadLevel("01 - Main");
     }
 
     public void LoadWaveTest()
     {
-        SceneManager.LoadScene(2);
+        loadLevel("02 - Lab");
     }
 
     public void OpenSettingsMenu()

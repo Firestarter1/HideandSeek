@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine.Audio;
+using UnityEditor.SceneManagement;
 
 [Serializable]
 public struct Sound
@@ -31,7 +32,9 @@ public class SoundManager : MonoBehaviour
         }
     }
     [SerializeField] Sound[] sounds;
+    [SerializeField] MusicSO[] music;
     [SerializeField] private AudioSource soundObject;
+    [SerializeField] private AudioSource musicObject;
 
     [Header("Mixer Groups")]
     [SerializeField] private AudioMixerGroup masterGroup;
@@ -39,15 +42,28 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioMixerGroup sfxGroup;
     [SerializeField] private AudioMixerGroup gunSFXGroup;
 
-
+    // Music stuff
+    
+    private AudioSource musicA;
+    private AudioSource musicB;
+    bool musicRunning;
+    MusicSO currentMusic;
+    double nextMusicStart;
+    double loopLength;
+    AudioSource currentlyUsed;
     private void Awake()
     {
         if (instance != null)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
             return;
         }
         instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        musicA = Instantiate(musicObject, transform);
+        musicB = Instantiate(musicObject, transform);
+        
     }
 
     /* private void Start()
@@ -114,6 +130,97 @@ public class SoundManager : MonoBehaviour
         float clipLen = clip.length;
 
         Destroy(audioSource.gameObject, clipLen);
+    }
+
+    public void PlayMusic(string trackName, float volume)
+    {
+        MusicSO musicSO = null;
+        for (int i = 0; i < music.Length; i++)
+        {
+            if (music[i].name == trackName)
+            {
+                musicSO = music[i];
+                break;
+            }
+        }
+        if (musicSO == null) return;
+
+        if (musicRunning) StopMusic(true);
+
+        StartMusic(musicSO, volume);
+    }
+
+    void StartMusic(MusicSO musicSO, float volume)
+    {
+        currentMusic = musicSO;
+        loopLength = musicSO.GetLoopTime();
+
+        musicA.clip = musicSO.clip;
+        musicB.clip = musicSO.clip;
+        musicA.volume = volume;
+        musicB.volume = volume;
+
+        double currentTime = AudioSettings.dspTime;
+        double firstStart = currentTime + 0.1;
+        currentlyUsed = musicA;
+
+        nextMusicStart = firstStart;
+        musicRunning = true;
+
+        StartCoroutine(ScheduleMusic());
+    }
+
+    IEnumerator ScheduleMusic()
+    {
+        double now;
+        while (musicRunning)
+        {
+            now = AudioSettings.dspTime;
+            if (nextMusicStart - now < loopLength)
+            {
+                ScheduleNextLoop();
+            }
+            yield return null;
+        }
+    }
+
+    void ScheduleNextLoop()
+    {
+        AudioSource source = currentlyUsed == musicA ? musicB : musicA;
+        /*if (currentlyUsed == musicA)
+        {
+            Debug.Log("Switching to B");
+        } else
+        {
+            Debug.Log("Switching to A");
+        }*/
+        currentlyUsed = source;
+
+        source.clip = currentMusic.clip;
+        source.loop = false;
+
+        source.PlayScheduled(nextMusicStart);
+
+        double endAt = nextMusicStart + source.clip.length;
+        source.SetScheduledEndTime(endAt);
+
+        nextMusicStart += loopLength;
+    }
+
+    public void StopMusic(bool immediate)
+    {
+        if (!musicRunning) return;
+
+        if (immediate)
+        {
+            musicA.Stop();
+            musicB.Stop();
+        } else
+        {
+            musicA.SetScheduledEndTime(AudioSettings.dspTime + 0.05);
+            musicB.SetScheduledEndTime(AudioSettings.dspTime + 0.05);
+        }
+        musicRunning = false;
     }
 
     public bool TryGetSound(SoundType type, out Sound sound)
