@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
         menuLose.TriggerLoseMenu();
         SoundManager.Instance.StopMusic(false);
         SoundManager.Instance.PlaySoundFXClip(SoundType.Death_Static, player.transform.position, AudioGroup.SFX);
-        StartCoroutine(DelayedPause(1f));
+        StartCoroutine(DelayedPause(4.5f));
     }
 
     IEnumerator DelayedPause(float delay)
