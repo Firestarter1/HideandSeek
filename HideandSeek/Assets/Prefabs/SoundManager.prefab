@@ -88,6 +88,9 @@ MonoBehaviour:
   - type: 21
     clips:
     - {fileID: 8300000, guid: 91388f1ae9aef3f4d9fc95ea044d340a, type: 3}
+  - type: 23
+    clips:
+    - {fileID: 8300000, guid: d8813aa20683d124faa6438c09062ad0, type: 3}
   music:
   - {fileID: 11400000, guid: 9a772c8a3e666b841ac93045ade627ae, type: 2}
   - {fileID: 11400000, guid: 011f50863850af8458e4ee4ea270ea6b, type: 2}

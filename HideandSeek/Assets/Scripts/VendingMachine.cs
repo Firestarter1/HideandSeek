@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -26,10 +27,13 @@ public class VendingMachine : MonoBehaviour, IInteractable
             GameManager.Instance.playerScript.UpdateWallet(-interactCost);
             SoundManager.Instance.PlaySoundFXClip(SoundType.Vending_Success, transform.position, AudioGroup.SFX, 1f, 0.05f, 1.0f, 0.1f);
             StartCoroutine(DelayedUseSound());
+            transform.DOShakeScale(0.25f, 0.2f, 20);
         } else
         {
             SoundManager.Instance.PlaySoundFXClip(SoundType.Vending_Fail, transform.position, AudioGroup.SFX, 1f, 0.05f, 1.0f, 0.1f);
         }
+        transform.DOShakeRotation(0.25f, 5f, 50, 90);
+        
     }
 
     IEnumerator DelayedUseSound()

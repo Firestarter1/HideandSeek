@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     Transform muzzleAnchor;
 
+    public bool dead = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Awake()
@@ -73,6 +75,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     // Update is called once per frame
     void Update()
     {
+        if (dead) return;
         movement();
         sprint();
     }
@@ -200,6 +203,7 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
     public void takeDamage(int amount)
     {
+        if (dead) return;
         HP -= amount;
         HP = Mathf.Clamp(HP, 0, HPOrig);
         healthUpdated.Invoke(Mathf.Clamp01((float)HP/(float)HPOrig));

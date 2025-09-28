@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject menuActive;
     public PauseMenu menuPause;
     [SerializeField] GameObject menuWin;
-    [SerializeField] GameObject menuLose;
+    [SerializeField] LoseMenuController menuLose;
     [SerializeField] GameObject menuStore;
     [SerializeField] GameObject menuInventory;
 
@@ -150,13 +150,18 @@ public class GameManager : MonoBehaviour
 
     public void youLose()
     {
-        if(menuActive == null)
-        {
-            statePause();
+        menuActive = menuLose.gameObject;
+        menuLose.gameObject.SetActive(true);
+        menuLose.TriggerLoseMenu();
+        SoundManager.Instance.StopMusic(false);
+        SoundManager.Instance.PlaySoundFXClip(SoundType.Death_Static, player.transform.position, AudioGroup.SFX);
+        StartCoroutine(DelayedPause(1f));
+    }
 
-            menuActive = menuLose;
-            menuActive.SetActive(true);
-        }
+    IEnumerator DelayedPause(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        statePause();
     }
 
     public void OpenStore()
