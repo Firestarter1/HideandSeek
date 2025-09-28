@@ -7,14 +7,14 @@ using UnityEngine.Events;
 public class VendingMachine : MonoBehaviour, IInteractable
 {
     [SerializeField] public TextMeshProUGUI costText;
-    [SerializeField] private MeshRenderer sellingMesh;
-    [SerializeField] private MeshFilter sellingMeshFilter;
+    //[SerializeField] private MeshRenderer sellingMesh;
+   // [SerializeField] private MeshFilter sellingMeshFilter;
     [SerializeField] float cooldown = 1.0f;
 
     bool onCooldown = false;
 
     public int interactCost;
-    public GameObject model;
+    //public GameObject model;
     public UnityEvent functionCallOnInteract;
 
     public void Interact()
@@ -52,7 +52,7 @@ public class VendingMachine : MonoBehaviour, IInteractable
     void Awake()
     {
         costText.text = "$" + interactCost.ToString();
-        sellingMesh.sharedMaterials = model.GetComponent<MeshRenderer>().sharedMaterials;
-        sellingMeshFilter.sharedMesh = model.GetComponent<MeshFilter>().sharedMesh;
+        //sellingMesh.sharedMaterials = model.GetComponent<MeshRenderer>().sharedMaterials;
+        //sellingMeshFilter.sharedMesh = model.GetComponent<MeshFilter>().sharedMesh;
     }
 }

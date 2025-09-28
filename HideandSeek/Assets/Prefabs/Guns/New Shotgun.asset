@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Shotgun
   itemType: 2
-  image: {fileID: 21300026, guid: 71a7f8669de848e45ba57bda95f3a58e, type: 3}
+  model: {fileID: 409318136340513256, guid: 19a9962f5fbc7e2489faaea3579ed356, type: 3}
   actionType: 1
   healAmount: 0
   stackable: 0
-  model: {fileID: 409318136340513256, guid: 19a9962f5fbc7e2489faaea3579ed356, type: 3}
   shootDamage: 1
   shootDist: 30
   shootRate: 0.8
-  ammoCurr: 6
+  ammoCurr: 0
   clipSize: 6
   ammoStored: 0
-  startingAmmo: 0
+  startingAmmo: 36
+  autoFire: 0
   tracer: {fileID: 11400000, guid: bd3665ad1606e494398bcb5172cbb49e, type: 2}
   muzzleFlash: {fileID: 1848779846791409710, guid: 3c5032d635eee4c498999cf5e0243465, type: 3}
   hitEffect: {fileID: 970440554703164915, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
