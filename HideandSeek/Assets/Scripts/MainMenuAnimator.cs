@@ -11,6 +11,22 @@ public class MainMenuAnimator : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    public void CreditsWindowIn()
+    {
+        if (transitioning ) return;
+        animator.ResetTrigger("Credits Off");
+        animator.SetTrigger("Credits On");
+        transitioning = true;
+    }
+
+    public void CreditsWindowOut()
+    {
+        if (transitioning) return;
+        animator.ResetTrigger("Credits On");
+        animator.SetTrigger("Credits Off");
+        transitioning = true;
+    }
+
     public void AudioSettingsIn()
     {
         if (transitioning) return;

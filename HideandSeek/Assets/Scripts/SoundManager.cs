@@ -16,7 +16,7 @@ public struct Sound
     public AudioClip[] clips;
 }
 
-public enum SoundType { Pistol, Shotgun, Machinegun, Aim, Reload, Heal, Damage, Death, Jump, Walk, Sprint, Explosion, BGM, MenuHover, Footstep, Item_Pickup, Menu_Click, Menu_In, Menu_Out, Vending_Use, Vending_Success, Vending_Fail }
+public enum SoundType { Pistol, Shotgun, Machinegun, Aim, Reload, Heal, Damage, Death, Jump, Walk, Sprint, Explosion, BGM, MenuHover, Footstep, Item_Pickup, Menu_Click, Menu_In, Menu_Out, Vending_Use, Vending_Success, Vending_Fail, Hit_Success }
 
 public enum AudioGroup { SFX, GunSFX, Music}
 
@@ -41,6 +41,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioMixerGroup musicGroup;
     [SerializeField] private AudioMixerGroup sfxGroup;
     [SerializeField] private AudioMixerGroup gunSFXGroup;
+    [System.NonSerialized] public SoundMixerManager soundMixerManager;
 
     // Music stuff
     
@@ -59,6 +60,7 @@ public class SoundManager : MonoBehaviour
             return;
         }
         instance = this;
+        soundMixerManager = GetComponent<SoundMixerManager>();
         DontDestroyOnLoad(gameObject);
 
         musicA = Instantiate(musicObject, transform);
