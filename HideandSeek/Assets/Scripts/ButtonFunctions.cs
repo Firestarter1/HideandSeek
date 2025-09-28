@@ -61,6 +61,14 @@ public class buttonFunctions : MonoBehaviour
     {
         GameManager.Instance.menuPause.CloseSettingsMenu();
     }
+
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        loadLevel("Main Menu");
+    }
 }
 
 

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 131b4b62cef390249bf857a9a0c0291c, type: 3}
   m_Name: Health Pack
   m_EditorClassIdentifier: 
-  itemName: Health Pack 1
+  itemName: Health Pack
   itemType: 0
-  image: {fileID: 21300000, guid: 5b1e60b2badbd64468749ffc7b379766, type: 3}
+  model: {fileID: 2820037402753207669, guid: 090c17ec700ad11428db00a024859639, type: 3}
   actionType: 0
   healAmount: 5
   stackable: 1

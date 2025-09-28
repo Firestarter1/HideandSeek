@@ -75,7 +75,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     {
         movement();
         sprint();
-        CheckInteractable();
     }
     void movement()
     {
@@ -106,9 +105,21 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
 
         reload();
 
-        if (GameManager.Instance.menuActive == null && (Input.GetButtonDown("Use") || Input.GetButton("Fire1")))
+        
+        if (GameManager.Instance.menuActive == null && (Input.GetButtonDown("Fire1")))
         {
             InventoryManager.Instance.GetSelectedItem(true);
+        } else if (GameManager.Instance.menuActive == null && Input.GetButton("Fire1"))
+        {
+            Item i = InventoryManager.Instance.GetSelectedItem(false);
+            if (i is GunStates)
+            {
+                GunStates g = (GunStates)i;
+                if (g.autoFire)
+                {
+                    InventoryManager.Instance.GetSelectedItem(true);
+                }
+            }
         }
     }
 
@@ -262,15 +273,20 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
         int currentAmmo = -1;
         int storedAmmo = -1;
         Mesh mesh = null;
-        Material[] material = new Material[]{ };
+        Material[] material = new Material[] { };
+        if (currItem != null)
+        {
+            mesh = currItem.model.GetComponent<MeshFilter>().sharedMesh;
+            material = currItem.model.GetComponent<MeshRenderer>().sharedMaterials;
+            gunModel.transform.localRotation = currItem.model.transform.localRotation;
+            gunModel.transform.localScale = currItem.model.transform.localScale;
+        }
+        
         if (currItem is GunStates currGun)
         {
             currentAmmo = currGun.ammoCurr;
             storedAmmo = currGun.ammoStored;
-            mesh = currGun.model.GetComponent<MeshFilter>().sharedMesh;
-            material = currGun.model.GetComponent<MeshRenderer>().sharedMaterials;
-            gunModel.transform.localRotation = currGun.model.transform.localRotation;
-            gunModel.transform.localScale = currGun.model.transform.localScale;
+            
             currGun.Equip(this);
         }
         ammoUpdated.Invoke(currentAmmo, storedAmmo);
@@ -292,23 +308,6 @@ public class PlayerController : MonoBehaviour, IDamage, IHeal, IPickup
     //    }
     //}
 
-    void CheckInteractable()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
-        {
-            IInteractable interact = hit.collider.GetComponent<IInteractable>();
-
-            if (interact != null)
-            {
-                interactPrompt.SetActive(true);
-            }
-            else if (interact == null)
-            {
-                interactPrompt.SetActive(false);
-            }
-        }
-    }
 
     public void UpdateWallet(int amount)
     {

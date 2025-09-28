@@ -104,6 +104,11 @@ public class ExplodingAttack : MonoBehaviour
                 GameManager.Instance.playerScript.takeDamage(dealt);
             }
         }
+        if (WaveManager.instance == null)
+        {
+            GameManager.Instance.updateGameGoal(-1);
+        }
+        WaveManager.instance?.MobDeath();
         Destroy(gameObject);
     }
 

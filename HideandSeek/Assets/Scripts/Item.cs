@@ -10,7 +10,7 @@ public class Item : ScriptableObject
 
     public string itemName;
     public ItemType itemType;
-    public Sprite image;
+    public GameObject model;
     public ActionType actionType;
     public int healAmount;
     public bool stackable = true;

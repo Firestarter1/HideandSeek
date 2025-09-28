@@ -499,8 +499,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PRESS ANY BUTTON TO CONTINUE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 156ff347f440bdf45b8931655a5d5c12, type: 2}
-  m_sharedMaterial: {fileID: 3177960555229801925, guid: 156ff347f440bdf45b8931655a5d5c12, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 52822dc6e80b18c4b84fa37fb0a9018f, type: 2}
+  m_sharedMaterial: {fileID: -5066701443530399222, guid: 52822dc6e80b18c4b84fa37fb0a9018f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -757,8 +757,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: LOADING...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 156ff347f440bdf45b8931655a5d5c12, type: 2}
-  m_sharedMaterial: {fileID: 3177960555229801925, guid: 156ff347f440bdf45b8931655a5d5c12, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 52822dc6e80b18c4b84fa37fb0a9018f, type: 2}
+  m_sharedMaterial: {fileID: -5066701443530399222, guid: 52822dc6e80b18c4b84fa37fb0a9018f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1078,7 +1078,7 @@ MonoBehaviour:
   loadingScreen: {fileID: 766028723}
   glowImage: {fileID: 2082941208}
   logo: {fileID: 1539530774}
-  glowSpeed: 20
+  glowSpeed: 10
   logoSpinSpeed: 5
   logoFloatSpeed: 2
   logoFloatMagnitude: 30

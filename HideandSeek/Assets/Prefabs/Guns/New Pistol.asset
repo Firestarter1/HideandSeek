@@ -25,7 +25,7 @@ MonoBehaviour:
   ammoCurr: 0
   clipSize: 12
   ammoStored: 0
-  startingAmmo: 0
+  startingAmmo: 144
   tracer: {fileID: 11400000, guid: bd3665ad1606e494398bcb5172cbb49e, type: 2}
   muzzleFlash: {fileID: 1848779846791409710, guid: 3c5032d635eee4c498999cf5e0243465, type: 3}
   hitEffect: {fileID: 970440554703164915, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}

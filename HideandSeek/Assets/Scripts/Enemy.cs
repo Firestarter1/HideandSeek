@@ -152,7 +152,7 @@ public class Enemy : MonoBehaviour, IDamage
     {
         health -= amount;
         health = Mathf.Clamp(health, 0, maxHealth);
-        meshRenderer.material.DOColor(Color.red, 0.1f).OnComplete(() =>
+        meshRenderer.material.DOColor(Color.white, 0.1f).OnComplete(() =>
         {
             meshRenderer.material.DOColor(defaultMatColor, 0.1f);
         });
@@ -164,7 +164,12 @@ public class Enemy : MonoBehaviour, IDamage
             GameManager.Instance.playerScript.UpdateWallet(cashToDrop);
             FadeEyes();
             StartCoroutine(DelayedDeathDissolve());
-            //Emit health depleted signal
+            if (WaveManager.instance == null)
+            {
+                GameManager.Instance.updateGameGoal(-1);
+            }
+
+            WaveManager.instance?.MobDeath();
             return;
         }
         if (regenCoroutine != null)

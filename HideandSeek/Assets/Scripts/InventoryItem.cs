@@ -10,14 +10,17 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Image image;
     public TMP_Text countText;
 
+    [SerializeField] RawImage previewImage;
+
     [HideInInspector] public Item item;
     [HideInInspector] public int count = 1;
     [HideInInspector] public Transform parentAfterDrag;
 
-    public void InitializeItem(Item newItem)
+    public void InitializeItem(Item newItem, int slot)
     {
         item = newItem;
-        image.sprite = newItem.image;
+        InventoryViewManager.Instance.AddSlot(previewImage, slot);
+        InventoryViewManager.Instance.SetSlotItemDisplay(previewImage, newItem.model);
         RefreshCount();
     }
 
@@ -33,7 +36,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
-        image.raycastTarget = false;
+        previewImage.raycastTarget = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -44,6 +47,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnEndDrag(PointerEventData eventData)
     {
         transform.SetParent(parentAfterDrag);
-        image.raycastTarget = true;
+        previewImage.raycastTarget = true;
     }
 }

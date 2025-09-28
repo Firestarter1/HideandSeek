@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -23,33 +24,46 @@ public class InventoryManager : MonoBehaviour
         ChangeSelectedSlot(0);
         foreach (var item in startItems)
             AddItem(item);
+        StartCoroutine(DelayedRefresh());
     }
 
     private void Update()
     {
         if (Input.inputString != null)
         {
-            bool isNumber = int.TryParse(Input.inputString, out int number);
+            int num = GetPressedNumber();
 
-            if (isNumber && number <= 9 && number > 0)
+            if (num <= 9 && num > 0)
             {
-                ChangeSelectedSlot(number - 1);
+                ChangeSelectedSlot(num - 1);
                 ChangeHeldItem();
             }
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedSlot < 9)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            int newValue = selectedSlot + 1;
+            int newValue = selectedSlot < 9 ? selectedSlot + 1 : 0;
             ChangeSelectedSlot(newValue);
             ChangeHeldItem();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedSlot > 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            int newValue = selectedSlot - 1;
+            int newValue = selectedSlot > 0 ? selectedSlot - 1 : 9;
             ChangeSelectedSlot(newValue);
             ChangeHeldItem();
         }
+    }
+
+    int GetPressedNumber()
+    {
+        for (int i = 1; i <= 9; i++)
+        {
+            if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha0 + i)))
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 
     void ChangeSelectedSlot(int newValue)
@@ -73,6 +87,7 @@ public class InventoryManager : MonoBehaviour
             {
                 itemInSlot.count++;
                 itemInSlot.RefreshCount();
+                StartCoroutine(DelayedRefresh());
                 return true;
             }
         }
@@ -85,18 +100,20 @@ public class InventoryManager : MonoBehaviour
 
             if (itemInSlot == null)
             {
-                SpawnNewItem(item, slot);
+                SpawnNewItem(item, slot, i);
+                StartCoroutine(DelayedRefresh());
                 return true;
             }
         }
+        
         return false;
     }
 
-    public void SpawnNewItem(Item item, InventorySlot slot)
+    public void SpawnNewItem(Item item, InventorySlot slot, int slotIndex)
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
-        inventoryItem.InitializeItem(item);
+        inventoryItem.InitializeItem(item, slotIndex);
     }
 
     public Item GetSelectedItem(bool use)
@@ -111,6 +128,7 @@ public class InventoryManager : MonoBehaviour
             if (use == true)
             {
                 ItemAction(item, itemInSlot);
+                
             }
 
             return item;
@@ -131,6 +149,13 @@ public class InventoryManager : MonoBehaviour
         {
             itemInSlot.RefreshCount();
         }
+        StartCoroutine(DelayedRefresh());
+    }
+
+    IEnumerator DelayedRefresh()
+    {
+        yield return null;
+        ChangeHeldItem();
     }
 
     public void ItemAction(Item item, InventoryItem itemInSlot)

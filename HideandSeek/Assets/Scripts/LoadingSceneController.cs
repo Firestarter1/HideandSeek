@@ -47,6 +47,6 @@ public class LoadingSceneController : MonoBehaviour
     }
     void DoGlow()
     {
-        glow = glowImage.DOFade(1f, glowSpeed/2f).SetEase(Ease.InQuart).OnComplete( () => glow = glowImage.DOFade(0f, glowSpeed / 2f).SetEase(Ease.OutQuart).OnComplete(() => DoGlow()));
+        glow = glowImage.DOFade(1f, glowSpeed/2f).SetEase(Ease.OutSine).OnComplete( () => glow = glowImage.DOFade(0f, glowSpeed / 2f).SetEase(Ease.InSine).OnComplete(() => DoGlow()));
     }
 }

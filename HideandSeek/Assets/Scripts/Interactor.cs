@@ -13,25 +13,42 @@ public class Interactor : MonoBehaviour
 
     public Transform interactSource;
     public float interactRange;
+    [SerializeField] LayerMask ignoreLayers;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        
+        if (!interactPrompt)
+        {
+            interactPrompt = GameManager.Instance.interactPrompt;
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Interact"))
+        Ray r = new Ray(interactSource.position, interactSource.forward);
+        bool hit = Physics.Raycast(r, out RaycastHit hitInfo, interactRange, ~ignoreLayers, QueryTriggerInteraction.Ignore);
+        if (!hit)
         {
-            Ray r = new Ray(interactSource.position, interactSource.forward);
-            if(Physics.Raycast(r, out RaycastHit hitInfo, interactRange))
-            {
-                if (hitInfo.collider.TryGetComponent(out IInteractable interactObj))
-                    interactObj.Interact();
-            }
+            interactPrompt.SetActive(false);
+            return;
+        }
 
+        IInteractable interact = hitInfo.collider.GetComponent<IInteractable>();
+
+        if (interact != null)
+        {
+            interactPrompt.SetActive(true);
+        }
+        else if (!hit || interact == null)
+        {
+            interactPrompt.SetActive(false);
+        }
+        if (Input.GetButtonDown("Interact"))
+        {
+            if (interact != null)
+            {
+                interact.Interact();
+            }
         }
     }
 }
