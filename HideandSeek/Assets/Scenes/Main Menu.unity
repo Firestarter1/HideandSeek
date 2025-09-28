@@ -394,68 +394,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<b><u><size=55>Programming</size></u></b>
-
-
-    <size=50>Team Blackout</size>
-
-
-    Ethan
-    Kuchta <size=35><i>(Gennnn)</size></i>
-
-
-    Mansa Alman  <size=35><i>(MansaAlman)</size></i>
-
-
-    Dominic
-    Grilli  <size=35><i>(darcksword180)</size></i>
-
-
-    Nicholas Cruz  <size=35><i>(Firestarter1)</size></i>
-
-
-
-    <b><size=55><u>Music
-    Composition</u></size></b>
-
-
-    Ethan Kuchta  <size=35><i>(Gennnn) </size></i>
-
-
-
-    <b><size=55><u>Enemy
-    Model</u></size></b>
-
-
-    wh_nerevar
-
-
-
-    <b><size=55><u>Vending Machine Model</u></size></b>
-
-
-    frol2256
-
-
-
-    <b><size=55><u>Item
-    Pickup Sounds</u></size></b>
-
-
-    Michel Baradari
-
-
-
-    <b><size=55><u>Footstep
-    Sounds</u></size></b>
-
-
-    Jute
-
-
-
-
-'
+  m_text: "<b><u><size=55>Programming</size></u></b>\n\n<size=50>Team Blackout</size>\n\nEthan
+    Kuchta <size=35><i>(Gennnn)</size></i>\n\nMansa Alman  <size=35><i>(MansaAlman)</size></i>\n\nDominic
+    Grilli  <size=35><i>(darcksword180)</size></i>\n\nNicholas Cruz  <size=35><i>(Firestarter1)</size></i>\n\n\n<b><size=55><u>Music
+    Composition</u></size></b>\n\nEthan Kuchta  <size=35><i>(Gennnn) </size></i>\n\n\n<b><size=55><u>Enemy
+    Model</u></size></b>\n\nwh_nerevar\n\n\n<b><size=55><u>Vending Machine Model</u></size></b>\n\nfrol2256\n\n\n<b><size=55><u>Bullet
+    Impact Particles</u></size></b>\n\nMatthew Guz\n\n\n<b><size=55><u>Item Pickup
+    Sounds</u></size></b>\n\nMichel Baradari\n\n\n<b><size=55><u>Footstep Sounds</u></size></b>\n\nJute\n\n\n<b><size=55><u>Gunshot,
+    Impact, \nand Explosion Sounds</u></size></b>\n\nOlivier Giradot\n\n\n<b><size=55><u>UI,
+    Vending Machine,\nand Monster Sounds</u></size></b>\n\nEthan Kuchta  <size=35><i>(Gennnn)
+    </size></i>\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52822dc6e80b18c4b84fa37fb0a9018f, type: 2}
   m_sharedMaterial: {fileID: -5066701443530399222, guid: 52822dc6e80b18c4b84fa37fb0a9018f, type: 2}
@@ -997,7 +945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.7490196}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.9490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1154,7 +1102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 504191836}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -1283,6 +1231,7 @@ GameObject:
   - component: {fileID: 1401670230}
   - component: {fileID: 1401670229}
   - component: {fileID: 1401670232}
+  - component: {fileID: 1401670233}
   m_Layer: 5
   m_Name: Credits Window
   m_TagString: Untagged
@@ -1347,7 +1296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.25, g: 0.25, b: 0.25, a: 0.5019608}
+  m_Color: {r: 0.35, g: 0.35, b: 0.35, a: 0.7490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1389,6 +1338,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &1401670233
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401670227}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &1453749940 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 122193490433738288, guid: b30a2629fa13cd246a6257f5b5982256, type: 3}
@@ -1428,8 +1389,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5.800003, y: 4.7434006}
-  m_SizeDelta: {x: -28.4732, y: -20.0277}
+  m_AnchoredPosition: {x: -2.5, y: 0}
+  m_SizeDelta: {x: -24.999998, y: -20.000002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1608278994
 MonoBehaviour:
@@ -2384,6 +2345,22 @@ PrefabInstance:
     - target: {fileID: 6533625556298090701, guid: b30a2629fa13cd246a6257f5b5982256, type: 3}
       propertyPath: animator
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773650026237236299, guid: b30a2629fa13cd246a6257f5b5982256, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -25.000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773650026237236299, guid: b30a2629fa13cd246a6257f5b5982256, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773650026237236299, guid: b30a2629fa13cd246a6257f5b5982256, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773650026237236299, guid: b30a2629fa13cd246a6257f5b5982256, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6872222538120416522, guid: b30a2629fa13cd246a6257f5b5982256, type: 3}
       propertyPath: m_AnchorMax.y
