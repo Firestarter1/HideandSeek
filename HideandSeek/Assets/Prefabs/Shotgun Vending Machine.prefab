@@ -320,8 +320,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunToDispense: {fileID: 11400000, guid: c7931b66e2bb27940afe178a714a91aa, type: 2}
-  ammoCost: 40
-  ammoRefilled: 8
+  ammoCost: 20
+  ammoRefilled: 6
 --- !u!65 &8237559635490686537
 BoxCollider:
   m_ObjectHideFlags: 0
