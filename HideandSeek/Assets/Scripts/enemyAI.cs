@@ -189,4 +189,17 @@ public class EnemeyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOrig;
     }
+
+    void OnEnable()
+    {
+        if (EnemyManager.Instance != null)
+            EnemyManager.Instance.RegisterEnemy(gameObject);
+    }
+
+    void OnDisable()
+    {
+        if (EnemyManager.Instance != null)
+            EnemyManager.Instance.UnregisterEnemy(gameObject);
+    }
 }
+

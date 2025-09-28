@@ -371,6 +371,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8721693244401002819, guid: 2c879bb5ae00d7a44ac9512b97b3c9c6, type: 3}
   m_PrefabInstance: {fileID: 29325397}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &39869558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 39869560}
+  - component: {fileID: 39869559}
+  m_Layer: 0
+  m_Name: EnemyCount
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &39869559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39869558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cce204bff8e3914aaabd784c76d5a01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeEnemies: []
+--- !u!4 &39869560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39869558}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.01006, y: -3.99023, z: 35.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &47885237 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5084907124496130779, guid: 5a26331edcf201547a02b95cd3a10f63, type: 3}
@@ -18054,7 +18099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6104085261540334453, guid: 2a8a84c15764c20488d237420483ca87, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -51.666668
+      value: -51.666687
       objectReference: {fileID: 0}
     - target: {fileID: 6143458637679445693, guid: 2a8a84c15764c20488d237420483ca87, type: 3}
       propertyPath: settingsMenu
@@ -18448,3 +18493,4 @@ SceneRoots:
   - {fileID: 2129180985}
   - {fileID: 1042750142}
   - {fileID: 2053105519}
+  - {fileID: 39869560}
