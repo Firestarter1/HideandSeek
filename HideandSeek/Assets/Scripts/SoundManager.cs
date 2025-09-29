@@ -1,13 +1,9 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Rendering;
+
 using System;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
+
 using UnityEngine.Audio;
-using UnityEditor.SceneManagement;
 
 [Serializable]
 public struct Sound
