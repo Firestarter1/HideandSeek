@@ -54,6 +54,7 @@ public class ExplodingAttack : MonoBehaviour
         {
             animator?.SetTrigger("Attack");
             detonated = true;
+            SoundManager.Instance.PlaySoundFXClip(SoundType.Exploder_ChargeUp, transform.position, AudioGroup.SFX, 1, 0, 1, 0.02f);
             EnableRadiusPlane();
             /*Vector3 look = target.transform.position - transform.position;
             look.y = 0;
@@ -89,6 +90,7 @@ public class ExplodingAttack : MonoBehaviour
         Vector3 particlePosition = origin + Vector3.up * 0.33f;
         ParticleSystem p = Instantiate(explodeParticles, particlePosition, explodeParticles.transform.rotation);
         p.Play();
+        SoundManager.Instance.PlaySoundFXClip(SoundType.Exploder_Explosion, transform.position, AudioGroup.SFX, 1, 0, 1, 0.1f);
 
         radiusPlane.gameObject.SetActive(false);
 

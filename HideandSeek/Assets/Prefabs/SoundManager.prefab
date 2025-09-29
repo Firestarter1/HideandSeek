@@ -91,10 +91,20 @@ MonoBehaviour:
   - type: 23
     clips:
     - {fileID: 8300000, guid: d8813aa20683d124faa6438c09062ad0, type: 3}
+  - type: 24
+    clips:
+    - {fileID: 8300000, guid: 789e362e150970c42b858843985e0962, type: 3}
+  - type: 25
+    clips:
+    - {fileID: 8300000, guid: d5baa0ce948c360448647f7e7ff9ed83, type: 3}
+  - type: 26
+    clips:
+    - {fileID: 8300000, guid: 81d9eb7d8b3e2d146a8fa2caeda3b4c1, type: 3}
   music:
   - {fileID: 11400000, guid: 9a772c8a3e666b841ac93045ade627ae, type: 2}
   - {fileID: 11400000, guid: 011f50863850af8458e4ee4ea270ea6b, type: 2}
   - {fileID: 11400000, guid: 59b601933e8bb704d8e181e586e6bc63, type: 2}
+  - {fileID: 11400000, guid: 56d2c7d0723edd54781efe4c34bdc59c, type: 2}
   soundObject: {fileID: 3865324729957411915, guid: adf8666965a69ec48b1e9607f3b396d5, type: 3}
   musicObject: {fileID: 3865324729957411915, guid: eb869e751288f1e47b823e621fbc8c98, type: 3}
   masterGroup: {fileID: 24300002, guid: 3fcdb23bde063e94fa0b60ccf87604d6, type: 2}

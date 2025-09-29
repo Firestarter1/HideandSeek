@@ -401,8 +401,8 @@ MonoBehaviour:
     Model</u></size></b>\n\nwh_nerevar\n\n\n<b><size=55><u>Vending Machine Model</u></size></b>\n\nfrol2256\n\n\n<b><size=55><u>Bullet
     Impact Particles</u></size></b>\n\nMatthew Guz\n\n\n<b><size=55><u>Item Pickup
     Sounds</u></size></b>\n\nMichel Baradari\n\n\n<b><size=55><u>Footstep Sounds</u></size></b>\n\nJute\n\n\n<b><size=55><u>Gunshot,
-    Impact, \nand Explosion Sounds</u></size></b>\n\nOlivier Giradot\n\n\n<b><size=55><u>UI,
-    Vending Machine,\nand Monster Sounds</u></size></b>\n\nEthan Kuchta  <size=35><i>(Gennnn)
+    Impact, \nand Explosion Sounds</u></size></b>\n\nOlivier Giradot\n\n\n<b><size=55><u>UI
+    and Vending\nMachine Sounds</u></size></b>\n\nEthan Kuchta  <size=35><i>(Gennnn)
     </size></i>\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52822dc6e80b18c4b84fa37fb0a9018f, type: 2}

@@ -56,6 +56,7 @@ public class SceneFader : MonoBehaviour
     public IEnumerator FadeOut(float duration = -1)
     {
         duration = duration > 0f ? duration : defaultDuration;
+        SoundManager.Instance.PlaySoundFXClip(SoundType.Menu_FaderIn, Camera.main.transform.position, AudioGroup.SFX, 0.75f);
         return Fade(1000f, 0f, duration);
     }
 
@@ -63,6 +64,7 @@ public class SceneFader : MonoBehaviour
     {
         yield return null;
         duration = duration > 0f ? duration : defaultDuration;
+        SoundManager.Instance.PlaySoundFXClip(SoundType.Menu_FaderOut, Camera.main.transform.position, AudioGroup.SFX, 0.75f);
         yield return Fade(0,1000f,duration,true);
     }
 
@@ -70,7 +72,9 @@ public class SceneFader : MonoBehaviour
 
     IEnumerator Fade(float to, float from, float dur, bool reversed = false)
     {
+        
         yield return new WaitForSecondsRealtime(defaultDelay);
+        
         float t = 0f;
         group.blocksRaycasts = true;
         group.interactable = true;
