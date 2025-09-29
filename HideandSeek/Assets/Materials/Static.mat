@@ -136,7 +136,7 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _Surface: 0
-    - _UnscaledTime: 28.603102
+    - _UnscaledTime: 219.25616
     - _UseUIAlphaClip: 0
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
