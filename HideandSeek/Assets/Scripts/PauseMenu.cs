@@ -23,6 +23,7 @@ public class PauseMenu : MonoBehaviour
         animator.SetTrigger("Settings Open");
         transitioning = true;
         settingsOpen = true;
+        SoundManager.Instance.PlaySoundFXClip(SoundType.Menu_OtherIn, transform.position, AudioGroup.SFX, 1, 0, 1, 0);
     }
 
     public void CloseSettingsMenu()
@@ -30,6 +31,7 @@ public class PauseMenu : MonoBehaviour
         animator.ResetTrigger("Settings Open");
         animator.SetTrigger("Settings Close");
         transitioning = true;
+        SoundManager.Instance.PlaySoundFXClip(SoundType.Menu_OtherOut, transform.position, AudioGroup.SFX, 1, 0, 1, 0);
     }
 
     public void CloseMenu()

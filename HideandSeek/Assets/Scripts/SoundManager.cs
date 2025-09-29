@@ -16,7 +16,7 @@ public struct Sound
     public AudioClip[] clips;
 }
 
-public enum SoundType { Pistol, Shotgun, Machinegun, Aim, Reload, Heal, Damage, Death, Jump, Walk, Sprint, Explosion, BGM, MenuHover, Footstep, Item_Pickup, Menu_Click, Menu_In, Menu_Out, Vending_Use, Vending_Success, Vending_Fail, Hit_Success, Death_Static }
+public enum SoundType { Pistol, Shotgun, Machinegun, Aim, Reload, Heal, Damage, Death, Jump, Walk, Sprint, Explosion, BGM, MenuHover, Footstep, Item_Pickup, Menu_Click, Menu_In, Menu_Out, Vending_Use, Vending_Success, Vending_Fail, Hit_Success, Death_Static, Menu_OtherIn, Menu_OtherOut, Menu_FaderIn, Menu_FaderOut, Exploder_ChargeUp, Exploder_Explosion }
 
 public enum AudioGroup { SFX, GunSFX, Music}
 

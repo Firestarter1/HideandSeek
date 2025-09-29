@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [Header("Menus:")]
     [SerializeField] public GameObject menuActive;
     public PauseMenu menuPause;
-    [SerializeField] GameObject menuWin;
+    [SerializeField] WinMenuController menuWin;
     [SerializeField] LoseMenuController menuLose;
     [SerializeField] GameObject menuStore;
     [SerializeField] GameObject menuInventory;
@@ -143,9 +143,13 @@ public class GameManager : MonoBehaviour
 
     public void WinState()
     {
-        statePause();
-        menuActive = menuWin;
-        menuActive.SetActive(true);
+
+        menuActive = menuWin.gameObject;
+        menuWin.gameObject.SetActive(true);
+        menuWin.WinMenuIn();
+        SoundManager.Instance.StopMusic(false);
+        SoundManager.Instance.PlayMusic("Win", 1.0f);
+        StartCoroutine(DelayedPause(1.0f));
     }
 
     public void youLose()
